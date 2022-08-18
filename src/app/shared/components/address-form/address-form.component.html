@@ -1,0 +1,84 @@
+<div class="content">
+  <form nz-form [formGroup]="validateForm" class="login-form">
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>{{ 'account-add-shipping-address-receiver' | translate }}</nz-form-label>
+      <nz-form-control nzErrorTip="收货人不能为空">
+        <nz-input-group>
+          <input nz-input formControlName="consignee" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>{{ 'account-add-shipping-address-area' | translate }}</nz-form-label>
+      <nz-form-control nzErrorTip="地区不能为空">
+        <div class="area">
+          <nz-select
+            class="item"
+            nzShowSearch
+            nzPlaceHolder="请选择省份"
+            formControlName="provinceName"
+            (ngModelChange)="provinceChange($event)"
+          >
+            <nz-option *ngFor="let item of ProvinceData" [nzValue]="item.value" [nzLabel]="item.label"> </nz-option>
+          </nz-select>
+          <nz-select
+            *ngIf="cityData.length > 0"
+            class="item"
+            nzShowSearch
+            nzPlaceHolder="{{ 'account-add-shipping-address-city-placeholder' | translate }}"
+            (ngModelChange)="cityChange($event)"
+            formControlName="cityName"
+          >
+            <nz-option *ngFor="let item of cityData" [nzValue]="item.value" [nzLabel]="item.label"> </nz-option>
+          </nz-select>
+          <nz-select
+            *ngIf="regionData.length > 0"
+            class="item"
+            nzShowSearch
+            nzPlaceHolder="请选择区域"
+            formControlName="regionName"
+            (ngModelChange)="regionChange($event)"
+          >
+            <nz-option *ngFor="let item of regionData" [nzValue]="item.value" [nzLabel]="item.label"> </nz-option>
+          </nz-select>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>{{ 'account-add-shipping-address-address' | translate }}</nz-form-label>
+      <nz-form-control nzErrorTip="地址不能为空">
+        <nz-input-group>
+          <input nz-input formControlName="address" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>{{ 'account-add-shipping-address-post-code' | translate }}</nz-form-label>
+      <nz-form-control nzErrorTip="邮编不能为空">
+        <nz-input-group>
+          <input nz-input formControlName="zipCode" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>{{ 'account-add-shipping-address-telephone' | translate }}</nz-form-label>
+      <nz-form-control nzErrorTip="" [nzErrorTip]="phoneErrorTpl">
+        <nz-input-group>
+          <input nz-input formControlName="phone" />
+        </nz-input-group>
+      </nz-form-control>
+      <ng-template #phoneErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">请输入手机号</ng-container>
+        <ng-container *ngIf="control.hasError('error')">请输入正确的手机号</ng-container>
+      </ng-template>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24">{{ 'account-add-shipping-address-set-up' | translate }}</nz-form-label>
+      <nz-form-control [nzSm]="10" [nzXs]="24">
+        <label nz-checkbox formControlName="isDefault">
+          <span>{{ 'account-add-shipping-address-default' | translate }}</span>
+        </label>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>

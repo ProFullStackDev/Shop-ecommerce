@@ -1,0 +1,44 @@
+<div class="main-sidebar">
+  <div class="main-sidebar-nav">
+    <ul>
+      <li>
+        <a class="cart">
+          <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+          <span>购物车</span>
+          <nz-badge class="sidebar-shopping-cart-badge" nzStandalone nzShowZero [nzCount]="cartCount"></nz-badge>
+        </a>
+      </li>
+      <li nzTooltipTitle="我的订单" nzTooltipPlacement="left" nz-tooltip>
+        <a routerLink="">
+          <i nz-icon nzIconfont="tgicon-i-order"></i>
+        </a>
+      </li>
+      <li nzTooltipTitle="浏览记录" nzTooltipPlacement="left" nz-tooltip>
+        <a routerLink="">
+          <i nz-icon nzIconfont="tgicon-zuji"></i>
+        </a>
+      </li>
+      <li nzTooltipTitle="我的收藏" nzTooltipPlacement="left" nz-tooltip>
+        <a routerLink="">
+          <i nz-icon nzIconfont="tgicon-jushoucang"></i>
+        </a>
+      </li>
+      <li nzTooltipTitle="优惠券" nzTooltipPlacement="left" nz-tooltip>
+        <a routerLink="">
+          <i nz-icon nzIconfont="tgicon-Coupon"></i>
+        </a>
+      </li>
+      <li>
+        <a routerLink="">
+          <i nz-icon nzIconfont="tgicon-saoma"></i>
+        </a>
+      </li>
+    </ul>
+    <nz-back-top class="back-top" [nzTemplate]="tpl">
+      <ng-template #tpl>
+        <i nz-icon nzType="to-top" nzTheme="outline"></i>
+      </ng-template>
+    </nz-back-top>
+  </div>
+  <!--  <div class="main-sidebar-content"> 优惠券 </div>-->
+</div>

@@ -1,0 +1,255 @@
+<div class="page-order-confirm">
+  <div class="container">
+    <nz-skeleton *ngIf="loading.base" [nzParagraph]="{ rows: 10 }"></nz-skeleton>
+
+    <div class="left">
+      <div class="product-list">
+        <h2 class="page-title">{{ 'checkout-page-title' | translate }}</h2>
+
+        <!-- cart-group--------------start -->
+        <div *ngFor="let shopCart of stores" class="cart-group">
+          <nz-row *ngFor="let cartItem of shopCart.productOrder" nzAlign="middle" class="cart-group-item">
+            <nz-col [nzSpan]="13">
+              <nz-row [nzGutter]="8" nzAlign="middle">
+                <nz-col [nzSpan]="1"></nz-col>
+                <nz-col [nzSpan]="4">
+                  <nz-avatar [nzSize]="50" [nzSrc]="cartItem.cover || '11'" nzIcon="picture" nzShape="square"></nz-avatar>
+                </nz-col>
+                <nz-col [nzSpan]="18">
+                  <div class="product-name text-overflow" [title]="cartItem.productName">
+                    <a routerLink="/product/detail" [queryParams]="{ id: cartItem.productId }">{{ cartItem.productName }}</a>
+                  </div>
+                  <div *ngIf="cartItem.skuSpec && cartItem.skuId != voucher.skuId" class="text-gray text-overflow">
+                    [{{ cartItem.skuSpec }}]
+                  </div>
+                  <div *ngIf="cartItem.skuId != voucher.skuId" class="product-cashback">
+                    <span class="product-cashback-title">{{ 'home-cash-back' | translate }}:</span>
+                    <span class="product-cashback-num">{{ cartItem.cashBack * cartItem.quantity | number: '0.2-2' }}</span>
+                    <img class="product-cashback-icon" src="/assets/images/TYQOON-Dollars-cc.png" />
+                  </div>
+                </nz-col>
+              </nz-row>
+            </nz-col>
+            <nz-col [nzSpan]="4">
+              <span class="sku-exchange-point" *ngIf="cartItem.skuExchangePoint > 0">{{ cartItem.skuExchangePoint }}积分</span>
+              <span class="add-symbol" *ngIf="cartItem.skuExchangePoint > 0 && cartItem.skuPrice > 0"> + </span>
+              <span class="sku-price text-2xl" *ngIf="cartItem.skuPrice > 0">{{ cartItem.skuPrice | currency }}</span>
+            </nz-col>
+            <nz-col [nzSpan]="2">
+              <div class="product-quantity">
+                {{ cartItem.quantity }}
+              </div>
+            </nz-col>
+            <nz-col [nzSpan]="5">
+              <strong>
+                <!--            <span class="sku-exchange-point" *ngIf="cartItem.exchangePointTotal > 0">{{ cartItem.exchangePointTotal }}积分</span>-->
+                <!--            <span class="add-symbol" *ngIf="cartItem.exchangePointTotal > 0 && cartItem.priceTotal > 0"> + </span>-->
+                <span class="sku-price text-2xl">{{ cartItem.skuPrice * cartItem.quantity | currency }}</span>
+              </strong>
+            </nz-col>
+          </nz-row>
+        </div>
+        <!-- cart-group--------------end -->
+
+        <div class="footer">
+          <span class="footer-title">{{ 'checkout-total-cashback-to-receive' | translate }}:</span>
+          <span class="footer-num">
+            <img src="/assets/images/TYD-25px.png" alt="TYD" />
+            {{ realCashback | number: '0.2-2' }}
+          </span>
+        </div>
+      </div>
+
+      <!--  Receiver ----------------start  -->
+      <div *ngIf="showReceiver" class="shipping-panel">
+        <div class="title">{{ 'checkout-shipping' | translate }}</div>
+        <div class="receiver">
+          <div class="panel">
+            <div
+              *ngIf="selectedReceiver; else empty"
+              class="receiver-item"
+              [class.active]="receiverId == selectedReceiver.id"
+              (click)="receiverChange(selectedReceiver.id)"
+            >
+              <div class="consignee text-overflow">{{ selectedReceiver.consignee }}</div>
+              <div class="info">
+                <div class="phone text-overflow text-gray-darker">{{ selectedReceiver.phone }}</div>
+                <div class="address text-overflow text-gray-dark">{{ selectedReceiver.address }}</div>
+                <div class="zipCode text-overflow text-gray">{{ selectedReceiver.zipCode }}</div>
+              </div>
+            </div>
+            <ng-template #empty>
+              <nz-empty nzNotFoundContent="请先添加收货地址"></nz-empty>
+            </ng-template>
+          </div>
+          <div class="tools" [class.hidden-btns]="selectedPaymentMethods">
+            <div class="btn edit" (click)="editAddress()">
+              <img src="/assets/images/shopping-checkout/icon-edit.png" alt="shipping-edit" />
+              {{ 'checkout-shipping-edit' | translate }}
+            </div>
+            <div class="btn change" (click)="changeAddress()">
+              <img src="/assets/images/shopping-checkout/icon-change.png" alt="shipping-change" />
+              {{ 'checkout-shipping-change' | translate }}
+            </div>
+            <div class="btn add" (click)="addAddress()">
+              <img src="/assets/images/shopping-checkout/icon-add.png" alt="shipping-add" />
+              {{ 'checkout-shipping-add' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--  shipping address----------------end  -->
+    </div>
+
+    <div class="right">
+      <div class="order-total" *ngIf="!selectedPaymentMethods; else orderPayment">
+        <div class="header">
+          <p>{{ 'checkout-order-total' | translate }}</p>
+          <p>{{ itemsNum }} {{ 'checkout-items' | translate }}</p>
+        </div>
+
+        <!--  statistics-----------------------start      -->
+        <div class="statistics">
+          <div class="statistics-item subtotal">
+            <span class="label">{{ 'checkout-statistics-subtotal' | translate }}</span>
+            <span class="value">{{ orderAmount?.totalSumPrice | currency }}</span>
+          </div>
+          <div class="statistics-item shipping">
+            <span class="label">{{ 'checkout-statistics-shipping' | translate }}</span>
+            <span class="value">{{ 'checkout-statistics-shipping-free' | translate }}</span>
+          </div>
+          <div class="statistics-item cashback">
+            <span class="label">{{ 'checkout-statistics-cashback' | translate }}</span>
+            <span class="value">
+              <img src="/assets/images/TYD-25px.png" alt="TYD" />
+              <span>{{ realCashback | number: '0.2-2' }}</span>
+            </span>
+          </div>
+          <div class="statistics-item total">
+            <span class="label">{{ 'checkout-statistics-total' | translate }}:</span>
+            <span class="value">{{ orderAmount?.totalSumPrice | currency }}</span>
+          </div>
+        </div>
+        <!--  statistics-----------------------end      -->
+
+        <!--  select-payment-methods-----------------------start      -->
+        <div class="payment-methods">
+          <div class="title">{{ 'checkout-select-payment-methods' | translate }}</div>
+          <div class="payment-methods-item balance" (click)="changePaymentMethods(paymentMethodsEnum.BALANCE)">
+            <p class="name">{{ 'checkout-payment-methods-balance' | translate }}</p>
+            <p class="value">{{ userInfo.balance | currency }}</p>
+            <img src="/assets/images/shopping-checkout/icon-arrow-right.png" alt="arrow-right" class="icon-arrow-right" />
+          </div>
+          <!-- (click)="changePaymentMethods(paymentMethodsEnum.CRYPTO)" -->
+          <div class="payment-methods-item crypto"  (click)="openModal(depositStoreCreditModal)">
+            <p class="name">{{ 'checkout-payment-methods-crypto' | translate }}</p>
+            <img class="img" src="/assets/images/shopping-checkout/payment-methods-crypto.png" alt="payment-methods-crypto" />
+            <img src="/assets/images/shopping-checkout/icon-arrow-right.png" alt="arrow-right" class="icon-arrow-right" />
+          </div>
+          <div class="payment-methods-item card" (click)="changePaymentMethods(paymentMethodsEnum.CARD)">
+            <p class="name">{{ 'checkout-payment-methods-card' | translate }}</p>
+            <div class="img-con">
+              <img class="img" src="/assets/images/shopping-checkout/payment-alipay-white-min.png" alt="alipay" />
+              <img class="img" src="/assets/images/shopping-checkout/payment-wechatpay-white-min.png" alt="wechat" />
+              <img class="img" src="/assets/images/shopping-checkout/payment-vise-master-amex-min.png" alt="vise" />
+            </div>
+            <img src="/assets/images/shopping-checkout/icon-arrow-right.png" alt="arrow-right" class="icon-arrow-right" />
+          </div>
+        </div>
+        <!--  select-payment-methods-----------------------start      -->
+      </div>
+
+      <ng-template #orderPayment>
+        <div class="order-payment" [ngSwitch]="selectedPaymentMethods">
+          <div class="change" (click)="changePaymentMethods()">
+            <img class="img" src="/assets/images/shopping-checkout/icon-arrow-left.png" alt="arrow-left" />
+            <span>{{ 'checkout-payment-methods-change' | translate }}</span>
+          </div>
+          <app-payment-methods-balance
+            *ngSwitchCase="paymentMethodsEnum.BALANCE"
+            [amount]="orderAmount?.totalSumPrice"
+            (confirm)="payWithBalance()"
+          ></app-payment-methods-balance>
+          <app-payment-methods-crypto
+            #methodsCrypto
+            *ngSwitchCase="paymentMethodsEnum.CRYPTO"
+            [amount]="orderAmount?.totalSumPrice"
+            (select)="payWithCrypto()"
+          ></app-payment-methods-crypto>
+          <app-payment-methods-card
+            #methodsCard
+            *ngSwitchCase="paymentMethodsEnum.CARD"
+            [amount]="orderAmount?.totalSumPrice"
+            (select)="payWithCard()"
+          ></app-payment-methods-card>
+        </div>
+      </ng-template>
+    </div>
+
+    <!--  add address modal---------------start  -->
+    <nz-modal
+      [(nzVisible)]="addressModalConfig.visible"
+      [nzTitle]="addressModalConfig.title"
+      [nzOkText]="addressModalConfig.OkText"
+      (nzOnCancel)="addressModalConfig.onCancel()"
+      (nzOnOk)="addressModalConfig.onOk()"
+      [nzOkLoading]="addressModalConfig.okLoading"
+    >
+      <app-address-form
+        *nzModalContent
+        #addressAddForm
+        [id]="selectedId"
+        (submitStart)="addressModalConfig.okLoading = true"
+        (submitSuccess)="addressAddSuccess($event)"
+        (submitFinally)="addressModalConfig.okLoading = false"
+      ></app-address-form>
+    </nz-modal>
+    <!--  add address modal---------------end  -->
+
+    <!--  confirm-order-footer ---------------start  -->
+    <!--    <nz-affix [nzOffsetBottom]="0">-->
+    <!--      <nz-row class="confirm-order-footer">-->
+    <!--        <nz-col [nzSpan]="2">-->
+    <!--          <button class="btn btn-back text-gray go-back-btn" nz-button nzType="text" nzSize="large" (click)="back()">-->
+    <!--            <svg width="19" height="32" viewBox="0 0 19 32" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+    <!--              <path d="M19 4.57143L7.125 16L19 27.4286L16.625 32L0 16L16.625 0L19 4.57143Z" fill="#3F6490" />-->
+    <!--            </svg>-->
+    <!--            {{ 'checkout-button-back' | translate }}-->
+    <!--          </button>-->
+    <!--        </nz-col>-->
+    <!--        <nz-col>-->
+    <!--          <nz-spin [nzSpinning]="loading.getOrderAmount">-->
+    <!--            <nz-space *ngIf="orderAmount" nzAlign="center" [nzSize]="12" class="total-amount-part">-->
+    <!--              <div *nzSpaceItem>-->
+    <!--                <p *ngIf="orderAmount.totalSumPrice > 0">-->
+    <!--                  {{ 'checkout-total' | translate }}：<strong class="text-primary text-xl total-price-order">{{-->
+    <!--                    orderAmount.totalSumPrice | currency-->
+    <!--                  }}</strong>-->
+    <!--                </p>-->
+    <!--              </div>-->
+    <!--              <div *nzSpaceItem>-->
+    <!--                <p *ngIf="orderAmount.usersPoint > 0">-->
+    <!--                  兑换积分：<strong class="text-primary text-xl">{{ orderAmount.usersPoint }}</strong>-->
+    <!--                </p>-->
+    <!--              </div>-->
+    <!--              <div *nzSpaceItem>-->
+    <!--                <button-->
+    <!--                  class="btn btn-settlement linear-background"-->
+    <!--                  nz-button-->
+    <!--                  nzType="primary"-->
+    <!--                  nzSize="large"-->
+    <!--                  [disabled]="!canCreateOrder"-->
+    <!--                  [nzLoading]="loading.productToOrder"-->
+    <!--                  (click)="confirmOrder()"-->
+    <!--                >-->
+    <!--                  {{ 'checkout-button-next' | translate }}-->
+    <!--                </button>-->
+    <!--              </div>-->
+    <!--            </nz-space>-->
+    <!--          </nz-spin>-->
+    <!--        </nz-col>-->
+    <!--      </nz-row>-->
+    <!--    </nz-affix>-->
+    <!--  confirm-order-footer ---------------end  -->
+  </div>
+</div>

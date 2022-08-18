@@ -1,0 +1,58 @@
+<div class="modal__header missions alt" [class.scrolling]="isScrollable">
+  <div class="title">
+    <span>{{ 'game-nav-missions' | translate }}</span>
+  </div>
+  <div class="description">
+    <p>
+      {{ 'game-missions-description' | translate }}
+    </p>
+  </div>
+</div>
+<div class="modal__content mission-modal">
+  <div #scrollable class="scrollable" (scroll)="onScroll()">
+    <div class="missions-list">
+      <div *ngFor="let item of missionsList" class="mission-item">
+        <div class="mission-item__image">
+          <img [src]="item?.icon" [alt]="item?.name" />
+        </div>
+        <div class="mission-item__content">
+          <div class="mission-item__title">
+            <p>{{ item?.name }}</p>
+          </div>
+          <div
+            class="mission-item__progress"
+            [ngClass]="{ complete: item?.currentProgress === item?.totalProgress, incomplete: !item?.currentProgress }"
+          >
+            <div class="bar" [style.width]="item.progress"></div>
+            <ng-container *ngIf="item?.currentProgress; else incomplete">
+              <p>{{ item?.currentProgress }}/{{ item?.totalProgress }}</p>
+            </ng-container>
+            <ng-template #incomplete>
+              <p>{{ 'game-missions-Incomplete' | translate }}</p>
+            </ng-template>
+          </div>
+        </div>
+        <div class="mission-item__button">
+          <ng-container *ngIf="item?.currentProgress === item?.totalProgress; else incompleteBtn">
+            <button type="button" [class.complete]="item?.currentProgress === item?.totalProgress" (click)="closeModal(item)">
+              <span class="mission-item__button-text">{{ item.remark | translate }}</span>
+              <span class="mission-item__button-amount">
+                <img src="/assets/images/TYD-25px.png" alt="TYD" />
+                <span class="amount">{{ item?.rewardPoint }}</span>
+              </span>
+            </button>
+          </ng-container>
+          <ng-template #incompleteBtn>
+            <button type="button" [class.complete]="item?.currentProgress === item?.totalProgress">
+              <span class="mission-item__button-text">{{ item.remark | translate }}</span>
+              <span class="mission-item__button-amount">
+                <img src="/assets/images/TYD-25px.png" alt="TYD" />
+                <span class="amount">{{ item?.rewardPoint }}</span>
+              </span>
+            </button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

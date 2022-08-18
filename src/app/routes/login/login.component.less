@@ -1,0 +1,39 @@
+@import '~src/styles/_variables';
+.login {
+  background: linear-gradient(345deg, #267dff, #053987, #2270ff);
+  .container {
+    display: flex;
+    align-items: center;
+    .form-con {
+      max-width: 50%;
+      flex: 1;
+      margin: 46px 0 46px;
+      box-shadow: 0 0 10px rgb(0 0 0 / 20%);
+
+      .form-verify-code {
+        height: 48px;
+        line-height: 48px;
+        &-img {
+          height: 46px;
+          cursor: pointer;
+        }
+      }
+
+      .btn-register {
+        margin: 0 5px 0 87px;
+        font-size: 12px;
+        color: @primary-color;
+      }
+      .btn-submit {
+        margin-top: 16px;
+      }
+    }
+  }
+}
+.login-form-forgot {
+  font-size: 12px;
+}
+
+.ant-col-12 {
+  max-width: 100%;
+}

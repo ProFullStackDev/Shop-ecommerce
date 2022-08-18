@@ -1,0 +1,26 @@
+<div class="balance">
+  <div class="title">
+    <p class="title-text">{{ 'store-credit' | translate }}</p>
+    <app-profit></app-profit>
+  </div>
+  <div class="content">
+    <div class="tips">{{ 'checkout-payment-methods-balance' | translate }}</div>
+    <div class="line"></div>
+    <div class="item">
+      <span class="label text-overflow">{{ 'checkout-balance-current' | translate }}:</span>
+      <span class="value text-overflow">{{ balance | currency }}</span>
+    </div>
+    <div class="item">
+      <span class="label text-overflow">{{ 'checkout-balance-use' | translate }}:</span>
+      <span class="value text-overflow">{{ amount | currency }}</span>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+      <span class="label text-overflow">{{ 'checkout-balance-remaining' | translate }}:</span>
+      <span class="value text-overflow">{{ remaining | currency }}</span>
+    </div>
+  </div>
+  <button nz-button nzBlock class="btn-confirm text-overflow" [disabled]="cannotPay" [nzLoading]="loading.pay" (click)="pay()">
+    {{ 'checkout-balance-confirm' | translate }}
+  </button>
+</div>

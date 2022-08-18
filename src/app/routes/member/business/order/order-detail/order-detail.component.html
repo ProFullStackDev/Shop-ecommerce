@@ -1,0 +1,207 @@
+<nz-card class="order-detail-page" [nzTitle]="titleTemplate" [nzExtra]="cardExtra" [nzLoading]="loading.query">
+  <ng-template #titleTemplate>
+    <span>{{ 'order-details-heading' | translate }}</span>
+    <button
+      nzTooltipTitle="联系客服"
+      style="margin-left: 15px"
+      nzTooltipPlacement="top"
+      nz-tooltip
+      (click)="contactSupport(order, orderItem)"
+    >
+      <img width="30px" height="30px" src="/assets/images/contactSupport.png" alt="" />
+    </button>
+  </ng-template>
+  <ng-template #cardExtra>
+    <nz-space *ngIf="order">
+      <div *nzSpaceItem>
+        <button *ngIf="showReceiveBtn" nz-button nzType="primary" (click)="showConfirm()">{{
+          'order-detail-confirm-receipt' | translate
+        }}</button>
+      </div>
+      <div *nzSpaceItem>
+        <button *ngIf="showReOrderBtn" nz-button nzType="primary" (click)="reOrder()">重新下单</button>
+      </div>
+      <!--      <div *nzSpaceItem>-->
+      <!--        <button *ngIf="showAfterSalesBtn" nz-button (click)="afterSales()">申请售后</button>-->
+      <!--      </div>-->
+      <!-- <div *nzSpaceItem>
+        <a routerLink="/member/invoice/add" [queryParams]="{ orderId: order.id, storeId: order.storeId }">
+          <button *ngIf="showBillBtn" nz-button>申请发票</button>
+        </a>
+      </div> -->
+      <!--      <div *nzSpaceItem>-->
+      <!--        <a routerLink="/member/invoice/views" [queryParams]="{ id: order.fapiao.id }">-->
+      <!--          <button *ngIf="order.fapiao" nz-button> 查看发票</button>-->
+      <!--        </a>-->
+      <!--      </div>-->
+    </nz-space>
+  </ng-template>
+
+  <div *ngIf="order">
+    <div class="copy-wrap">
+      <nz-descriptions nzSize="small" [nzColumn]="1">
+        <nz-descriptions-item nzTitle="#">{{ order?.sn }}</nz-descriptions-item>
+      </nz-descriptions>
+      <button
+        appCopying="{{ order?.sn }}"
+        [successTitle]="successTitle"
+        type="button"
+        class="btn-primary btn-primary-copy"
+        (copied)="copied($event)"
+      >
+        {{ successTitle | translate }}
+      </button>
+    </div>
+
+    <nz-divider></nz-divider>
+
+    <div class="waiting-order">
+      <div class="order-payment-status">
+        <span [style.color]="order?.status | dict: DictKey.ORDER_STATUS_DICT:'color'">
+          {{ order?.status | dict: DictKey.ORDER_STATUS_DICT:'label' | translate }}
+        </span>
+        <span class="text-gray" *ngIf="waitingPayment">{{ countdown }}</span>
+        <span class="text-gray" *ngIf="hasExpired">({{ 'my-orders-status-expired' | translate }})</span>
+        <p>{{ orderStatusTips | translate }}</p>
+      </div>
+      <div>
+        <button *ngIf="showPayBtn && !hasExpired" nz-button nzType="primary" (click)="payment()" class="order-confirm">
+          {{ 'order-detail-order-payment' | translate }}
+        </button>
+      </div>
+    </div>
+
+    <nz-divider></nz-divider>
+    <nz-descriptions nzSize="small" [nzColumn]="2" nzTitle="{{ 'order-details-order-information' | translate }}">
+      <nz-descriptions-item *ngFor="let keyName of displayOrderInfoKeys" [nzTitle]="orderInfoConfig[keyName].title | translate">
+        <app-order-detail-item [item]="orderInfoConfig[keyName]" [order]="order" [keyName]="keyName"></app-order-detail-item>
+      </nz-descriptions-item>
+    </nz-descriptions>
+
+    <!--    <nz-divider></nz-divider>-->
+    <!--    <nz-descriptions nzSize="small" [nzColumn]="2" nzTitle="发票信息">-->
+    <!--      <nz-descriptions-item *ngFor="let keyName of billConfig" [nzTitle]="billConfig[keyName].title">-->
+    <!--        <app-order-detail-item [item]="billConfig[keyName]" [order]="order" [keyName]="keyName"></app-order-detail-item>-->
+    <!--      </nz-descriptions-item>-->
+    <!--    </nz-descriptions>-->
+
+    <nz-divider *ngIf="isDelivery"></nz-divider>
+    <nz-descriptions *ngIf="isDelivery" nzSize="small" [nzColumn]="2" nzTitle="{{ 'order-details-delivery-information' | translate }}">
+      <nz-descriptions-item *ngFor="let item of displayAddressInfoKeys" [nzTitle]="item.title | translate">
+        <span>{{ item.value }}</span>
+        <span *ngIf="item.additionalValue">
+          {{ ', ' + item.additionalValue }}
+        </span>
+      </nz-descriptions-item>
+    </nz-descriptions>
+
+    <nz-card nzSize="small">
+      <nz-table [nzData]="orderItem" [nzShowPagination]="false">
+        <thead>
+          <tr>
+            <th nzWidth="600px">{{ 'order-details-product' | translate }}</th>
+            <th nzAlign="center">{{ 'order-details-price' | translate }}</th>
+            <th nzAlign="center">{{ 'order-details-quantity' | translate }}</th>
+            <th nzAlign="center">{{ 'order-details-subtotal' | translate }}</th>
+            <th>{{ 'order-details-comment' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of orderItem">
+            <td>
+              <nz-row>
+                <nz-col [nzSpan]="3">
+                  <nz-avatar icon="picture" nzShape="square" [nzSize]="50" [nzSrc]="item.orderItem.thumbnail"></nz-avatar>
+                </nz-col>
+                <nz-col [nzSpan]="21">
+                  <p class="text-overflow" [title]="item.orderItem.name">
+                    <a routerLink="/product/detail" [queryParams]="{ id: item.product.id }">{{ item.orderItem.name }}</a>
+                  </p>
+                  <p class="text-gray">{{ item.orderItem.specifications }}</p>
+                </nz-col>
+              </nz-row>
+            </td>
+            <td nzAlign="center">
+              <p *ngIf="item.orderItem.exchangePoint > 0">{{ item.orderItem.exchangePoint }}积分</p>
+              <p *ngIf="item.orderItem.exchangePoint > 0 && item.orderItem.price > 0"> + </p>
+              <p *ngIf="item.orderItem.price">{{ item.orderItem.price / item.orderItem.quantity | number: '1.1-1' | currency }}</p>
+            </td>
+            <td nzAlign="center">{{ item.orderItem.quantity }}</td>
+            <td nzAlign="center">
+              <p *ngIf="item.orderItem.exchangePoint > 0">{{ item.orderItem.exchangePoint * item.orderItem.quantity }} 积分</p>
+              <p *ngIf="item.orderItem.exchangePoint > 0 && item.orderItem.price > 0"> + </p>
+              <p *ngIf="item.orderItem.price">{{ item.orderItem.price | currency }}</p>
+            </td>
+            <td>
+              <a
+                routerLink="/member/review/add"
+                [queryParams]="{
+                  productId: item.product.id,
+                  storeId: order?.storeId,
+                  orderItemId: item.orderItem.id,
+                  specifications: item.orderItem.specifications,
+                  name: item.orderItem.name,
+                  thumbnail: item.orderItem.thumbnail
+                }"
+              >
+                <button
+                  *ngIf="(order?.status == OrderStatus.Completed || order?.status == OrderStatus.Received) && !item.orderItem.reviewed"
+                  nz-button
+                  nzType="primary"
+                  nzGhost
+                >
+                  评论
+                </button>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <!--      <nz-row>-->
+      <!--        <nz-col-->
+      <!--      </nz-row>-->
+    </nz-card>
+    <div class="tracker">
+      <div *ngFor="let expItem of expressNumData" class="good">
+        <div class="express-data">
+          <div class="express-data__wrap">
+            <img [src]="expItem.image" alt="Good Cover" />
+            <div class="express-data__content">
+              <p
+                ><span>{{ 'order-detail-delivery-name' | translate }}: </span>{{ expItem.item.deliveryName }}</p
+              >
+              <p
+                ><span>{{ 'order-detail-express-num' | translate }}: </span>{{ expItem.item.expressNum }}</p
+              >
+            </div>
+          </div>
+          <div class="express-data__traces">
+            <div *ngFor="let trace of expItem.itemsTraces" class="express-data__traces-item">
+              <div class="accept-time">
+                <span>{{ trace.acceptTime }}</span>
+              </div>
+              <div class="circle">
+                <span *ngIf="trace.action !== '304'" class="action-{{ trace.action }}" [class.action]="trace.action"></span>
+                <span *ngIf="trace.action === '304'" class="circle-elem">&#9679;</span>
+              </div>
+              <div class="accept-info">
+                <span>{{ trace.actionName }}</span>
+                <p>{{ trace.acceptStation }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="buttons-panel">
+      <div>
+        <button *ngIf="showAfterSalesBtn" nz-button (click)="afterSales()">After Sales</button>
+        <a nz-popconfirm nzPopconfirmTitle="{{ 'order-details-cancel-confirm' | translate }}" (nzOnConfirm)="cancellationOrder()">
+          <button *ngIf="showCancelBtn" nz-button [nzLoading]="loading.cancellationOrder">{{
+            'order-details-cancel-order' | translate
+          }}</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</nz-card>

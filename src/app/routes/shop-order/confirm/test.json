@@ -1,0 +1,16 @@
+{
+  "receiverId": "1517691298373435392",
+  "payMethodId": "52",
+  "shippingMethodId": "1",
+  "fapiao": null,
+  "productOrder": [
+    {
+      "skuId": "1283",
+      "quantity": 1
+    }
+  ],
+  "usePoint": true,
+  "useBalance": true,
+  "couponCode": "sj1c763f02e24b8df3becbfd1a40097f59",
+  "memo": ""
+}

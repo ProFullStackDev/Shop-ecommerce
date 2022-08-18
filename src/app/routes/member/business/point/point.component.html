@@ -1,0 +1,252 @@
+<app-payment-modal></app-payment-modal>
+<div class="content br-top-12">
+  <div
+    #scrollingContainer
+    class="mneus scrolling-container pagination-container"
+    (touchstart)="startTouching()"
+    (touchmove)="checkTouching($event)"
+    [ngClass]="isDateOpened ? 'wide-block' : 'thin-block'"
+  >
+    <nz-tabset class="scrollable-element store-credit-element" [(nzSelectedIndex)]="tabIndex" (nzSelectChange)="tabChange($event)">
+      <nz-tab nzTitle="{{ 'store-credit-header-all' | translate }}">
+        <div class="main br-bot-12">
+          <nz-table #basicTable [nzData]="blanceDataListAll">
+            <thead>
+              <tr class="thead-words">
+                <th class="hide-option">类型</th>
+                <th class="hide-option">获取积分</th>
+                <th class="hide-option">扣除积分</th>
+                <th>{{ 'store-credit-current-points' | translate }}</th>
+                <th>{{ 'store-credit-info' | translate }}</th>
+                <th>{{ 'store-credit-date' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of basicTable.data">
+                <td *ngIf="data.type == 0">订单赠送</td>
+                <td *ngIf="data.type == 1">兑换</td>
+                <td *ngIf="data.type == 2">兑换撤销</td>
+                <td *ngIf="data.type == 3">调整</td>
+                <td *ngIf="data.type == 4">注册</td>
+                <td *ngIf="data.type == 5">分邀请注册</td>
+                <td *ngIf="data.type == 6">签到</td>
+                <td *ngIf="data.type == 7">预存款充值</td>
+                <td *ngIf="data.type == 8">评论</td>
+                <td *ngIf="data.type == 9">抵扣</td>
+                <td *ngIf="data.type == 10">退回</td>
+                <td *ngIf="data.type == 11">分销</td>
+                <td *ngIf="data.type == 12">现金返现</td>
+                <td *ngIf="data.type == 13">购买VIP返佣</td>
+                <td class="hide-option">{{ data.credit }}</td>
+                <td class="hide-option">{{ data.debit }}</td>
+                <td class="hide-option">{{ data.balance }}</td>
+                <td>{{ data.memo }}</td>
+                <td>{{ data.createdDate | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+          <!-- <p class="emprty" *ngIf="blanceDataListAll.length == 0">暂无数据</p> -->
+        </div>
+      </nz-tab>
+      <nz-tab nzTitle="{{ 'store-credit-header-in' | translate }}">
+        <div class="main br-bot-12">
+          <nz-table #basicTable [nzData]="blanceDataListAll">
+            <thead>
+              <tr class="thead-words">
+                <th>{{ 'store-credit-type' | translate }}</th>
+                <th>{{ 'store-credit-earn-points' | translate }}</th>
+                <th>{{ 'store-credit-deduct-points' | translate }}</th>
+                <th>{{ 'store-credit-current-points' | translate }}</th>
+                <th>{{ 'store-credit-remark' | translate }}</th>
+                <th>{{ 'store-credit-creation time' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of basicTable.data">
+                <td *ngIf="data.type == 0">订单赠送</td>
+                <td *ngIf="data.type == 1">兑换</td>
+                <td *ngIf="data.type == 2">兑换撤销</td>
+                <td *ngIf="data.type == 3">调整</td>
+                <td *ngIf="data.type == 4">注册</td>
+                <td *ngIf="data.type == 5">分邀请注册</td>
+                <td *ngIf="data.type == 6">签到</td>
+                <td *ngIf="data.type == 7">预存款充值</td>
+                <td *ngIf="data.type == 8">评论</td>
+                <td *ngIf="data.type == 9">抵扣</td>
+                <td *ngIf="data.type == 10">退回</td>
+                <td *ngIf="data.type == 11">分销</td>
+                <td *ngIf="data.type == 12">现金返现</td>
+                <td *ngIf="data.type == 13">购买VIP返佣</td>
+                <td>{{ data.credit }}</td>
+                <td>{{ data.debit }}</td>
+                <td>{{ data.balance }}</td>
+                <td>{{ data.memo }}</td>
+                <td>{{ data.createdDate | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+          <!-- <p class="emprty" *ngIf="blanceDataListAll.length == 0">暂无数据</p> -->
+        </div>
+      </nz-tab>
+      <nz-tab nzTitle="{{ 'store-credit-header-out' | translate }}">
+        <div class="main br-bot-12">
+          <nz-table #basicTable [nzData]="blanceDataListAll">
+            <thead>
+              <tr class="thead-words third-table">
+                <th>Date created</th>
+                <th>Amount</th>
+                <th>Gift code</th>
+                <th>Status</th>
+                <th>Shared</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of basicTable.data">
+                <td *ngIf="data.type == 0">订单赠送</td>
+                <td *ngIf="data.type == 1">兑换</td>
+                <td *ngIf="data.type == 2">兑换撤销</td>
+                <td *ngIf="data.type == 3">调整</td>
+                <td *ngIf="data.type == 4">注册</td>
+                <td *ngIf="data.type == 5">分邀请注册</td>
+                <td *ngIf="data.type == 6">签到</td>
+                <td *ngIf="data.type == 7">预存款充值</td>
+                <td *ngIf="data.type == 8">评论</td>
+                <td *ngIf="data.type == 9">抵扣</td>
+                <td *ngIf="data.type == 10">退回</td>
+                <td *ngIf="data.type == 11">分销</td>
+                <td *ngIf="data.type == 12">现金返现</td>
+                <td *ngIf="data.type == 13">购买VIP返佣</td>
+                <td>{{ data.credit }}</td>
+                <td>{{ data.debit }}</td>
+                <td>{{ data.balance }}</td>
+                <td>{{ data.memo }}</td>
+                <td>{{ data.createdDate | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+                <td>{{ data.createdDate | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+          <!-- <p class="emprty" *ngIf="blanceDataListAll.length == 0">暂无数据</p> -->
+        </div>
+      </nz-tab>
+      <nz-tab nzTitle="{{ 'store-credit-gift-codes' | translate }}" (nzSelect)="getExchangeCode()">
+        <div class="main br-bot-12">
+          <nz-table #basicTable [nzData]="orderSrv.giftCodesAll$ | async" nzShowPagination="false" class="tab-for-desktop">
+            <thead>
+              <tr class="thead-words third-table">
+                <th>{{ 'store-credit-gift-code-date' | translate }}</th>
+                <th>{{ 'store-credit-gift-code-amount' | translate }}</th>
+                <th>{{ 'store-credit-gift-code-code' | translate }}</th>
+                <th>{{ 'store-credit-gift-code-status' | translate }}</th>
+                <th>{{ 'store-credit-gift-code-shared' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody class="redemption-codes">
+              <tr *ngFor="let item of orderSrv.giftCodesAll$ | async" [class.redeemed]="item.exchangeUserId">
+                <td>
+                  {{ item.createDate | date: 'MMM d y' }}
+                </td>
+                <td> ${{ item.panelValue }} </td>
+                <td>
+                  <ng-container *ngIf="!item.exchangeUserId">
+                    <span [title]="item.exchangeCode">{{ item.exchangeCode }}</span>
+                    <button
+                      [appCopying]="item.exchangeCode"
+                      [successTitle]="item.successTitle"
+                      type="button"
+                      class="share-button copy"
+                      (copied)="copied($event, item.exchangeCode)"
+                    >
+                      {{ item.successTitle | translate }}
+                    </button>
+                  </ng-container>
+                </td>
+                <td>
+                  {{
+                    !item.exchangeUserId
+                      ? ('store-credit-gift-code-status-not-redeemed' | translate)
+                      : ('store-credit-gift-code-status-redeemed' | translate)
+                  }}
+                </td>
+                <td>
+                  <ng-container *ngIf="!item.exchangeUserId; else avatar">
+                    <button class="share-button blue" (click)="openShareModal(item.exchangeCode)">
+                      {{ 'store-credit-gift-code-share-code' | translate }}
+                    </button>
+                  </ng-container>
+                  <ng-template #avatar>
+                    <img [src]="item.avatar" [alt]="item.username" class="redeemed-avatar" />
+                    {{ item.username }}
+                  </ng-template>
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+          <div *ngFor="let item of orderSrv.giftCodesAll$ | async" class="tab-for-mobile">
+            <div class="floor amount">
+              <p>Amount</p>
+              <h3>${{ item.panelValue }} </h3>
+            </div>
+            <div class="floor gift-code">
+              <p>Gift-code</p>
+              <h3>{{ item.exchangeCode }}</h3>
+            </div>
+            <div class="floor redemption">
+              <ng-container *ngIf="!item.exchangeUserId; else avatar">
+                <button
+                  [appCopying]="item.exchangeCode"
+                  [successTitle]="item.successTitle"
+                  type="button"
+                  class="share-button copy"
+                  (copied)="copied($event, item.exchangeCode)"
+                >
+                  {{ item.successTitle | translate }}
+                </button>
+                <button class="share-button" (click)="openShareModal(item.exchangeCode)">
+                  {{ 'store-credit-gift-code-share-code' | translate }}
+                </button>
+              </ng-container>
+              <ng-template class="" #avatar>
+                <div class="img-container">
+                  <img [src]="item.avatar" [alt]="item.username" class="redeemed-avatar" />
+                </div>
+                {{ item.username }}
+              </ng-template>
+            </div>
+          </div>
+
+          <nz-pagination
+            [(nzPageIndex)]="page"
+            [nzTotal]="orderSrv.total$ | async"
+            [(nzPageSize)]="rows"
+            nzShowQuickJumper
+            nzShowSizeChanger
+            (nzPageIndexChange)="pageIndexChange()"
+            (nzPageSizeChange)="pageSizeChange()"
+            class="ant-pagination ant-table-pagination ant-table-pagination-center"
+          >
+          </nz-pagination>
+          <!-- <p class="emprty" *ngIf="blanceDataListAll.length == 0">暂无数据</p> -->
+        </div>
+      </nz-tab>
+    </nz-tabset>
+
+    <div class="tab-for-mobile"> </div>
+    <div class="right">
+      <button class="open-date-range-mobile" (click)="openDateRange()">Insert date</button>
+      <div [ngClass]="isDateOpened ? 'visible' : 'hidden'">
+        <span class="date">{{ 'store-credit-date-range' | translate }} :</span>
+        <nz-date-picker [(ngModel)]="beginTime" nzPlaceHolder="{{ 'store-credit-date-start' | translate }}"></nz-date-picker>
+        <nz-date-picker [(ngModel)]="endTime" nzPlaceHolder="{{ 'store-credit-date-end' | translate }}"></nz-date-picker>
+        <button
+          class="serach"
+          nz-button
+          nzType="default"
+          (click)="search()"
+          [ngClass]="beginTime && endTime ? 'member-search-orange-active' : 'member-search-orange-disabled'"
+          [disabled]="beginTime && !endTime"
+          >{{ 'store-credit-date-search' | translate }}</button
+        >
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<form class="search-form" [formGroup]="form">
+  <ul class="dropdown select">
+    <li class="dropdown__value">
+      <span class="placeholder">
+        <ng-container *ngIf="form?.value.searchCategories; else textRef"> {{ form.value.searchCategoriesText | translate }} </ng-container>
+        <ng-template #textRef>
+          {{ 'header-search-categories' | translate }}
+        </ng-template>
+      </span>
+      <ul class="dropdown__option">
+        <ng-container *ngFor="let category of productCategories">
+          <li>
+            <app-form-select
+              [value]="category.id"
+              [checked]="category.id === form?.get('searchCategories')?.value"
+              [checked]="category.title === form?.get('searchCategories')?.value"
+              [label]="category.title | translate"
+              name="searchCategories"
+              (changed)="setHotSearch($event)"
+            ></app-form-select>
+          </li>
+        </ng-container>
+      </ul>
+    </li>
+  </ul>
+  <div class="form-input">
+    <app-form-input
+      formControlName="search"
+      (keyup.enter)="search()"
+      type="text"
+      placeholder="{{ 'header-search-placeholder' | translate }}"
+    ></app-form-input>
+  </div>
+  <div class="form-button">
+    <button type="button" class="btn-primary" (click)="search()">
+      <app-tyqoon-icon name="search" color="white" strokedColor="white"></app-tyqoon-icon>
+    </button>
+  </div>
+</form>

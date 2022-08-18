@@ -1,0 +1,32 @@
+@import '~src/styles/_variables';
+
+.page-pay-result {
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /deep/ .ant-result {
+    width: 100%;
+    max-width: @container-width;
+  }
+  /deep/ .ant-result-content {
+    background: transparent;
+  }
+  .countdown {
+    text-align: center;
+  }
+
+  .cancel-payment {
+    border: none;
+    color: white;
+    background: #ff0000;
+    margin-left: 5%;
+    @media(max-width: 450px) {
+      margin: 10px 0 0 0;
+    }
+  }
+
+  .cancel-payment:hover {
+    background: #d20202;
+  }
+}

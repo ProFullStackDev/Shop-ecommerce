@@ -1,0 +1,65 @@
+@import "~src/styles/_variables";
+.btn-primary-copy {
+  display: flex;
+  align-items: center;
+  background: unset;
+  box-shadow: unset;
+  text-shadow: unset;
+  border: 0;
+  padding: 5px;
+
+  &:hover {
+    background: unset;
+    opacity: 0.5;
+  }
+
+  ::ng-deep svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+.contcat{
+
+}
+.order {
+  border: 1px solid @border-color;
+  &-header {
+    line-height: 3em;
+    border-bottom: 1px solid @border-color;
+    padding-left: 8px;
+    width: 100%;
+  }
+  &-body {
+    width: 100%;
+    padding: 0 20px 0 0;
+    .detail {
+      padding: 16px 10px;
+      .name,
+      .specifications {
+        padding-left: 8px;
+      }
+    }
+    .price,
+    .status,
+    .operation {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .price,
+    .operation {
+      justify-content: center;
+    }
+
+    .price {
+      width: 100%;
+      flex: 1 1 auto;
+    }
+
+    .status {
+      margin-left: auto;
+    }
+
+  }
+}

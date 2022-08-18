@@ -1,0 +1,172 @@
+<div class="main">
+  <div class="title">{{ 'order-add-invoice' | translate }}</div>
+</div>
+<div class="content">
+  <form nz-form [formGroup]="validateForm" class="login-form">
+    <nz-form-item class="header">
+      <nz-form-label [nzSm]="3" [nzXs]="24">{{ 'order-inv-type' | translate }}</nz-form-label>
+      <div class="header-type">
+        <nz-radio-group [(ngModel)]="form.type" (ngModelChange)="typeChange($event)" formControlName="type">
+          <label nz-radio-button [nzValue]="0">{{ billType[0].label }}</label>
+          <label nz-radio-button [nzValue]="1" [nzDisabled]="!hasVat">{{ billType[1].label | translate }}</label>
+        </nz-radio-group>
+      </div>
+    </nz-form-item>
+    <nz-form-item class="header">
+      <nz-form-label [nzSm]="3" [nzXs]="24">{{ 'order-invoice-content' | translate }}</nz-form-label>
+      <div class="header-type">
+        <nz-radio-group [(ngModel)]="form.contentType" (ngModelChange)="contentTypeChange($event)" formControlName="contentType">
+          <label nz-radio-button [nzValue]="0">{{ billContentType[0].label | translate }}</label>
+          <label nz-radio-button [nzValue]="1" *ngIf="form.type == 0">{{ billContentType[1].label | translate }}</label>
+        </nz-radio-group>
+      </div>
+    </nz-form-item>
+    <nz-form-item class="header" *ngIf="form.type == 0">
+      <nz-form-label [nzSm]="3" [nzXs]="24">{{ 'invoice-header-type' | translate }}</nz-form-label>
+      <div class="header-type">
+        <nz-radio-group
+          [(ngModel)]="vatRegistrationNumberType"
+          (ngModelChange)="vatRegistrationNumberTypeChange($event)"
+          formControlName="vatRegistrationNumberType"
+        >
+          <label nz-radio-button [nzValue]="0">{{ billHeaderType[0].label | translate }}</label>
+          <label nz-radio-button [nzValue]="1">{{ billHeaderType[1].label | translate }}</label>
+        </nz-radio-group>
+      </div>
+    </nz-form-item>
+    <h4>{{ 'increase-invoice-header-information' | translate }}</h4>
+    <div *ngIf="hasVat && form.type == 1" calss="detail-content">
+      <dl style="margin-left: 70px; color: #999">
+        <dd style="height: 32px">{{ 'account-menu-header' | translate }}：{{ validateForm.value.title | translate }}</dd>
+        <dd style="height: 32px"
+          >{{ 'increase-invoice-invoice-tax-number' | translate }}：{{ validateForm.value.vatRegistrationNumber }}</dd
+        >
+        <dd style="height: 32px">{{ 'increase-invoice-registered-address' | translate }}：{{ validateForm.value.registeredAddress }}</dd>
+        <dd style="height: 32px">{{ 'increase-invoice-registration-phone' | translate }}：{{ validateForm.value.registeredPhone }}</dd>
+        <dd style="height: 32px">{{ 'increase-invoice-depositary-bank' | translate }}：{{ validateForm.value.bankName }}</dd>
+        <dd style="height: 32px">账户银行：{{ validateForm.value.bankAccount }}</dd>
+      </dl>
+    </div>
+    <nz-form-item *ngIf="!hasVat || form.type != 1">
+      <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>{{ 'account-menu-header' | translate }}</nz-form-label>
+      <nz-form-control nzErrorTip="请输入">
+        <nz-input-group [nzAddOnAfter]="suffixButton" nzSize="large">
+          <input nz-input formControlName="title" [(ngModel)]="form.title" style="width: 360px" />
+        </nz-input-group>
+        <ng-template #suffixButton>
+          <button nz-button nzType="primary" nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">{{
+            'order-select-header' | translate
+          }}</button>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <div *ngIf="vatRegistrationNumberType == 1 && (!hasVat || form.type != 1)">
+      <nz-form-item>
+        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>{{ 'increase-invoice-invoice-tax-number' | translate }}</nz-form-label>
+        <nz-form-control nzErrorTip="请输入">
+          <nz-input-group nzSize="large">
+            <input nz-input formControlName="vatRegistrationNumber" [(ngModel)]="form.vatRegistrationNumber" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="3" [nzXs]="24">{{ 'increase-invoice-registered-address' | translate }}</nz-form-label>
+        <nz-form-control nzErrorTip="请输入">
+          <nz-input-group nzSize="large">
+            <input nz-input formControlName="registeredAddress" [(ngModel)]="form.registeredAddress" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="3" [nzXs]="24">{{ 'increase-invoice-registration-phone' | translate }}</nz-form-label>
+        <nz-form-control nzErrorTip="请输入">
+          <nz-input-group nzSize="large">
+            <input nz-input formControlName="registeredPhone" [(ngModel)]="form.registeredPhone" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="3" [nzXs]="24">{{ 'increase-invoice-depositary-bank' | translate }}</nz-form-label>
+        <nz-form-control nzErrorTip="请输入">
+          <nz-input-group nzSize="large">
+            <input nz-input formControlName="bankName" [(ngModel)]="form.bankName" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="3" [nzXs]="24">{{ 'increase-invoice-bank-account' | translate }}</nz-form-label>
+        <nz-form-control nzErrorTip="请输入">
+          <nz-input-group nzSize="large">
+            <input nz-input formControlName="bankAccount" [(ngModel)]="form.bankAccount" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <h4>{{ 'increase-invoice-invoice-information' | translate }}</h4>
+    <nz-form-item>
+      <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>{{ 'increase-invoice-billing-name' | translate }}</nz-form-label>
+      <nz-form-control nzErrorTip="请输入">
+        <nz-input-group nzSize="large">
+          <input nz-input formControlName="billingAccountName" [(ngModel)]="form.billingAccountName" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>{{ 'increase-invoice-phone-number' | translate }}</nz-form-label>
+      <nz-form-control nzErrorTip="请输入">
+        <nz-input-group nzSize="large">
+          <input nz-input formControlName="billingAccountPhone" [(ngModel)]="form.billingAccountPhone" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="!hasVat || form.type != 1">
+      <nz-form-label [nzSm]="3" [nzXs]="24">{{ 'order-ticket-collection' | translate }}</nz-form-label>
+      <nz-form-control nzErrorTip="请输入">
+        <nz-input-group nzSize="large">
+          <input nz-input formControlName="billingAccountEmail" [(ngModel)]="form.billingAccountEmail" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>{{ 'increase-invoice-province-name' | translate }}</nz-form-label>
+      <nz-form-control nzErrorTip="请选择">
+        <div class="area">
+          <!-- 省市区组件 -->
+          <app-address-select
+            formControlName="billingAccountAreaName"
+            class="address-select"
+            #editCompoent
+            (submitSuccess)="submitSuccess($event)"
+            [areaDetails]="areaDetails"
+          >
+          </app-address-select>
+        </div>
+      </nz-form-control>
+      <!-- 地区组件 -->
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>{{ 'increase-invoice-billing-address' | translate }}</nz-form-label>
+      <nz-form-control nzErrorTip="请输入">
+        <nz-input-group nzSize="large">
+          <input nz-input formControlName="billingAccountAddress" [(ngModel)]="form.billingAccountAddress" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <div class="footer">
+      <nz-form-item>
+        <nz-form-control [nzSpan]="10" [nzOffset]="4">
+          <button class="btn-submit" nz-button nzType="primary" (click)="validate()">{{ 'increase-invoice-confirm' | translate }}</button>
+          <button nz-button nzType="default" (click)="goBack()"> {{ 'increase-invoice-return' | translate }} </button>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </form>
+  <nz-dropdown-menu #menu4="nzDropdownMenu">
+    <ul nz-menu *ngIf="headerList.length == 0">
+      <nz-empty></nz-empty>
+    </ul>
+    <ul nz-menu *ngIf="headerList.length > 0">
+      <li nz-menu-item *ngFor="let item of headerList; let key = index" (click)="checkHeader(key)">{{ item.title }}</li>
+    </ul>
+  </nz-dropdown-menu>
+</div>

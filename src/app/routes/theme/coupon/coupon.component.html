@@ -1,0 +1,34 @@
+<div class="page-coupon">
+  <div class="container">
+    <h3 class="title">
+      <span>为你推荐好券</span>
+    </h3>
+    <div
+      class="coupon-list"
+      infinite-scroll
+      [infiniteScrollDistance]="scrollConfig.distance"
+      [infiniteScrollDisabled]="scrollConfig.noMore || scrollConfig.loading"
+      [infiniteScrollThrottle]="scrollConfig.throttle"
+      (scrolled)="onScrollDown()"
+    >
+      <nz-list>
+        <div nz-row [nzGutter]="[50, 0]">
+          <div nz-col [nzSpan]="8" *ngFor="let coupon of couponList; let i = index">
+            <nz-list-item class="coupon-list">
+              <!--        {{ i }}-->
+              <!--          <nz-skeleton *ngIf="!item" [nzAvatar]="true" [nzParagraph]="{ rows: 1 }"></nz-skeleton>-->
+              <app-coupon-item
+                class="coupon-item"
+                [btnLoading]="loading.receive && loading.receiveId == coupon.id"
+                [coupon]="coupon"
+                [received]="userReceivedCouponIds.has(coupon.id)"
+                (btnClick)="couponBtnClick($event)"
+              ></app-coupon-item>
+            </nz-list-item>
+          </div>
+        </div>
+      </nz-list>
+      <app-data-loading-status [loading]="scrollConfig.loading" [noMore]="scrollConfig.noMore"></app-data-loading-status>
+    </div>
+  </div>
+</div>

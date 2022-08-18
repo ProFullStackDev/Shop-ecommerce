@@ -1,0 +1,145 @@
+@import '/src/styles/vars/_fonts';
+
+app-navigation-bar {
+  display: none;
+
+  @media (max-width: 992px) {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: sticky;
+    position: -webkit-sticky;
+    bottom: 0;
+    z-index: 999998;
+    background-color: #fff;
+    box-shadow: 0px -4px 16px rgba(0, 0, 0, 0.15);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .navigation-bar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    &__item {
+      // max-width: 192px;
+      width: 100%;
+
+      padding: 8px 0 14px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      color: #1B1B1B;
+
+      svg path {
+        fill: #1B1B1B;
+      }
+
+      &.active,
+      &:hover {
+        transition: unset;
+
+        color: #F0933C;
+
+        svg path {
+          fill: #F0933C;
+        }
+      }
+
+      &-icon {
+        max-width: 36px;
+        min-width: 36px;
+        max-height: 36px;
+        min-height: 36px;
+
+        position: relative;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+          width: 100%;
+          height: 100%;
+        }
+
+        img {
+          max-width: 100%;
+          height: auto;
+          border-radius: 100%;
+          &.avatar {
+            height: 30px;
+          }
+        }
+
+        @media (max-width: 640px) {
+          max-width: 30px;
+          min-width: 30px;
+          max-height: 30px;
+          min-height: 30px;
+        }
+      }
+
+      &:nth-child(2) {
+        .navigation-bar__item-icon {
+          overflow: hidden;
+
+          svg {
+            width: 30px;
+            height: 100%;
+          }
+        }
+      }
+
+      &-counter {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        top: 0;
+        right: 0;
+        font-size: 8px;
+        line-height: normal;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+        color: #fff;
+        background-color: #007eff;
+        animation: 2s pulse-anim3 infinite;
+
+        @keyframes pulse-anim3 {
+          0% {
+            box-shadow: #007eff 0 0 0 0;
+          }
+          100% {
+            box-shadow: #007eff00 0 0 0 6px;
+          }
+        }
+
+        @media (max-width: 640px) {
+          width: 12px;
+          height: 12px;
+        }
+      }
+
+      &-name {
+        font-family: @Roboto;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 14px;
+        text-align: center;
+        color: inherit;
+
+        @media (max-width: 640px) {
+          font-size: 9px;
+          line-height: 11px;
+        }
+      }
+    }
+  }
+}

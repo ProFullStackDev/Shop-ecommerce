@@ -1,0 +1,20 @@
+button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #FFE141;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: black;
+  height: 52px;
+  font-family: Gotham Pro,sans-serif;
+  font-size: 18px;
+  font-weight: bold!important;
+  justify-content: center;
+}
+
+svg {
+  height: 36px;
+  fill: white;
+  color: white;
+}

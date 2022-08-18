@@ -1,0 +1,30 @@
+@import "~src/styles/_variables";
+
+.product {
+  text-align: center;
+  &-image {
+    display: block;
+    height: 170px;
+    margin-bottom: 10px;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+  &-price {
+    display: block;
+    margin-bottom: 10px;
+    color: @primary-color;
+    del {
+      color: #ccc;
+      font-weight: normal;
+    }
+  }
+  &-name {
+    color: #666;
+  }
+  &-caption {
+    color: @primary-color;
+  }
+}

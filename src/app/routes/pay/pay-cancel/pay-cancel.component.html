@@ -1,0 +1,12 @@
+<div class="container page-pay-cancel">
+  <nz-skeleton *ngIf="loading.queryPaymentOrder; else result" [nzParagraph]="{ rows: 10 }"></nz-skeleton>
+  <ng-template #result>
+    <nz-result [nzTitle]="errorTxt | translate" nzStatus="error">
+      <app-pay-content nz-result-content [content]="payResult"></app-pay-content>
+      <div nz-result-extra>
+        <button nz-button nzType="primary" (click)="gotoHome()">{{'order-cancelled-go-home' | translate}}</button>
+        <button nz-button (click)="back()">{{'order-cancelled-return' | translate}}</button>
+      </div>
+    </nz-result>
+  </ng-template>
+</div>

@@ -1,0 +1,25 @@
+<nz-form-item>
+  <nz-form-control [nzErrorTip]="phoneErrorTpl">
+    <nz-input-group>
+      <ngx-intl-tel-input
+        [cssClass]="'custom'"
+        [preferredCountries]="preferredCountries"
+        [enableAutoCountrySelect]="true"
+        [enablePlaceholder]="true"
+        [searchCountryFlag]="true"
+        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+        [selectFirstCountry]="false"
+        [maxLength]="15"
+        [phoneValidation]="true"
+        [selectedCountryISO]="CountryISO.China"
+        [separateDialCode]="separateDialCode"
+        name="phone"
+        [formControl]="mobileControl"
+      >
+      </ngx-intl-tel-input>
+    </nz-input-group>
+  </nz-form-control>
+  <ng-template #phoneErrorTpl let-control>
+    <ng-container *ngIf="control.touched && control.invalid">请输入正确的手机号</ng-container>
+  </ng-template>
+</nz-form-item>

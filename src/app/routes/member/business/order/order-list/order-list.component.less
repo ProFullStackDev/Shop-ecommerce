@@ -1,0 +1,56 @@
+@import "~src/styles/_variables";
+
+.order-page {
+  min-height: 70vh;
+  border-radius: 12px;
+
+  display: flex;
+  align-items: flex-start;
+
+  nz-card {
+    max-width: 984px;
+    min-width: 984px;
+
+    @media (min-width: 1240px) {
+      max-width: unset;
+      width: 100%;
+    }
+  }
+}
+
+.ant-card.order-page{
+  border: solid 1px #bdbdbd69;
+  border-radius: 12px !important;
+}
+
+::ng-deep .order-page .ant-card-head-title {
+  font-size: 25px; //font size for the setting page titles
+}
+
+::ng-deep div .order-page .ant-tabs-tab  {
+  font-size: 16px;
+}
+
+.order-page span {
+  font-size: 16px;
+}
+
+.table-header {
+  text-align: center;
+  background-color: @background-color;
+  line-height: 3em;
+  font-size: 16px;
+
+  .hide-option {
+    display: none;
+  }
+}
+
+.order-item {
+  margin-top: 16px;
+}
+
+.pagination {
+  margin-top: 16px;
+  text-align: right;
+}

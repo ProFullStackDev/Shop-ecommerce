@@ -1,0 +1,41 @@
+<nz-skeleton *ngIf="loading" [nzParagraph]="{ rows: 20 }" [nzActive]="true"></nz-skeleton>
+<div class="container" *ngIf="!loading">
+    <!-- <div class="breadcrumb">
+        <li>
+            <a routerLink="/">
+                <i nz-icon nzType="home"></i>
+                首页
+            </a>
+        </li>
+        <li class="active">搜索 "{{searchContent}}" 结果列表</li>
+    </div> -->
+    <div class="article-list">
+        <div class="list panel panel-default">
+            <div class="panel-body">
+                <div class="no-result" *ngIf="articleList.length==0">
+                    <dl>
+                        <dt>对不起，没有找到与 "{{searchContent}}" 相关的文章</dt>
+                        <dd>1、请确认搜索关键词是否正确</dd>
+                        <dd>2、可尝试修改搜索关键词，以获得更多的搜索结果</dd>
+                    </dl>
+                </div>
+                <ul *ngIf="articleList.length>0">
+                    <li *ngFor="let article of articleList">
+                        <h4>
+                            <a routerLink="/article/detail"
+                                [queryParams]="{ articleId: article.id,articleCategoryId: article.articleCategoryId }">{{article.title}}</a>
+                        </h4>
+                        <p class="text-overflow">{{article.content}}</p>
+                        <p>
+                            <span class="small text-gray">{{article.author}}</span>
+                            <span class="small text-gray">{{article.createdDate| date: 'YYYY-MM-dd' }}</span>
+                        </p>
+                    </li>
+                </ul>
+                <nz-pagination [(nzPageIndex)]="page" [nzTotal]="total" [(nzPageSize)]="rows" nzShowQuickJumper
+                    nzShowSizeChanger (nzPageIndexChange)="pageIndexChange()" (nzPageSizeChange)="pageSizeChange()">
+                </nz-pagination>
+            </div>
+        </div>
+    </div>
+</div>

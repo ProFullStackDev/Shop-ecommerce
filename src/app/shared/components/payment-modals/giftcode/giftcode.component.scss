@@ -1,0 +1,38 @@
+.gift-code-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: space;
+  height: 100%;
+  align-items: flex-end;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #0289FF;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: white;
+}
+
+.gift-code-btn {
+  margin-bottom: 8px;
+}
+
+svg {
+  height: 36px;
+  fill: white;
+  color: white;
+}
+
+.text {
+  padding-left: 16px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+app-make-gift-code-button, app-redeem-code-button {
+  width: 100%;
+}

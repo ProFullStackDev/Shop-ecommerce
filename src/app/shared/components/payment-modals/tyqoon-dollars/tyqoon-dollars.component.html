@@ -1,0 +1,125 @@
+<div class="tyqoon-dollars-container noselect" (click)="toggleDropDown()">
+  <div class="user-amount user-amount-green">
+    <img src="/assets/images/tyqoon-dollar-100.png" alt="" />
+    <div class="user-amount-inner">
+      <div class="title">{{ 'my-tyqoon-dollars' | translate }}</div>
+      <div class="amount" [countUp]="userInfo.point!" [options]="countUpOptions"></div>
+      <div class="per-day">+{{ cashback?.yesterdayPoint }}{{ 'shop-product-page-reward-day' | translate }}</div>
+    </div>
+    <svg
+      *ngIf="!inAccountMenu"
+      [ngClass]="toggleDropdown ? 'arrowdown' : 'arrowup'"
+      (click.prevent)="toggleDropdown = !toggleDropdown"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      version="1.1"
+      id="Layer_1"
+      x="0px"
+      y="0px"
+      viewBox="0 0 1792 1792"
+      style="enable-background: new 0 0 1792 1792"
+      xml:space="preserve"
+    >
+      <path
+        d="M996,1314.5c-55.2,55.2-139.5,55.2-194.8,0c-2.4-2.8-2.4-2.8-2.4-2.8L154.4,670.1c-52.4-55.2-52.4-139.2,0-194.4  c55.2-52.8,139.5-52.8,194.4,0l549.7,552.1l547.2-546.9c52.4-52.4,139.5-52.4,192,0c52.4,52.8,52.4,139.5,0,192L996,1314.5z"
+      />
+    </svg>
+  </div>
+  <div class="dollar-dropdown" [ngClass]="toggleDropdown ? 'show' : 'hide'">
+    <div class="available">
+      <div class="image-container">
+        <img src="/assets/images/tyqoon-dollar-100.png" alt="" />
+      </div>
+      <div class="text-container">
+        <div class="title">
+          {{ 'Available' | translate }}
+        </div>
+        <div class="earnings" [countUp]="userInfo.point!" [options]="countUpOptions"> </div>
+      </div>
+    </div>
+    <div class="frozen">
+      <div class="image-container">
+        <img src="/assets/images/tyqoon-credit-frozen.png" alt="" />
+      </div>
+      <div class="text-container">
+        <div class="title">
+          {{ 'frozen' | translate }}
+        </div>
+        <!--   -->
+        <div class="earnings" [countUp]="+cashback.frozenPoint" [options]="countUpOptions"></div>
+      </div>
+    </div>
+    <div class="earning-per-day">
+      <div class="image-container">
+        <img src="/assets/svg/clock.svg" alt="" />
+      </div>
+      <div class="text-container">
+        <div class="title">
+          {{ 'earning-unfreeze-per-day' | translate }}
+        </div>
+        <!--  [countUp]="353535" [options]="countUpOptions" -->
+        <div class="earnings">
+          +<span [countUp]="+cashback.yesterdayPoint" [options]="countUpOptions"></span>
+          /Day
+        </div>
+      </div>
+    </div>
+    <div class="collapse noselect">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        version="1.1"
+        id="Layer_1"
+        x="0px"
+        y="0px"
+        viewBox="0 0 1792 1792"
+        style="enable-background: new 0 0 1792 1792"
+        xml:space="preserve"
+      >
+        <path
+          d="M996,1314.5c-55.2,55.2-139.5,55.2-194.8,0c-2.4-2.8-2.4-2.8-2.4-2.8L154.4,670.1c-52.4-55.2-52.4-139.2,0-194.4  c55.2-52.8,139.5-52.8,194.4,0l549.7,552.1l547.2-546.9c52.4-52.4,139.5-52.4,192,0c52.4,52.8,52.4,139.5,0,192L996,1314.5z"
+        />
+      </svg>
+      <div class="title">{{ 'collapse' | translate }}</div>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        version="1.1"
+        id="Layer_1"
+        x="0px"
+        y="0px"
+        viewBox="0 0 1792 1792"
+        style="enable-background: new 0 0 1792 1792"
+        xml:space="preserve"
+      >
+        <path
+          d="M996,1314.5c-55.2,55.2-139.5,55.2-194.8,0c-2.4-2.8-2.4-2.8-2.4-2.8L154.4,670.1c-52.4-55.2-52.4-139.2,0-194.4  c55.2-52.8,139.5-52.8,194.4,0l549.7,552.1l547.2-546.9c52.4-52.4,139.5-52.4,192,0c52.4,52.8,52.4,139.5,0,192L996,1314.5z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="coin-cash-container-member-menu-balance">
+  <div class="coin-cash-container-member-menu-balance-moment">
+
+  </div>
+  <div class="coin-cash-container-member-menu-balance-earning">
+    <div class="coin-cash-container-member-menu-balance-earning-cash-cont">
+      <img src="/assets/images/TYQOON-Dollars-cc.png" class="img-dollar-cashback" />
+    </div>
+    <div class="coin-cash-container-member-menu-balance-earning-cash-back">
+      <p class="coin-cash-container-member-menu-balance-earning-cash-back-label">{{
+        'game-dollars-cash-back-earning' | translate
+      }}</p>
+
+    </div>
+  </div>
+</div>
+<div class="coin-cash-container-member-menu-plus">
+  <div class="coin-cash-container-member-menu-plus-cross" (click)="openModal(earnDollarsModal)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+      <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z" />
+    </svg>
+  </div>
+</div> -->

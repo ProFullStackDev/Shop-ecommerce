@@ -1,0 +1,18 @@
+<div class="title br-top-12">绑定优惠券</div>
+<div class="content br-bot-12">
+  <p>1. 请输入优惠券券码绑定优惠券</p>
+  <p>2. 优惠券绑定成功后在我的优惠券中查看</p>
+</div>
+<div class="coupon-input">
+  <span class="icon">*</span>
+  <span class="words">优惠券</span>
+  <input class="input" type="text" [(ngModel)]="value" />
+</div>
+<div class="footer-btn">
+  <button class="left" nz-button nzType="primary" (click)="bind()">绑定优惠券</button>
+  <button nz-button nzType="default">
+    <a class="recharge" routerLink="/member/index">
+      {{ 'increase-invoice-return' | translate }}
+    </a>
+  </button>
+</div>

@@ -1,0 +1,38 @@
+<div class="store-credit member-page-title-mob">
+  {{ 'store-credit' | translate }}
+</div>
+<div class="point">
+  <div class="point-col">
+    <div class="integral-total br-bot-12 credit-container">
+      <div class="store-credit">
+        <div class="title">{{ 'store-credit' | translate }}</div>
+        <app-store-credit></app-store-credit>
+      </div>
+      <div class="giftcode">
+        <div class="title">
+          {{ 'gift-code' | translate }}
+        </div>
+        <app-giftcode></app-giftcode>
+      </div>
+    </div>
+  </div>
+
+  <div class="point-col">
+    <div class="integral-total br-bot-12 credit-container">
+      <div class="tyqoon-dollars">
+        <div class="title">{{ 'tyqoon-dollars' | translate }}</div>
+        <div class="tyqoon-info-container">
+          <app-tyqoon-dollars></app-tyqoon-dollars>
+          <app-covert-dollars-button></app-covert-dollars-button>
+        </div>
+      </div>
+      <div class="rebate-credits">
+        <div class="title">{{ 'rebate-credits' | translate }}</div>
+        <div class="rebate-credits-info-container">
+          <app-rebate-credits></app-rebate-credits>
+          <app-buy-rebate-credits-button></app-buy-rebate-credits-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

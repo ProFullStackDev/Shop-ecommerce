@@ -1,0 +1,686 @@
+<ng-container *ngIf="!nft && !franchise && !superMarket && !mall">
+  <div [class.scrolling]="isScrollable" class="modal__header alt">
+    <div class="title">
+      <div class="icon">
+        <img src="/assets/images/game-board-parts/shop.png" alt="Shop" />
+      </div>
+      <span>{{ 'game-nav-shop' | translate }}</span>
+    </div>
+  </div>
+  <div class="modal__content nft-shop-modal">
+    <div #scrollable class="scrollable" (scroll)="onScroll()">
+      <div class="counters-info alt">
+        <div class="counters">
+          <div class="content">
+            <div class="counter-action" (click)="openInviteModal()">
+              <div class="counter currency-count">
+                <div class="counter-wrap">
+                  <div class="icon">
+                    <picture>
+                      <source type="image/png" srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x" />
+                      <img src="/assets/images/TYD.png" alt="TYD" />
+                    </picture>
+                  </div>
+                  <p>{{ userInfo.point }}</p>
+                </div>
+              </div>
+              <div class="counter-btn main-hover">
+                <div class="counter__wrap">
+                  <span>
+                    <app-tyqoon-icon name="cross"></app-tyqoon-icon>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!--          TODO: Will be return in future-->
+            <!--            <div class="counter-action">-->
+            <!--              <div class="counter crypt-count">-->
+            <!--                <div class="counter-wrap">-->
+            <!--                  <div class="icon">-->
+            <!--                    <picture>-->
+            <!--                      <source type="image/png" srcset="/assets/images/TYQ.png 1x, /assets/images/TYQ@2x.png 2x ">-->
+            <!--                      <img src="/assets/images/TYQ.png" alt="TYQ">-->
+            <!--                    </picture>-->
+            <!--                  </div>-->
+            <!--                  <p>2,342.13</p>-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--              <div class="counter-btn main-hover">-->
+            <!--                <div class="counter__wrap">-->
+            <!--              <span>-->
+            <!--                <app-tyqoon-icon name="cross"></app-tyqoon-icon>-->
+            <!--              </span>-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--            </div>-->
+          </div>
+        </div>
+      </div>
+      <div class="description">
+        <p>{{ 'game-build-description' | translate }}</p>
+      </div>
+      <div class="shop-list">
+        <ng-container *ngFor="let item of userNFT">
+          <div *ngIf="item.icon" class="shop-list__item">
+            <div class="item-content">
+              <div class="image">
+                <img [src]="item.icon[0]" alt="From" />
+                <p>{{ 'game-build-owned' | translate }}: {{ item?.numleft }}</p>
+              </div>
+              <div class="separator">
+                <img src="/assets/images/arrow-gray.svg" alt="Arrow" />
+              </div>
+              <div class="image to">
+                <img [src]="item.icon[1]" alt="To" />
+                <p>{{ 'game-build-owned' | translate }}: {{ item?.numright }}</p>
+              </div>
+            </div>
+            <button
+              class="button"
+              [disabled]="(userInfo.point || 0) < 450"
+              *ngIf="item.price != 0; else merge"
+              (click)="buyNft(buildingType.Shop)"
+            >
+              <span class="text">{{ 'game-build-buy' | translate }}</span>
+              <span class="content">
+                <span class="icon" [class.merge]="item.price == 0">
+                  <img src="/assets/images/TYD.png" alt="TYD" />
+                </span>
+                <span class="amount">
+                  {{ item?.price }}
+                </span>
+              </span>
+            </button>
+            <ng-template #merge>
+              <button class="button" [disabled]="item.numleft < item.mergeNeedNum" (click)="buyNft(item.type)">
+                <span class="text">{{ 'game-build-merge' | translate }}</span>
+                <span class="content">
+                  <span class="icon" [class.merge]="item.price == 0">
+                    <img [src]="item.icon[0]" [alt]="item?.name" />
+                  </span>
+                  <span class="amount">
+                    {{ item.mergeNeedNum }}
+                  </span>
+                </span>
+              </button>
+            </ng-template>
+          </div>
+        </ng-container>
+        <!--        <div *ngFor="let item of nftShopList" class="shop-list__item">-->
+        <!--          <div class="item-content">-->
+        <!--            <div class="image">-->
+        <!--              <img [src]="item?.imageFrom" alt="From"/>-->
+        <!--              <p>{{ 'game-build-owned' | translate }}: {{item.ownedBefore}}</p>-->
+        <!--            </div>-->
+        <!--            <div class="separator">-->
+        <!--              <img src="/assets/images/arrow-gray.svg" alt="Arrow"/>-->
+        <!--            </div>-->
+        <!--            <div class="image to">-->
+        <!--              <img [src]="item?.imageTo" alt="To"/>-->
+        <!--              <p>{{ 'game-build-owned' | translate }}: {{item.ownedAfter}}</p>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--          <button class="button" [disabled]="item?.merge" (click)="buyNft(item.buildingType)">-->
+        <!--            <span class="text">{{ item.btnText | translate }}</span>-->
+        <!--            <span class="content">-->
+        <!--              <span class="icon" [class.merge]="item?.merge">-->
+        <!--                <img [src]="item?.btnImage" [alt]="item?.btnText"/>-->
+        <!--              </span>-->
+        <!--              <span class="amount">-->
+        <!--                {{ item?.amount }}-->
+        <!--              </span>-->
+        <!--            </span>-->
+        <!--          </button>-->
+        <!--        </div>-->
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="nft && !franchise && !superMarket && !mall">
+  <div [class.scrolling]="isScrollable" class="modal__header alt with-arrow">
+    <div class="title">
+      <div class="icon" (click)="goBack()">
+        <img src="/assets/images/modal-back-arrow.svg" alt="Prime" />
+      </div>
+      <span>{{ 'game-build-buy-nft' | translate }}</span>
+    </div>
+  </div>
+  <div class="modal__content nft-shop-modal buy-nft">
+    <div #scrollable class="scrollable" (scroll)="onScroll()">
+      <div class="counters-info alt">
+        <div class="counters">
+          <div class="content">
+            <div class="counter-action" (click)="openInviteModal()">
+              <div class="counter currency-count">
+                <div class="counter-wrap">
+                  <div class="icon">
+                    <picture>
+                      <source type="image/png" srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x" />
+                      <img src="/assets/images/TYD.png" alt="TYD" />
+                    </picture>
+                  </div>
+                  <p>{{ userInfo.point }}</p>
+                </div>
+              </div>
+              <div class="counter-btn main-hover">
+                <div class="counter__wrap">
+                  <span>
+                    <app-tyqoon-icon name="cross"></app-tyqoon-icon>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!--          TODO: Will be return in future-->
+            <!--            <div class="counter-action">-->
+            <!--              <div class="counter crypt-count">-->
+            <!--                <div class="counter-wrap">-->
+            <!--                  <div class="icon">-->
+            <!--                    <picture>-->
+            <!--                      <source type="image/png" srcset="/assets/images/TYQ.png 1x, /assets/images/TYQ@2x.png 2x ">-->
+            <!--                      <img src="/assets/images/TYQ.png" alt="TYQ">-->
+            <!--                    </picture>-->
+            <!--                  </div>-->
+            <!--                  <p>2,342.13</p>-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--              <div class="counter-btn main-hover">-->
+            <!--                <div class="counter__wrap">-->
+            <!--              <span>-->
+            <!--                <app-tyqoon-icon name="cross"></app-tyqoon-icon>-->
+            <!--              </span>-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--            </div>-->
+          </div>
+        </div>
+      </div>
+      <div class="earn-info">
+        <div class="earn">
+          <div class="member-benefits">
+            <div class="benefits">
+              <div class="item low">
+                <div class="content">
+                  <div class="image">
+                    <img class="blank-image" style="opacity: 0.5" src="/assets/images/game-board-parts/blank.png" alt="Empty" />
+                  </div>
+                </div>
+              </div>
+              <div class="separator anim">
+                <picture>
+                  <source type="image/svg" srcset="/assets/images/arrow.svg 1x, /assets/images/arrow@2x.svg 2x" />
+                  <img src="/assets/images/arrow.svg" alt="Arrow" />
+                </picture>
+              </div>
+              <div class="item high">
+                <div class="content">
+                  <div class="image">
+                    <img src="/assets/images/game-board-parts/shop.png" alt="{{ 'game-build-shop' | translate }}" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="text">
+              <p>{{ 'game-build-empty-space' | translate }}</p>
+              <div class="separator">
+                <picture>
+                  <source type="image/svg" srcset="/assets/images/arrow.svg 1x, /assets/images/arrow@2x.svg 2x" />
+                  <img src="/assets/images/arrow.svg" alt="Arrow" />
+                </picture>
+              </div>
+              <p>{{ 'game-build-shop' | translate }}</p>
+            </div>
+            <p class="description">
+              {{ 'game-build-shop-description' | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <ul class="amount-list">
+        <li>
+          <p>{{ 'game-build-my-balance' | translate }}</p>
+          <span>
+            {{ userInfo.point }}
+            <span class="icon">
+              <picture>
+                <source type="image/png" srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x" />
+                <img src="/assets/images/TYD.png" alt="TYQ" />
+              </picture>
+            </span>
+          </span>
+        </li>
+        <li>
+          <p>{{ 'game-build-upgrade-cost' | translate }}</p>
+          <span>
+            {{ userNFT[0].price }}
+            <span class="icon">
+              <picture>
+                <source type="image/png" srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x" />
+                <img src="/assets/images/TYD.png" alt="TYQ" />
+              </picture>
+            </span>
+          </span>
+        </li>
+      </ul>
+      <div class="buttons">
+        <button type="button" class="modal-blue-btn" (click)="goBack()">
+          {{ 'game-go-back' | translate }}
+        </button>
+        <button type="button" class="btn-primary" (click)="closeModal(buildingType.Shop)">
+          {{ 'game-build-buy-nft' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="franchise && !nft && !superMarket && !mall">
+  <div [class.scrolling]="isScrollable" class="modal__header alt with-arrow">
+    <div class="title">
+      <div class="icon" (click)="goBack()">
+        <img src="/assets/images/modal-back-arrow.svg" alt="Prime" />
+      </div>
+      <span>Merge</span>
+    </div>
+  </div>
+  <div class="modal__content nft-shop-modal buy-nft">
+    <div #scrollable class="scrollable" (scroll)="onScroll()">
+      <div class="counters-info alt">
+        <div class="counters">
+          <div class="content">
+            <div class="counter-action" (click)="openInviteModal()">
+              <div class="counter currency-count">
+                <div class="counter-wrap">
+                  <div class="icon">
+                    <picture>
+                      <source type="image/png" srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x" />
+                      <img src="/assets/images/TYD.png" alt="TYD" />
+                    </picture>
+                  </div>
+                  <p>{{ userInfo.point }}</p>
+                </div>
+              </div>
+              <div class="counter-btn main-hover">
+                <div class="counter__wrap">
+                  <span>
+                    <app-tyqoon-icon name="cross"></app-tyqoon-icon>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!--          TODO: Will be return in future-->
+            <!--            <div class="counter-action">-->
+            <!--              <div class="counter crypt-count">-->
+            <!--                <div class="counter-wrap">-->
+            <!--                  <div class="icon">-->
+            <!--                    <picture>-->
+            <!--                      <source type="image/png" srcset="/assets/images/TYQ.png 1x, /assets/images/TYQ@2x.png 2x ">-->
+            <!--                      <img src="/assets/images/TYQ.png" alt="TYQ">-->
+            <!--                    </picture>-->
+            <!--                  </div>-->
+            <!--                  <p>2,342.13</p>-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--              <div class="counter-btn main-hover">-->
+            <!--                <div class="counter__wrap">-->
+            <!--              <span>-->
+            <!--                <app-tyqoon-icon name="cross"></app-tyqoon-icon>-->
+            <!--              </span>-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--            </div>-->
+          </div>
+        </div>
+      </div>
+      <div class="earn-info">
+        <div class="earn">
+          <div class="member-benefits">
+            <div class="benefits">
+              <div class="item low">
+                <div class="content">
+                  <div class="image">
+                    <img style="opacity: 0.5" src="/assets/images/nft-shop/franchise-shop-image.png" alt="Shop" />
+                  </div>
+                </div>
+              </div>
+              <div class="separator anim">
+                <picture>
+                  <source type="image/svg" srcset="/assets/images/arrow.svg 1x, /assets/images/arrow@2x.svg 2x" />
+                  <img src="/assets/images/arrow.svg" alt="Arrow" />
+                </picture>
+              </div>
+              <div class="item high">
+                <div class="content">
+                  <div class="image">
+                    <img src="/assets/images/nft-shop/franchise-build-image.png" alt="Franchise" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="text">
+              <p>Shop</p>
+              <div class="separator">
+                <picture>
+                  <source type="image/svg" srcset="/assets/images/arrow.svg 1x, /assets/images/arrow@2x.svg 2x" />
+                  <img src="/assets/images/arrow.svg" alt="Arrow" />
+                </picture>
+              </div>
+              <p>Franchise</p>
+            </div>
+            <p class="description">
+              {{ 'game-build-shop-description' | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <ul class="amount-list">
+        <li>
+          <p>{{ 'game-build-my-balance' | translate }}</p>
+          <span>
+            {{ userInfo.point }}
+            <span class="icon">
+              <picture>
+                <source type="image/png" srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x" />
+                <img src="/assets/images/TYD.png" alt="TYQ" />
+              </picture>
+            </span>
+          </span>
+        </li>
+        <li>
+          <p>{{ 'game-build-upgrade-cost' | translate }}</p>
+          <span>
+            {{ userNFT[1].mergeFee }}
+            <span class="icon">
+              <picture>
+                <source type="image/png" srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x" />
+                <img src="/assets/images/TYD.png" alt="TYQ" />
+              </picture>
+            </span>
+          </span>
+        </li>
+      </ul>
+      <div class="buttons">
+        <button type="button" class="modal-blue-btn" (click)="goBack()">
+          {{ 'game-go-back' | translate }}
+        </button>
+        <button type="button" class="btn-primary" (click)="closeModal(buildingType.Franchise)">
+          {{ 'game-build-buy-nft' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="superMarket && !nft && !franchise && !mall">
+  <div [class.scrolling]="isScrollable" class="modal__header alt with-arrow">
+    <div class="title">
+      <div class="icon" (click)="goBack()">
+        <img src="/assets/images/modal-back-arrow.svg" alt="Prime" />
+      </div>
+      <span>Merge</span>
+    </div>
+  </div>
+  <div class="modal__content nft-shop-modal buy-nft">
+    <div #scrollable class="scrollable" (scroll)="onScroll()">
+      <div class="counters-info alt">
+        <div class="counters">
+          <div class="content">
+            <div class="counter-action" (click)="openInviteModal()">
+              <div class="counter currency-count">
+                <div class="counter-wrap">
+                  <div class="icon">
+                    <picture>
+                      <source type="image/png" srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x" />
+                      <img src="/assets/images/TYD.png" alt="TYD" />
+                    </picture>
+                  </div>
+                  <p>{{ userInfo.point }}</p>
+                </div>
+              </div>
+              <div class="counter-btn main-hover">
+                <div class="counter__wrap">
+                  <span>
+                    <app-tyqoon-icon name="cross"></app-tyqoon-icon>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!--          TODO: Will be return in future-->
+            <!--            <div class="counter-action">-->
+            <!--              <div class="counter crypt-count">-->
+            <!--                <div class="counter-wrap">-->
+            <!--                  <div class="icon">-->
+            <!--                    <picture>-->
+            <!--                      <source type="image/png" srcset="/assets/images/TYQ.png 1x, /assets/images/TYQ@2x.png 2x ">-->
+            <!--                      <img src="/assets/images/TYQ.png" alt="TYQ">-->
+            <!--                    </picture>-->
+            <!--                  </div>-->
+            <!--                  <p>2,342.13</p>-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--              <div class="counter-btn main-hover">-->
+            <!--                <div class="counter__wrap">-->
+            <!--              <span>-->
+            <!--                <app-tyqoon-icon name="cross"></app-tyqoon-icon>-->
+            <!--              </span>-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--            </div>-->
+          </div>
+        </div>
+      </div>
+      <div class="earn-info">
+        <div class="earn">
+          <div class="member-benefits">
+            <div class="benefits">
+              <div class="item low">
+                <div class="content">
+                  <div class="image">
+                    <img style="opacity: 0.5" src="/assets/images/nft-shop/franchise-build-image.png" alt="Franchise" />
+                  </div>
+                </div>
+              </div>
+              <div class="separator anim">
+                <picture>
+                  <source type="image/svg" srcset="/assets/images/arrow.svg 1x, /assets/images/arrow@2x.svg 2x" />
+                  <img src="/assets/images/arrow.svg" alt="Arrow" />
+                </picture>
+              </div>
+              <div class="item high">
+                <div class="content">
+                  <div class="image">
+                    <img src="/assets/images/nft-shop/supermarket-build-image.png" alt="Mall" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="text">
+              <p>Franchise</p>
+              <div class="separator">
+                <picture>
+                  <source type="image/svg" srcset="/assets/images/arrow.svg 1x, /assets/images/arrow@2x.svg 2x" />
+                  <img src="/assets/images/arrow.svg" alt="Arrow" />
+                </picture>
+              </div>
+              <p>Supermarket</p>
+            </div>
+            <p class="description">
+              {{ 'game-build-shop-description' | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <ul class="amount-list">
+        <li>
+          <p>{{ 'game-build-my-balance' | translate }}</p>
+          <span>
+            {{ userInfo.point }}
+            <span class="icon">
+              <picture>
+                <source type="image/png" srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x" />
+                <img src="/assets/images/TYD.png" alt="TYQ" />
+              </picture>
+            </span>
+          </span>
+        </li>
+        <li>
+          <p>{{ 'game-build-upgrade-cost' | translate }}</p>
+          <span>
+            {{ userNFT[2].mergeFee }}
+            <span class="icon">
+              <picture>
+                <source type="image/png" srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x" />
+                <img src="/assets/images/TYD.png" alt="TYQ" />
+              </picture>
+            </span>
+          </span>
+        </li>
+      </ul>
+      <div class="buttons">
+        <button type="button" class="modal-blue-btn" (click)="goBack()">
+          {{ 'game-go-back' | translate }}
+        </button>
+        <button type="button" class="btn-primary" (click)="closeModal(buildingType.SuperMarket)">
+          {{ 'game-build-buy-nft' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="mall && !nft && !franchise && !superMarket">
+  <div [class.scrolling]="isScrollable" class="modal__header alt with-arrow">
+    <div class="title">
+      <div class="icon" (click)="goBack()">
+        <img src="/assets/images/modal-back-arrow.svg" alt="Prime" />
+      </div>
+      <span>Merge</span>
+    </div>
+  </div>
+  <div class="modal__content nft-shop-modal buy-nft">
+    <div #scrollable class="scrollable" (scroll)="onScroll()">
+      <div class="counters-info alt">
+        <div class="counters">
+          <div class="content">
+            <div class="counter-action" (click)="openInviteModal()">
+              <div class="counter currency-count">
+                <div class="counter-wrap">
+                  <div class="icon">
+                    <picture>
+                      <source type="image/png" srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x" />
+                      <img src="/assets/images/TYD.png" alt="TYD" />
+                    </picture>
+                  </div>
+                  <p>{{ userInfo.point }}</p>
+                </div>
+              </div>
+              <div class="counter-btn main-hover">
+                <div class="counter__wrap">
+                  <span>
+                    <app-tyqoon-icon name="cross"></app-tyqoon-icon>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!--          TODO: Will be return in future-->
+            <!--            <div class="counter-action">-->
+            <!--              <div class="counter crypt-count">-->
+            <!--                <div class="counter-wrap">-->
+            <!--                  <div class="icon">-->
+            <!--                    <picture>-->
+            <!--                      <source type="image/png" srcset="/assets/images/TYQ.png 1x, /assets/images/TYQ@2x.png 2x ">-->
+            <!--                      <img src="/assets/images/TYQ.png" alt="TYQ">-->
+            <!--                    </picture>-->
+            <!--                  </div>-->
+            <!--                  <p>2,342.13</p>-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--              <div class="counter-btn main-hover">-->
+            <!--                <div class="counter__wrap">-->
+            <!--              <span>-->
+            <!--                <app-tyqoon-icon name="cross"></app-tyqoon-icon>-->
+            <!--              </span>-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--            </div>-->
+          </div>
+        </div>
+      </div>
+      <div class="earn-info">
+        <div class="earn">
+          <div class="member-benefits">
+            <div class="benefits">
+              <div class="item low">
+                <div class="content">
+                  <div class="image">
+                    <img style="opacity: 0.5" src="/assets/images/nft-shop/supermarket-build-image.png" alt="Supermarket" />
+                  </div>
+                </div>
+              </div>
+              <div class="separator anim">
+                <picture>
+                  <source type="image/svg" srcset="/assets/images/arrow.svg 1x, /assets/images/arrow@2x.svg 2x" />
+                  <img src="/assets/images/arrow.svg" alt="Arrow" />
+                </picture>
+              </div>
+              <div class="item high">
+                <div class="content">
+                  <div class="image">
+                    <img src="/assets/images/nft-shop/mall-build-image.png" alt="Mall" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="text">
+              <p>Supermarket</p>
+              <div class="separator">
+                <picture>
+                  <source type="image/svg" srcset="/assets/images/arrow.svg 1x, /assets/images/arrow@2x.svg 2x" />
+                  <img src="/assets/images/arrow.svg" alt="Arrow" />
+                </picture>
+              </div>
+              <p>Mall</p>
+            </div>
+            <p class="description">
+              {{ 'game-build-shop-description' | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <ul class="amount-list">
+        <li>
+          <p>{{ 'game-build-my-balance' | translate }}</p>
+          <span>
+            {{ userInfo.point }}
+            <span class="icon">
+              <picture>
+                <source type="image/png" srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x" />
+                <img src="/assets/images/TYD.png" alt="TYQ" />
+              </picture>
+            </span>
+          </span>
+        </li>
+        <li>
+          <p>{{ 'game-build-upgrade-cost' | translate }}</p>
+          <span>
+            {{ userNFT[3].mergeFee }}
+            <span class="icon">
+              <picture>
+                <source type="image/png" srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x" />
+                <img src="/assets/images/TYD.png" alt="TYQ" />
+              </picture>
+            </span>
+          </span>
+        </li>
+      </ul>
+      <div class="buttons">
+        <button type="button" class="modal-blue-btn" (click)="goBack()">
+          {{ 'game-go-back' | translate }}
+        </button>
+        <button type="button" class="btn-primary" (click)="closeModal(buildingType.Mall)">
+          {{ 'game-build-buy-nft' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-container>

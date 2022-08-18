@@ -1,0 +1,40 @@
+<ng-container *ngIf="dropdownItem?.length">
+  <ul class="dropdown" [class]="type">
+    <li class="dropdown__value">
+      <p>
+        <span class="arrow">
+          <app-tyqoon-icon name="arrowDown"></app-tyqoon-icon>
+        </span>
+        <span class="dropdown__icon">
+          <ng-container *ngIf="activeItem.icon; else currency">
+              <app-tyqoon-icon [name]="activeItem.icon"></app-tyqoon-icon>
+              <p *ngIf="selectedLanguage">{{ activeItem.text }}</p>
+          </ng-container>
+          <ng-template #currency>
+            {{ activeItem.currency }}
+          </ng-template>
+        </span>
+      </p>
+      <ul class="dropdown__option">
+        <ng-container *ngFor="let item of dropdownItem; trackBy: trackById">
+        <li class="dropdown__item"
+            (click)="setActiveItem(item)">
+            <span class="dropdown__item-wrap">
+              <span class="dropdown__item-icon">
+            <ng-container *ngIf="item.icon; else currency">
+              <app-tyqoon-icon [name]="item.icon"></app-tyqoon-icon>
+            </ng-container>
+            <ng-template #currency>
+              {{ item.currency }}
+            </ng-template>
+            </span>
+            <span class="dropdown__item-name dropdown__item-name-dark">{{ item?.text }}</span>
+            </span>
+
+        </li>
+        </ng-container>
+
+      </ul>
+    </li>
+  </ul>
+</ng-container>

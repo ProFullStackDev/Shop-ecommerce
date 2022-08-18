@@ -1,0 +1,83 @@
+.user-amount {
+  width: 100%;
+  height: 70px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  border: double 2px transparent;
+  border-radius: 10px;
+  background-image: linear-gradient(#F8F8F8, #F8F8F8), radial-gradient(circle at top left, #FEE04A,#FFb21C);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+
+.amount {
+  color: #FFB341;
+  font-weight: bold;
+  font-size: 24px;
+  @media (max-width: 1210px) {
+    font-size: 15px;
+  }
+}
+
+img {
+  height: 50px !important;
+  width: 50px;
+  font-weight: bold;
+  color: #D9DADC;
+  margin-left: 8px;
+}
+
+.tyqoon-dollars-container {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #FFE141;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: black;
+  height: 52px;
+  font-size: 18px;
+  font-weight: bold;
+  justify-content: center;
+}
+
+svg {
+  height: 36px;
+  fill: white;
+  color: white;
+}
+
+app-profit {
+  width: 100%;
+}
+
+.title {
+  font-family: Gotham Pro,sans-serif;
+  font-weight: bold;
+  font-size: 13px;
+  color: #192227;
+  @media (max-width: 1082px) {
+    font-size: 10px;
+    @media (max-width: 550px) and (min-width: 360px) {
+      font-size: 8px;
+    }
+  }
+}
+
+.noselect * {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}

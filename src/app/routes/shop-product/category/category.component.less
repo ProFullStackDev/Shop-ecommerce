@@ -1,0 +1,101 @@
+@import "~src/styles/_variables";
+
+.anchor {
+  max-height: 70vh;
+  overflow-y: auto;
+  /deep/ .ant-anchor-wrapper {
+    padding: 10px 0;
+    background: #fff;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  /deep/ .ant-anchor-ink {
+    &:before {
+      display: none;
+    }
+  }
+  /deep/ .ant-anchor-ink-ball {
+    left: 8px;
+    background-color: @primary-color;
+    border: 2px solid #fff;
+  }
+  /deep/ .ant-anchor-link {
+    margin-top: 12px;
+    border-radius: 5px;
+    line-height: 30px;
+    background-color: #f5f5f5;
+    transition: 0.3s;
+    &.ant-anchor-link-active {
+      background: @primary-color;
+      > .ant-anchor-link-title {
+        color: #fff;
+      }
+    }
+  }
+}
+
+.category {
+  margin-top: 10px;
+  &-title {
+    display: block;
+    color: @primary-color;
+    font-weight: bold;
+    padding: 10px 0;
+    border-image: linear-gradient(90deg, @primary-color, lighten(@primary-color, 70%)) 1;
+    border-width: 0 0 1px 0;
+    border-bottom: 1px solid #ed0014;
+  }
+  .category-second {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    line-height: 40px;
+    border-bottom: 1px solid #eeeeee;
+    &-title {
+      width: 90px;
+      color: @primary-color;
+    }
+    .category-third {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      .category-third-title {
+        min-width: 100px;
+        margin-right: 18px;
+        transition: 0.3s;
+          &:hover {
+            color: @primary-color;
+          }
+        }
+    }
+  }
+
+  .related-product {
+    margin: 12px 0;
+    .title {
+      line-height: 16px;
+      margin: 10px 0;
+      padding-left: 5px;
+      border-left: 3px solid @primary-color;
+    }
+    .content {
+      display: flex;
+      justify-content: space-between;
+      .product {
+        width: calc((100% - 15px * 4) / 5);
+        padding: 10px;
+        transition: 0.3s;
+        border: 1px solid #eeeeee;
+        box-shadow: none;
+        position: relative;
+        top: 0;
+        &:hover {
+          border-color: @primary-color;
+          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+          top: -2px;
+        }
+      }
+    }
+  }
+}

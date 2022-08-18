@@ -1,0 +1,35 @@
+<div class="qr">
+  <div class="qr__item">
+    <div class="title">
+      <p>
+        {{'game-invite-title' | translate}}
+      </p>
+    </div>
+    <div class="image">
+      <qr-code [value]="shareLink" [size]="210" class="myQrcode" #myQrcode></qr-code>
+      <!--      <img src="/assets/images/qr-code.png" alt="QR Code" />-->
+    </div>
+    <div class="btn-wrap" (click)="openInviteModal()">
+      <div class="icon"><img src="/assets/images/game-board/invite.svg" alt="Invite" /></div>
+      <button type="button" class="btn-primary">{{ 'game-invite-title' | translate }}</button>
+    </div>
+  </div>
+  <div class="qr__item">
+    <div class="title">
+      <p>
+        {{'dashboard-my-invite-link' | translate}}
+      </p>
+    </div>
+    <div class="link">
+      <p>{{ shareLink }}</p>
+    </div>
+    <div class="buttons">
+      <button [appCopying]="shareLink" [successTitle]="successTitle" type="button" class="btn-primary" (copied)="copied($event)">
+        {{ successTitle | translate }}
+      </button>
+      <button [appDownload]="qrCodeImage" type="button" class="btn-primary">
+        <app-tyqoon-icon name="qrCode"></app-tyqoon-icon>
+      </button>
+    </div>
+  </div>
+</div>

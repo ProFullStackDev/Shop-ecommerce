@@ -1,0 +1,48 @@
+<nz-card class="order-page" nzTitle="{{ 'invoice-header-heading' | translate }}" nzSize="small">
+  <div class="content">
+    <ul class="calss-ul">
+      <li class="add">
+        <a routerLink="/member/header-manage/add" routerLinkActive="actived" [routerLinkActiveOptions]="{ exact: true }">
+          <span class="add-icon">+&nbsp;</span>
+          <span class="add-words">{{ 'invoice-header-add-header' | translate }}</span>
+        </a>
+      </li>
+
+      <li class="other-li" *ngFor="let item of dataList; let key = index">
+        <div class="title">
+          <span class="name" *ngIf="item.type === 0">{{ 'invoice-header-type-personal' | translate }}</span>
+          <span class="name" *ngIf="item.type === 1">{{ 'invoice-header-type-unit' }}</span>
+        </div>
+        <p>{{ item.title }}</p>
+        <p class="zipCode">{{ item.vatRegistrationNumber }}</p>
+        <div class="action">
+          <a
+            routerLink="/member/header-manage/edit"
+            routerLinkActive="actived"
+            [queryParams]="{ id: item.id }"
+            [routerLinkActiveOptions]="{ exact: true }"
+            ><i title="编辑" nz-icon nzType="edit" nzTheme="twotone"></i
+          ></a>
+          <a href="javascript:;" (click)="toDelete(key)"><i title="删除" nz-icon nzType="delete" nzTheme="twotone"></i></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <!-- table-pagination ----------------start -->
+  <nz-pagination
+    class="pagination"
+    [nzPageIndex]="pageParams.page + 1"
+    [nzTotal]="totalNum"
+    [nzShowTotal]="totalTemplate"
+    nzHideOnSinglePage="true"
+    (nzPageIndexChange)="pageChange($event)"
+  >
+    <ng-template #totalTemplate let-total>全部 {{ totalNum }}条</ng-template>
+  </nz-pagination>
+  <!-- table-pagination ----------------end -->
+</nz-card>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="提示信息" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <p>{{ 'invoice-header-delete-modal-decription' | translate }}</p>
+  </ng-container>
+</nz-modal>

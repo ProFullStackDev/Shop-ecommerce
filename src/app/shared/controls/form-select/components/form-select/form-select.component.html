@@ -1,0 +1,6 @@
+<input #formInput type="radio" [checked]="checked" [id]="id" [value]="value" [name]="name" (click)="onInputClick($event)">
+<label [for]="id" class="dropdown__item">
+   <span class="dropdown__item-wrap">
+     <span class="dropdown__item-name">{{ label }}</span>
+   </span>
+</label>

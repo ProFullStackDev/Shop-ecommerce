@@ -1,0 +1,16 @@
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+.rating > .star {
+  display: inline-block;
+  position: relative;
+  color: #c2bdbd;
+  font-size: 24px;
+}
+.rating > .star.active:before,
+.rating > .star.active ~ .star.before {
+  content: '\2605';
+  color: #fadb14;
+  position: absolute;
+}

@@ -1,0 +1,40 @@
+<div class="modal__header alt gray" [class.scrolling]="isScrollable">
+  <div class="title">
+    <span class="icon gift-box">
+      <app-tyqoon-icon name="giftBox"></app-tyqoon-icon>
+    </span>
+    <span>Buy Gift Code</span>
+  </div>
+</div>
+<div class="modal__content payment-modal">
+  <div #scrollable class="scrollable" (scroll)="onScroll()">
+    <p class="title">Buy a Gift Codes that can be used to gift Store Credit to your friends and family.</p>
+    <span class="label">How many gift codes do you need?</span>
+    <label [class.error]="numOfCodes.invalid && numOfCodes.touched">
+      <input id="num" type="number" [min]="1" [formControl]="numOfCodes" placeholder="0" />
+    </label>
+    <span class="label">Value of each Gift Code</span>
+    <label [class.error]="(amountOfCredits.invalid && amountOfCredits.touched) || amountMinError || amountMaxError">
+      <input id="amount" type="number" [formControl]="amountOfCredits" placeholder="0" />
+      <span class="currency">¥</span>
+    </label>
+    <span *ngIf="amountMinError" class="error"> {{ 'payment-minimum-amount-error' | translate }}: {{ amountMinError }} </span>
+    <span *ngIf="amountMaxError" class="error"> {{ 'payment-maximum-amount-error' | translate }}: {{ amountMaxError }} </span>
+    <div class="gift-codes-result">
+      <p class="title">Total Codes</p>
+      <p>
+        <span class="gift-codes-result__wrap">
+          <span class="currency">¥</span>
+          <span>{{ amountOfCredits.value ? amountOfCredits.value : 0 }}</span>
+        </span>
+        <span class="num-of-codes">x {{ numOfCodes.value ? numOfCodes.value : 0 }} <span class="gift-codes">Gift Code(s)</span></span>
+      </p>
+    </div>
+    <p class="total-result"
+      >Total: <span class="currency">¥{{ totalAmount }}</span></p
+    >
+    <button type="button" class="confirm-btn" (click)="openConfirmModal()" [disabled]="amountOfCredits.invalid || numOfCodes.invalid">
+      Continue
+    </button>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<div class="rating">
+  <span
+    class="star"
+    *ngFor="let star of stars"
+    [class.active]="star.active"
+    (click)="checkStars(star.index)"
+    (mouseover)="previewStars(star.index)"
+    (mouseout)="recoverStars()"
+    >☆</span
+  >
+</div>

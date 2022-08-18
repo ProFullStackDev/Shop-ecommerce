@@ -1,0 +1,40 @@
+<div class="content content-invoice">
+  <ul class="calss-ul">
+    <li class="other-li" *ngFor="let item of dataList">
+      <div class="title">
+        <span class="name">{{ item.consignee }}</span>
+        <span *ngIf="item.isDefault" class="default">{{ 'checkout-shipping-change-default' | translate }}</span>
+        <span class="unselect" *ngIf="!item.select; else unselected" (click)="selectAddress(item)">
+          {{ 'checkout-shipping-change-use' | translate }}
+        </span>
+        <ng-template #unselected>
+          <span class="select" (click)="selectAddress(item)">
+            <i nz-icon nzType="check" nzTheme="outline"></i>
+            <span>
+              {{ 'checkout-shipping-change-selected' | translate }}
+            </span>
+          </span>
+        </ng-template>
+      </div>
+      <p>{{ item.phone }}</p>
+      <p class="address">{{ item.areaName }}</p>
+      <p class="zipCode">{{ item.zipCode }}</p>
+      <!--      <div class="action">-->
+      <!--        <a-->
+      <!--          routerLink="/member/address/edit"-->
+      <!--          routerLinkActive="actived"-->
+      <!--          [queryParams]="{ id: item.id }"-->
+      <!--          [routerLinkActiveOptions]="{ exact: true }"-->
+      <!--        ><i title="编辑" nz-icon nzType="edit" nzTheme="twotone"></i-->
+      <!--        ></a>-->
+      <!--        <a href="javascript:;" (click)="toDelete(item.id)"><i title="删除" nz-icon nzType="delete" nzTheme="twotone"></i></a>-->
+      <!--      </div>-->
+    </li>
+  </ul>
+</div>
+
+<!--<nz-modal [(nzVisible)]="isVisible" nzTitle="提示信息" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">-->
+<!--  <ng-container *nzModalContent>-->
+<!--    <p>您确定要删除吗？</p>-->
+<!--  </ng-container>-->
+<!--</nz-modal>-->

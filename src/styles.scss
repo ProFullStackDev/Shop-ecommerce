@@ -1,0 +1,45 @@
+/* You can add global styles to this file, and also import other style files */
+$container-width: 1300px;
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 12px;
+  color: #333;
+}
+
+.container {
+  width: $container-width;
+  margin: 0 auto;
+}
+
+// // this is for material slider in new convert dollars modal
+// ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+//   background-color: #2FDA94; /*replace with your color*/
+// }
+
+// ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+//   background-color: #2FDA94;  /*replace with your color*/
+// }
+
+// /* CSS to change 'Primary' color */
+
+// ::ng-deep .mat-slide-toggle.mat-primary.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+//   background-color: #2FDA94;
+// }
+
+// ::ng-deep .mat-slide-toggle.mat-primary.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+//   background-color: #2FDA94;
+// }
+
+// /* CSS to change 'Warn' color */
+
+// ::ng-deep .mat-slide-toggle.mat-warn.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+//   background-color: #2FDA94;
+// }
+
+// ::ng-deep .mat-slide-toggle.mat-warn.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+//   background-color: #2FDA94;
+// }
+

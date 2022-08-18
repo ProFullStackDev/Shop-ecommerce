@@ -1,0 +1,96 @@
+@import '~src/styles/_variables';
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 0 15px;
+  border-bottom: 1px solid #f0f0f0;
+  .title {
+    height: 38px;
+    line-height: 38px;
+  }
+}
+.content {
+  padding: 15px;
+  background-color: #fff;
+  .group1 {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .three {
+      color: red;
+    }
+  }
+  .group2 {
+    .title {
+      height: 42px;
+      padding: 12px 5px;
+      background-color: #f4f2f3;
+      border: 1px solid #eee;
+      color: #666;
+      font-weight: bold;
+    }
+    .item {
+      height: 42px;
+      display: flex;
+      align-items: center;
+      border: 1px solid #eee;
+      border-top: none;
+      color: #666;
+      .left {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        width: 160px;
+        padding-left: 5px;
+        border-right: 1px solid #eee;
+      }
+      .right {
+        padding-left: 5px;
+      }
+      .wait-check {
+        color: @primary-color;
+      }
+    }
+  }
+  .group3 {
+    margin-top: 20px;
+  }
+  .footer {
+    margin-top: 20px;
+    .back {
+      margin-left: 15px;
+    }
+  }
+}
+
+/deep/ .ant-steps-item {
+  // background-color: red;
+  position: relative;
+  flex: none;
+  width: 225px;
+  overflow: hidden;
+}
+
+/deep/ .ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-icon {
+  background: #d8d8d8;
+}
+
+/deep/ .ant-steps-item-process .ant-steps-item-icon {
+  background-color: #fff;
+  border-color: #d8d8d8;
+  color: #57b539;
+}
+
+/deep/ .ant-steps-item-title {
+  // color: @primary-color !important;
+  // font-weight: bold;
+}
+
+.img-class {
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+}

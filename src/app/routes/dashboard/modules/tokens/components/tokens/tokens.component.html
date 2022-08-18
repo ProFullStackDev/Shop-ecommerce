@@ -1,0 +1,177 @@
+<div class="modal__header alt tokens"  [class.scrolling]="isScrollable">
+  <div class="title">
+    <div class="icon">
+      <picture>
+        <source type="image/png"  srcset="/assets/images/TYQOON-Dollars-cc.png 1x, /assets/images/TYQOON-Dollars-cc@2x.png 2x ">
+        <img src="/assets/images/TYQOON-Dollars-cc.png" alt="Dollars">
+      </picture>
+    </div>
+    <span>Earn Dollars</span>
+  </div>
+</div>
+<div class="modal__content tokens-modal">
+  <div #scrollable class="scrollable" (scroll)="onScroll()">
+    <div class="counters-info alt">
+      <div class="counters">
+        <div class="content">
+          <div class="counter-action">
+            <div class="counter currency-count">
+              <div class="counter-wrap">
+                <div class="icon">
+                  <picture>
+                    <source type="image/png"  srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x ">
+                    <img src="/assets/images/TYD.png" alt="TYD">
+                  </picture>
+                </div>
+                <p>52,203.13</p>
+              </div>
+            </div>
+            <div class="counter-btn main-hover">
+              <div class="counter__wrap">
+              <span>
+                <app-tyqoon-icon name="cross"></app-tyqoon-icon>
+              </span>
+              </div>
+            </div>
+          </div>
+<!--          TODO: Will be return in future-->
+<!--          <div class="counter">-->
+<!--            <div class="counter-wrap">-->
+<!--              <div class="icon">-->
+<!--                <picture>-->
+<!--                  <source type="image/png"  srcset="/assets/images/TYQ.png 1x, /assets/images/TYQ@2x.png 2x ">-->
+<!--                  <img src="/assets/images/TYQ.png" alt="TYQ">-->
+<!--                </picture>-->
+<!--              </div>-->
+<!--              <p>2,342.13</p>-->
+<!--            </div>-->
+<!--          </div>-->
+        </div>
+      </div>
+    </div>
+    <!--          TODO: Will be return in future-->
+<!--    <div class="earn-info">-->
+<!--      <div class="earn">-->
+<!--        <div class="member-benefits">-->
+<!--          <div class="benefits">-->
+<!--            <div class="item low">-->
+<!--              <div class="content">-->
+<!--                <div class="image">-->
+<!--                  <picture>-->
+<!--                    <source type="image/png"  srcset="/assets/images/TYQOON-Dollars-cc.png 1x, /assets/images/TYQOON-Dollars-cc@2x.png 2x ">-->
+<!--                    <img src="/assets/images/game-board/TYQOON-Dollars-cc.png" alt="TYD">-->
+<!--                  </picture>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="separator anim">-->
+<!--              <picture>-->
+<!--                <source type="image/svg"  srcset="/assets/images/arrow.svg 1x, /assets/images/arrow@2x.svg 2x ">-->
+<!--                <img src="/assets/images/arrow.svg" alt="Arrow">-->
+<!--              </picture>-->
+<!--            </div>-->
+<!--            <div class="item high">-->
+<!--              <div class="content">-->
+<!--                <div class="image">-->
+<!--                  <picture>-->
+<!--                    <source type="image/png"  srcset="/assets/images/TYQOON-TOKENS-CC.png 1x, /assets/images/TYQOON-TOKENS-CC@2x.png 2x ">-->
+<!--                    <img src="/assets/images/TYQOON-TOKENS-CC.png" alt="Tokens">-->
+<!--                  </picture>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="text">-->
+<!--            <p>TYQOON Dollars</p>-->
+<!--            <div class="separator">-->
+<!--              <picture>-->
+<!--                <source type="image/svg"  srcset="/assets/images/arrow.svg 1x, /assets/images/arrow@2x.svg 2x ">-->
+<!--                <img src="/assets/images/arrow.svg" alt="Arrow">-->
+<!--              </picture>-->
+<!--            </div>-->
+<!--            <p>TYQOON Tokens</p>-->
+<!--          </div>-->
+<!--          <p class="description">-->
+<!--            Convert TYQOON Dollars to TYQOON Tokens which can be used to buy premium NFTs and-->
+<!--            can be traded on decentralized exchange!-->
+<!--          </p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+    <ng-container *ngIf="converting; else convertingProcess">
+      <div class="range">
+        <p>TYQOON Dollars to Convert</p>
+
+        <div class="range-wrap">
+          <div class="content">
+            <p>{{ +inputRangeValue.value.toFixed(2) }}</p>
+            <div class="icon">
+              <picture>
+                <source type="image/png"  srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x ">
+                <img src="/assets/images/TYD.png" alt="TYD">
+              </picture>
+            </div>
+          </div>
+          <div class="range-bar-wrap">
+            <p>0</p>
+            <div class="range-bar">
+              <input [formControl]="inputRangeValue" type="range" [min]="0" [max]="522.03" value="0" step="5.2203" class="range-input" id="myRange">
+            </div>
+            <p>MAX</p>
+          </div>
+        </div>
+      </div>
+      <div class="receive">
+        <p>
+          TYQOON Dollars to receive:
+          <!--          TODO: Will be return in future-->
+<!--          TYQOON Tokens to receive:-->
+        </p>
+        <div class="share-info">
+          <div class="modal-input">
+            324.134024
+            <div class="icon">
+              <picture>
+                <source type="image/png" srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x ">
+                <img src="/assets/images/TYD.png" alt="TYD">
+              </picture>
+            </div>
+          </div>
+          <button type="button" class="btn-primary" (click)="converting = false">
+            Convert
+          </button>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #convertingProcess>
+      <div class="conversion-info">
+      <p>Countdown to next conversion</p>
+      <div class="timer">
+        <div class="time-bar"></div>
+        <p>23:34:12</p>
+      </div>
+    </div>
+      <div class="receive">
+      <p>
+        TYQOON Dollars to receive:
+        <!--          TODO: Will be return in future-->
+<!--        TYQOON Tokens to receive:-->
+      </p>
+      <div class="share-info">
+        <div class="modal-input">
+          0
+          <div class="icon">
+            <picture>
+              <source type="image/png" srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x ">
+              <img src="/assets/images/TYD.png" alt="TYQ">
+            </picture>
+          </div>
+        </div>
+        <button type="button" class="btn-primary" disabled>
+          Convert
+        </button>
+      </div>
+    </div>
+    </ng-template>
+  </div>
+</div>

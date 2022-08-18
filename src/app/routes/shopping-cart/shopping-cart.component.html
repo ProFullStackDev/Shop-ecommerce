@@ -1,0 +1,262 @@
+<div class="page-cart">
+  <div class="container">
+    <!-- header---------------------start -->
+    <div class="cart-statistics">
+      <div class="cart-statistics-title">
+        <div class="cart-statistics-title-text title">{{ 'header-my-cart' | translate }}</div>
+        <div class="cart-statistics-title-select">
+          <div *ngFor="let shopCart of cartGroup">
+            <label
+              nz-checkbox
+              [(ngModel)]="shopCart.checked"
+              [nzIndeterminate]="shopCart.checkedIndeterminate"
+              (ngModelChange)="shopCheckChange(shopCart.id, $event)"
+              >{{ 'cart-select-all' | translate }}
+            </label>
+          </div>
+        </div>
+      </div>
+      <nz-row class="cart-statistics-panels" nzJustify="space-between" nzGutter="14">
+        <nz-col [nzSpan]="6" class="tyqoon-dollars-container noselect">
+          <app-platform-total-savings></app-platform-total-savings>
+        </nz-col>
+        <nz-col [nzSpan]="6" class="my-total-savings">
+          <app-total-savings></app-total-savings>
+        </nz-col>
+        <nz-col [nzSpan]="6">
+          <app-tyqoon-dollars></app-tyqoon-dollars>
+        </nz-col>
+        <nz-col [nzSpan]="6">
+          <app-rebate-credits></app-rebate-credits>
+        </nz-col>
+      </nz-row>
+    </div>
+    <!-- header---------------------end -->
+
+    <nz-empty
+      class="cart-empty"
+      *ngIf="cartGroup.length < 1 && !loading.query"
+      nzNotFoundContent="您的购物车是空的，请去挑选您的商品！"
+    ></nz-empty>
+
+    <!-- cart-group--------------start -->
+    <nz-skeleton *ngIf="cartGroup.length < 1 && loading.query" [nzParagraph]="{ rows: 10 }"></nz-skeleton>
+    <div *ngFor="let shopCart of cartGroup" class="cart-group">
+      <nz-row *ngFor="let cartItem of shopCart.items" nzAlign="middle" class="cart-group-item">
+        <nz-col class="checkbox" [nzSpan]="colSpan.checkbox">
+          <label
+            nz-checkbox
+            [(ngModel)]="cartItem.checked"
+            [disabled]="checkAvailability(cartItem)"
+            (ngModelChange)="cartItemCheckChange(shopCart.id)"
+          ></label>
+        </nz-col>
+        <nz-col [nzSpan]="colSpan.productInfo">
+          <nz-row [nzGutter]="8" nzAlign="middle">
+            <nz-col [nzSpan]="3">
+              <nz-avatar [nzSize]="50" [nzSrc]="cartItem.cover || '11'" nzIcon="picture" nzShape="square"></nz-avatar>
+            </nz-col>
+            <nz-col [nzSpan]="21">
+              <div class="product-name text-overflow product-name-style" [title]="cartItem.productName">
+                <a routerLink="/product/detail" [queryParams]="{ id: cartItem.productId }">{{ cartItem.productName }}</a>
+              </div>
+              <div *ngIf="cartItem.skuSpec" class="text-gray text-overflow product-name-style">[{{ cartItem.skuSpec }}]</div>
+              <div class="text-gray product-cashback">
+                <span class="product-name-style product-cashback-title">{{ 'home-cash-back' | translate }}:</span>
+                <span class="product-cashback-num">{{ cartItem.cashBack * cartItem.quantity | number: '0.2-2' }}</span>
+                <img class="product-cashback-icon" src="/assets/images/TYQOON-Dollars-cc.png" />
+              </div>
+              <div *ngIf="checkAvailability(cartItem)">{{ 'cart-sold-out' | translate }}</div>
+            </nz-col>
+          </nz-row>
+        </nz-col>
+        <nz-col class="text-lg" [nzSpan]="colSpan.price">
+          <span class="sku-exchange-point" *ngIf="cartItem.skuExchangePoint > 0">{{ cartItem.skuExchangePoint }}积分</span>
+          <span class="add-symbol" *ngIf="cartItem.skuExchangePoint > 0 && cartItem.skuPrice > 0"> + </span>
+          <span class="sku-price sku-price-style" *ngIf="cartItem.skuPrice > 0">{{ cartItem.skuPrice | currency }}</span>
+        </nz-col>
+        <nz-col [nzSpan]="colSpan.quantity">
+          <nz-input-number
+            class="custom-nz-input-number"
+            [(ngModel)]="cartItem.quantity"
+            [nzMin]="1"
+            [nzMax]="cartItem.skuStock"
+            nzSize="large"
+            [nzPrecision]="0"
+            (ngModelChange)="quantityChange(cartItem.skuId.toString(), $event)"
+          ></nz-input-number>
+        </nz-col>
+        <nz-col [nzSpan]="colSpan.total" class="text-lg">
+          <strong>
+            <span class="sku-exchange-point" *ngIf="cartItem.exchangePointTotal > 0">{{ cartItem.exchangePointTotal }}积分</span>
+            <span class="add-symbol" *ngIf="cartItem.exchangePointTotal > 0 && cartItem.priceTotal > 0"> + </span>
+            <span class="sku-price sku-price-style" *ngIf="cartItem.priceTotal">{{ cartItem.priceTotal | currency }}</span>
+          </strong>
+        </nz-col>
+        <nz-col [nzSpan]="colSpan.operation">
+          <button class="operation-delete" (click)="delCartItem([cartItem.cartItemId])">
+            <img src="/assets/svg/icons8-trash.svg" alt="" />
+          </button>
+        </nz-col>
+      </nz-row>
+      <nz-row *ngIf="voucherNum > 0" nzAlign="middle" class="cart-group-item none">
+        <nz-col class="checkbox" [nzSpan]="colSpan.checkbox"> </nz-col>
+        <nz-col [nzSpan]="colSpan.productInfo">
+          <nz-row [nzGutter]="8" nzAlign="middle">
+            <nz-col [nzSpan]="3">
+              <nz-avatar [nzSize]="50" [nzSrc]="voucherService.cover" nzIcon="picture" nzShape="square"></nz-avatar>
+            </nz-col>
+            <nz-col [nzSpan]="21">
+              <div class="product-name text-overflow product-name-style" [title]="voucherService.productName">
+                {{ voucherService.productName }}
+              </div>
+            </nz-col>
+          </nz-row>
+        </nz-col>
+        <nz-col class="text-2xl" [nzSpan]="colSpan.price">
+          <span class="sku-price sku-price-style">{{ voucherValue | currency }}</span>
+        </nz-col>
+        <nz-col [nzSpan]="colSpan.quantity">
+          <nz-input-number [(ngModel)]="voucherNum" [nzMin]="0" nzSize="large" [nzPrecision]="0"></nz-input-number>
+        </nz-col>
+        <nz-col [nzSpan]="colSpan.total" class="text-2xl">
+          <strong>
+            <span class="sku-price sku-price-style">{{ voucherNum * voucherValue | currency }}</span>
+          </strong>
+        </nz-col>
+        <nz-col [nzSpan]="colSpan.operation"> </nz-col>
+      </nz-row>
+    </div>
+    <!-- cart-group--------------end -->
+
+    <!-- cart-footer--------------start -->
+    <nz-row class="cart-footer" *ngIf="cartGroup.length > 0">
+      <nz-col [nzSpan]="12" class="cart-footer-left">
+        <picture>
+          <source
+            type="image/png"
+            srcset="
+              /assets/images/shopping-cart/TYQOON-MASCOT-SHOPPING-CART.png    1x,
+              /assets/images/shopping-cart/TYQOON-MASCOT-SHOPPING-CART@2x.png 2x
+            "
+          />
+          <img src="/assets/images/shopping-cart/TYQOON-MASCOT-SHOPPING-CART.png" alt="Shopping Cart" />
+        </picture>
+      </nz-col>
+      <nz-col [nzSpan]="12" class="cart-footer-right">
+        <div class="right-top desktop-panel">
+          <div class="credits">
+            <span class="anim" [innerHTML]="rebateSvg | safe"></span>
+            <div class="credits-title">
+              <div class="credits-title-text">{{ 'rebate-credits' | translate }}</div>
+            </div>
+            <div class="credits-buy">
+              <div class="credits-buy-text">{{ 'buy-voucher' | translate }}</div>
+              <img class="credits-buy-icon" src="/assets/images/ticket-voucher-gold.png" alt="voucher" />
+              <div class="credits-buy-btn credits-buy-btn-subtract" (click)="changeVoucherNum(-1, false)">-</div>
+              <div class="credits-buy-num">{{ voucherNum }}</div>
+              <button
+                class="credits-buy-btn credits-buy-btn-add"
+                [class.not-complete]="cashbackProgress !== 100"
+                (click)="changeVoucherNum(1, true)"
+                >+</button
+              >
+              <div class="credits-buy-tips" [class.show]="showBuyCreditsTips">
+                <span class="credits-buy-tips-icon">
+                  <img src="/assets/images/arrow_icon_2x.png" alt="arrow" />
+                </span>
+                <div class="credits-buy-tips-text">{{ 'cart-buy-credits-tips' | translate }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="progress" [class.showBuyCreditsTips]="showBuyCreditsTips">
+            <div class="progress-container">
+              <div class="bar" [style.width]="cashbackProgress + '%'"></div>
+              <p>{{ realCashback | number: '1.2-2' }} / {{ totalCashback | number: '1.2-2' }}</p>
+            </div>
+          </div>
+          <div class="cashback-receive">
+            <span class="cashback-receive-title">{{ 'cart-cashback-to-receive' | translate }}:</span>
+            <span class="cashback-receive-nums">
+              <span class="group">
+                <img class="icon" src="/assets/images/TYD-25px.png" alt="TYD" />
+                {{ realCashback | number: '0.2-2' }}
+              </span>
+              <span class="group symbol"> / </span>
+              <span class="group">
+                <img class="icon" src="/assets/images/TYD-25px.png" alt="TYD" />
+                {{ totalCashback | number: '0.2-2' }}
+              </span>
+            </span>
+          </div>
+          <div class="balance">
+            <span class="balance-title">{{ 'cart-my-store-credit-balance' | translate }}:</span>
+            <span class="balance-value">{{ userInfo.balance | currency }}</span>
+          </div>
+        </div>
+        <div class="right-top mobile-panel">
+          <div class="credits-title-text">{{ 'rebate-credits' | translate }}</div>
+          <div class="progress" [class.showBuyCreditsTips]="showBuyCreditsTips">
+            <div class="progress-container">
+              <div class="bar" [style.width]="cashbackProgress + '%'"></div>
+              <p>{{ realCashback | currency }} / {{ totalCashback | currency }}</p>
+            </div>
+          </div>
+
+          <div class="credits-buy">
+            <div class="credits-buy-upper">
+              <img class="credits-buy-icon" src="/assets/images/ticket-voucher-gold.png" alt="voucher" />
+              <div class="credits-buy-text">{{ 'Prime Vounchers' | translate }}</div>
+            </div>
+            <div class="credits-buy-lower">
+              <div class="credits-buy-btn credits-buy-btn-subtract" (click)="changeVoucherNum(-1, false)">-</div>
+              <div class="credits-buy-num">{{ voucherNum }}</div>
+              <button
+                class="credits-buy-btn credits-buy-btn-add"
+                [disabled]="isDisabledAddCoupon"
+                [class.not-complete]="cashbackProgress !== 100"
+                (click)="changeVoucherNum(1, true)"
+                >+</button
+              >
+              <div class="credits-buy-tips" [class.show]="showBuyCreditsTips">
+                <span class="credits-buy-tips-icon">
+                  <img src="/assets/images/arrow_icon_2x.png" alt="arrow" />
+                </span>
+                <div class="credits-buy-tips-text">{{ 'cart-buy-credits-tips' | translate }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="cashback-receive">
+            <span class="cashback-receive-title">{{ 'cart-cashback-to-receive' | translate }}:</span>
+            <span class="cashback-receive-nums">
+              <span class="group">
+                <img class="icon" src="/assets/images/TYD-25px.png" alt="TYD" />
+                {{ realCashback | number: '0.2-2' }}
+              </span>
+              <span class="group symbol"> / </span>
+              <span class="group">
+                <img class="icon" src="/assets/images/TYD-25px.png" alt="TYD" />
+                {{ totalCashback | number: '0.2-2' }}
+              </span>
+            </span>
+          </div>
+        </div>
+        <div class="right-bottom">
+          <div class="price">{{ priceTotal | currency }}</div>
+          <button
+            class="checkout"
+            nz-button
+            nzType="primary"
+            nzSize="large"
+            [disabled]="!canSettlement"
+            [nzLoading]="loading.settlement"
+            (click)="checkCredits()"
+          >
+            {{ 'cart-checkout' | translate }}
+          </button>
+        </div>
+      </nz-col>
+    </nz-row>
+    <!-- cart-footer--------------end -->
+  </div>
+</div>

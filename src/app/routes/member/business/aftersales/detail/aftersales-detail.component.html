@@ -1,0 +1,207 @@
+<div class="main">
+  <div class="title">售后详情</div>
+  <button
+    nz-button
+    nzType="default"
+    (click)="goCancel()"
+    [disabled]="loading.submit"
+    *ngIf="detailInfo.afterSales.status === AftersalesStatus.PENDING || detailInfo.afterSales.status === AftersalesStatus.APPROVED"
+    >取消申请</button
+  >
+</div>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="提示" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <p>确定取消申请吗？</p>
+  </ng-container>
+</nz-modal>
+<div class="content">
+  <div class="group1">
+    <div class="type"
+      ><span class="title">类型: </span>
+      <span>{{ detailInfo.afterSales.dtype | dict: DictKey.AFTERSALES_TYPE:'label' | translate }}</span>
+    </div>
+    <div class="status">
+      <span class="title">状态: </span>
+      <span [style.color]="detailInfo.afterSales.status | dict: DictKey.AFTERSALES_STATUS:'color'" class="check">{{
+        detailInfo.afterSales.status | dict: DictKey.AFTERSALES_STATUS:'label' | translate
+      }}</span>
+    </div>
+  </div>
+  <div class="group2">
+    <p class="reason">售后原因</p>
+    <p style="margin-top: 10px">{{ detailInfo.afterSales.reason }}</p>
+  </div>
+  <div class="group3" *ngIf="detailInfo.afterSales.dtype != AftersalesType.REFUND">
+    <dt class="reason">寄件方式</dt>
+    <dd
+      ><span>寄件人: </span><span>{{ detailInfo.afterSales.consignee }}</span></dd
+    >
+    <dd
+      ><span>寄件地址: </span><span>{{ detailInfo.afterSales.address }}</span></dd
+    >
+    <dd
+      ><span>电话: </span><span>{{ detailInfo.afterSales.phone }}</span></dd
+    >
+    <dd></dd>
+  </div>
+  <div class="group3" *ngIf="detailInfo.afterSales.dtype != AftersalesType.REFUND">
+    <dt class="reason">收件详情</dt>
+    <dd
+      ><span>收件人: </span><span>{{ detailInfo.afterSales.supplierReceiver }}</span></dd
+    >
+    <dd
+      ><span>收件地址: </span><span>{{ detailInfo.afterSales.supplierAddr }}</span></dd
+    >
+    <dd
+      ><span>收件电话: </span><span>{{ detailInfo.afterSales.supplierMobile }}</span></dd
+    >
+    <dd></dd>
+  </div>
+  <div
+    class="group3"
+    *ngIf="
+      detailInfo.afterSales.dtype != AftersalesType.REFUND &&
+      detailInfo.afterSales.status === AftersalesStatus.APPROVED &&
+      !detailInfo.afterSales.trackingNo &&
+      !detailInfo.afterSales.deliveryCorp
+    "
+  >
+    <dt class="reason">注意:</dt>
+    <dd><span>1.申请通过后，请在48小时之内处理，并上传快递单号；</span></dd>
+    <dd
+      ><span
+        >2.商品及商品本身包装保持出售时原装且配件赠品资料齐全，不影响二次销售。退货时赠品需一并返回，如赠品缺失，则主商品无法全额退款。</span
+      ></dd
+    >
+  </div>
+  <div
+    class="group5"
+    *ngIf="
+      detailInfo.afterSales.dtype != AftersalesType.REFUND &&
+      detailInfo.afterSales.status === AftersalesStatus.APPROVED &&
+      !detailInfo.afterSales.trackingNo &&
+      !detailInfo.afterSales.deliveryCorp
+    "
+  >
+    <dt class="reason">物流动态</dt>
+    <form nz-form [formGroup]="validateForm">
+      <nz-form-item *ngFor="let trackingNo of trackingNoList; let key = index">
+        <nz-form-label [nzSm]="6" [nzXs]="20" nzRequired [nzFor]="trackingNo.controlInstance"
+          >运单号<span *ngIf="key > 0">{{ key + 1 }}</span></nz-form-label
+        >
+        <nz-form-control [nzSm]="10" [nzXs]="20" nzErrorTip="请输入运单号">
+          <nz-input-group [nzSuffix]="suffixIcon">
+            <input nz-input [formControlName]="trackingNo.controlInstance" nzPlaceHolder="请输入运单号" />
+          </nz-input-group>
+          <ng-template #suffixIcon>
+            <button nz-button nzType="dashed" (click)="addField()">
+              <i nz-icon nzType="plus"></i>
+            </button>
+            <button nz-button nzType="dashed" (click)="removeField(trackingNo)"><i nz-icon nzType="minus-circle-o"></i></button>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="20" nzRequired nzFor="deliveryId">物流公司</nz-form-label>
+        <nz-form-control [nzSm]="10" [nzXs]="20" nzErrorTip="请选择物流公司">
+          <nz-select
+            nzShowSearch
+            nzAllowClear
+            nzPlaceHolder="请选择物流公司"
+            formControlName="deliveryId"
+            (nzOnSearch)="getDeliveryList($event)"
+          >
+            <ng-container *ngFor="let item of deliveryList">
+              <nz-option *ngIf="!isLoading" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+            </ng-container>
+            <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+              <i nz-icon nzType="loading" class="loading-icon"></i>
+              Loading Data...
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="20" nzRequired nzFor="trackingNo">物流凭证</nz-form-label>
+        <nz-form-control [nzSm]="10" [nzXs]="20">
+          <nz-upload
+            nzAccept="image/png,image/jpeg,image/gif,image/bmp,image/jpg"
+            nzFileType="image/png,image/jpeg,image/gif,image/bmp,image/jpg"
+            nzListType="picture-card"
+            [(nzFileList)]="fileList"
+            [nzData]="uploadData"
+            [nzMultiple]="true"
+            [nzLimit]="3"
+            [nzAction]="uploadAction"
+            [nzShowButton]="fileList.length < 3"
+            [nzPreview]="handlePreview"
+            [nzRemove]="removeFile"
+            (nzChange)="uploadChange($event)"
+          >
+            <div>
+              <i nz-icon nzType="plus"></i>
+              <div style="margin-top: 8px">Upload</div>
+            </div>
+          </nz-upload>
+          <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible = false">
+            <ng-template #modalContent>
+              <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+            </ng-template>
+          </nz-modal>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item nz-row>
+        <nz-form-control [nzSpan]="10" [nzOffset]="6">
+          <button nz-button nzType="default" class="button-rignt" (click)="goBack()">
+            <span>返回</span>
+          </button>
+          <button nz-button nzType="primary" [disabled]="loading.submit" (click)="validate()">
+            <span>提交</span>
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+  <div
+    class="group4"
+    *ngIf="detailInfo.afterSales.dtype != AftersalesType.REFUND && detailInfo.afterSales.trackingNo && detailInfo.afterSales.deliveryCorp"
+  >
+    <dt class="reason">物流动态</dt>
+    <dd
+      ><span>运单号: </span><span>{{ detailInfo.afterSales.trackingNo }}</span></dd
+    >
+    <dd
+      ><span>物流公司: </span><span>{{ detailInfo.afterSales.deliveryCorp }}</span></dd
+    >
+    <dd
+      ><span>物流凭证: </span
+      ><span
+        ><button nz-button nzType="primary" (click)="goDeliverPreview()">
+          <span>查看凭证</span>
+        </button></span
+      ></dd
+    >
+  </div>
+</div>
+<div class="product-box">
+  <div class="title">
+    <!-- <div class="store">店铺</div> -->
+    <div class="product">商品</div>
+    <div class="name">名称</div>
+    <div class="number">数量</div>
+    <div class="operation">凭证</div>
+  </div>
+  <div class="detail" *ngFor="let detail of detailInfo.afterSalesDetailsItem; let key = index">
+    <!-- <div class="store-name">{{ detailInfo.storeName }}</div> -->
+    <div class="img-box"><nz-avatar nzIcon="picture" [nzSrc]="detail.orderThumbnail" [nzSize]="50" nzShape="square"></nz-avatar></div>
+    <div class="name"
+      ><a href="">{{ detail.orderName }}</a></div
+    >
+    <div class="number">x{{ detail.afterSalesItem.quantity }}</div>
+    <div class="operation"
+      ><button nz-button nzType="primary" (click)="goAftersalesPreview(key)">
+        <span>查看凭证</span>
+      </button></div
+    >
+  </div>
+</div>

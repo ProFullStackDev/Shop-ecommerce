@@ -1,0 +1,35 @@
+<div class="modal__header alt gray" [class.scrolling]="isScrollable">
+  <div class="title">
+    <span>{{ 'store-credit-redeem-code-modal-heading' | translate }}</span>
+  </div>
+</div>
+<div class="modal__content payment-modal">
+  <div #scrollable class="scrollable" (scroll)="onScroll()">
+    <span class="label">{{ 'store-credit-redeem-code-modal-gift-code-label' | translate }}</span>
+    <div class="input-wrap">
+      <span class="label">{{ 'store-credit-redeem-code-text' | translate }}</span>
+      <label [class.error]="code.invalid && code.touched">
+        <input #redeemCodeInput id="code" type="text" [formControl]="code" />
+        <!--      <span class="currency">¥</span>-->
+      </label>
+    </div>
+    <div class="gift-codes-result">
+      <p class="title">{{ 'store-credit-redeem-code-modal-details' | translate }}</p>
+      <p>
+        <span class="gift-codes-result__wrap">
+          <span class="currency">¥</span>
+          <span>{{ amount || 0 }}</span>
+        </span>
+        <span class="num-of-codes"
+          ><span class="gift-codes">{{ 'store-credit-redeem-code-modal-amount' | translate }}</span></span
+        >
+      </p>
+    </div>
+    <p class="total-result"
+      >{{ 'store-credit-redeem-code-modal-total' | translate }}: <span class="currency">¥{{ amount || 0 }}</span></p
+    >
+    <button class="button" [class.modal-grey-disabled-button]="code.invalid || amount === 0" type="button" (click)="sendData()">
+      <span class="description"> {{ 'store-credit-redeem-code-modal-button' | translate }} </span>
+    </button>
+  </div>
+</div>

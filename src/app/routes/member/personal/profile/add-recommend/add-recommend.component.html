@@ -1,0 +1,9 @@
+<form nz-form [formGroup]="validateForm" class="login-form">
+  <nz-form-item>
+    <nz-form-control nzErrorTip="请输入推荐人ID">
+      <nz-input-group nzPrefixIcon="usergroup-add">
+        <input type="phone" nz-input formControlName="recommendId" placeholder="推荐人ID" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+</form>

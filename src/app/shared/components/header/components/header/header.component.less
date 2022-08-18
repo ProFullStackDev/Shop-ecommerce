@@ -1,0 +1,38 @@
+@import url(~src/styles/vars/_variables);
+
+.qr-scanner {
+  width: 100%;
+  height: 385px;
+  position: fixed;
+  z-index: 9999;
+  border: none !important;
+
+  /deep/ img {
+    display: none
+  }
+
+  /deep/ button {
+    border-color: transparent;
+    background-image: @main-gradient-color-button;
+    background-position: 0;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.05);
+    height: 32px;
+    padding: 4px 15px;
+    font-size: 14px;
+    color: #fff;
+    border-radius: 5px;
+    user-select: none;
+    touch-action: manipulation;
+
+    &:hover {
+      background: @main-gradient-color;
+      transition: background 0.3s ease-in-out;
+    }
+  }
+}
+
+.profile-pic {
+  height: 50px;
+  width: 50px;
+}

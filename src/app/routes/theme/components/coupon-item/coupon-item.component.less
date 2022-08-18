@@ -1,0 +1,101 @@
+@import "~src/styles/_variables";
+
+@isNewColor: #e1aa5f;
+
+.coupon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 4px;
+  background-color: #ffffff;
+  width: 100%;
+  font-size: 12px;
+  &.is-new {
+    .coupon-info {
+      background: linear-gradient(135deg, lighten(@isNewColor, 10%), @isNewColor);
+      .btn {
+        color: @isNewColor;
+      }
+    }
+  }
+  &.out-of-stock {
+    filter: grayscale(1);
+  }
+  &-cover {
+    padding: 10px;
+    .coupon-display-image {
+      height: 90px;
+      width: 90px;
+      border-radius: 4px;
+    }
+  }
+  &-content {
+    position: relative;
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: center;
+    color: #666666;
+    padding: 8px 0;
+    line-height: 30px;
+    .coupon-received {
+      position: absolute;
+      right: 10px;
+      bottom: 48px;
+      width: 50px;
+      height: 50px;
+      background: url(~src/assets/images/theme/coupon.png) -18px 0;
+    }
+    .progress {
+      /deep/ .ant-progress-show-info .ant-progress-outer {
+        margin-right: calc(-5em - 8px);
+        padding-right: calc(5em + 8px);
+      }
+      /deep/ .ant-progress-text {
+        font-size: 12px;
+      }
+    }
+  }
+  &-info {
+    position: relative;
+    text-align: center;
+    width: 110px;
+    padding: 12px 10px;
+    color: #fff;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: @primary-color;
+    background: linear-gradient(135deg, lighten(@primary-color, 10%), @primary-color);
+    &:before {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -2px;
+      width: 4px;
+      content: "";
+      background-image: url(~src/assets/images/theme/sawtooth.png);
+      background-repeat: repeat-y;
+      background-size: 100% auto;
+    }
+    .coupon-new {
+      //display: none;
+      text-align: center;
+      position: absolute;
+      top: 4px;
+      right: -15px;
+      width: 55px;
+      color: #ffffff;
+      background-color: #f68c17;
+      transform: scale(0.9) rotate(45deg);
+    }
+    .btn {
+      color: @primary-color;
+      border: none;
+    }
+  }
+}

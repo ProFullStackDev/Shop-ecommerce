@@ -1,0 +1,63 @@
+<div class="content">
+  <nz-card class="br-12" style="width: 100%">
+    <form nz-form [formGroup]="validateForm">
+      <nz-form-item>
+        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="password" nzRequired>新密码</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="passwordErrorTpl">
+          <input
+            nz-input
+            type="password"
+            id="password"
+            formControlName="newPassword"
+            title="新密码由大小写字母、数字、特殊符号中的2种及以上类型组成"
+            placeholder="新密码由大小写字母、数字、特殊符号中的2种及以上类型组成"
+            maxlength="30"
+          />
+          <ng-template #passwordErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">请输入密码</ng-container>
+            <ng-container *ngIf="control.hasError('error')"> 密码必须由大小写字母、数字、特殊符号中的2种及以上类型组成! </ng-container>
+            <ng-container *ngIf="control.hasError('length')"> 密码至少6位 </ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="checkPassword" nzRequired>确认密码</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="errorTpl">
+          <input
+            nz-input
+            type="password"
+            formControlName="checkPassword"
+            id="checkPassword"
+            placeholder="{{ 'check-password-message' | translate }}"
+            maxlength="30"
+          />
+        </nz-form-control>
+        <ng-template #errorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">请输入确认密码</ng-container>
+          <ng-container *ngIf="control.hasError('confirm')">两次密码不一致</ng-container>
+        </ng-template>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="smsCode" nzRequired>验证码</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="smsCodeErrorTpl">
+          <input nz-input type="text" formControlName="smsCode" id="smsCode" placeholder="请输入验证码" maxlength="6" />
+        </nz-form-control>
+        <ng-template #smsCodeErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">请输入验证码</ng-container>
+        </ng-template>
+      </nz-form-item>
+      <div class="footer">
+        <nz-form-item nz-row class="register-area">
+          <nz-form-control [nzSpan]="10" [nzOffset]="6">
+            <button nz-button nzType="default" (click)="pre()" class="button-rignt">
+              <span>上一步</span>
+            </button>
+            <button nz-button nzType="primary" (click)="validate()">
+              <span>下一步</span>
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </form>
+  </nz-card>
+</div>

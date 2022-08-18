@@ -1,0 +1,15 @@
+<form nz-form [formGroup]="validateForm" class="login-form">
+  <app-phone-control (setMobileFormValue)="setMobileFormValue($event)"></app-phone-control>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="请输入验证码">
+      <nz-input-group [nzAddOnAfter]="addOnAfterTemplate">
+        <input type="text" nz-input formControlName="smsCode" placeholder="验证码" />
+        <ng-template #addOnAfterTemplate>
+          <button nz-button nzType="link" [nzLoading]="loading.sms" [disabled]="smsTimeRemaining > 0" (click)="getSmsCode()">
+            {{ smsCodeText }}
+          </button>
+        </ng-template>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+</form>

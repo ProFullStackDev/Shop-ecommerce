@@ -1,0 +1,105 @@
+@import '~src/styles/_variables';
+
+.content {
+  background-color: @background-color;
+
+  .main-content {
+    display: flex;
+    max-width: 1330px;
+    width: 100%;
+
+
+    .main-menu {
+      padding-top: 15px;
+      display: block;
+      width: 100%;
+      background-color: #fff;
+
+      dl {
+        width: 100%;
+        border-bottom: 1px solid #f8f8f8;
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 20px;
+
+        dt {
+          height: 35px;
+          line-height: 25px;
+          margin-bottom: -10px;
+
+          i {
+            margin-right: 5px;
+          }
+
+          span {
+            font-size: 17px;
+          }
+
+          .iconfont1 {
+            font-size: 20px;
+            color: #333;
+          }
+        }
+
+        dd {
+          height: 30px;
+          line-height: 30px;
+
+          margin-bottom: 5px;
+
+          a {
+            display: inline-block;
+            padding: 10px;
+            color: #333;
+            text-align: left;
+            font-size: 15px;
+          }
+
+          a:hover {
+            color: @primary-color;
+          }
+        }
+      }
+
+      dl > li {
+        .icon-balance {
+          background-color: red;
+        }
+      }
+
+      // 路由高亮
+      .actived {
+        color: @primary-color !important;
+      }
+    }
+  }
+
+  .myacc-title {
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+    cursor: pointer;
+
+    .item-arrow-myacc {
+      transform: rotate(180deg);
+      margin-right: 10px;
+    }
+
+    .font-style-my {
+      color: #000000;
+      font-size: 30px !important;
+      font-weight: 500;
+    }
+    .font-style-my:hover{
+      color: unset;
+    }
+  }
+
+  @media(min-width: 992px) {
+    .main-content {
+      display: none;
+    }
+  }
+}

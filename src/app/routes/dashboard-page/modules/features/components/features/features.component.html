@@ -1,0 +1,20 @@
+<div class="features__wrap">
+  <div class="features__item global-revenue">
+    <h3>Global Revenue Sharing</h3>
+
+    <div class="revenue-progress">
+      <div class="progress-bar">
+        <div class="active" [style.width]="20"></div>
+      </div>
+      <p>TYQOON Distribution in:</p>
+      <span class="timestamp">{{ countdown }}</span>
+    </div>
+  </div>
+
+  <div class="features__item stat-blocks">
+    <app-platform-payout></app-platform-payout>
+    <app-platform-distribution></app-platform-distribution>
+
+    <a class="point-link" routerLink="/member/point"> See my Distribution History</a>
+  </div>
+</div>

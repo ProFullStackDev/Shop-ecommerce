@@ -1,0 +1,19 @@
+<img
+  *ngIf="single && ad; else swiper"
+  class="shop-ad-img"
+  [src]="ad.path"
+  [title]="ad.title"
+  (click)="adClick(ad)"
+  [style.width]="width"
+  [style.height]="height"
+/>
+<ng-template #swiper>
+  <swiper *ngIf="adList.length > 0" class="shop-ad mySwiper" [config]="config">
+    <ng-template *ngFor="let ad of adList" swiperSlide class="shop-ad-slide">
+      <a (click)="adClick(ad)">
+        <img [src]="ad.path" [alt]="ad.title" [title]="ad.title" />
+      </a>
+    </ng-template>
+  </swiper>
+</ng-template>
+<ng-container></ng-container>

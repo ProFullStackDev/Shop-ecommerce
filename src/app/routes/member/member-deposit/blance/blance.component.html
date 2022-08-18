@@ -1,0 +1,138 @@
+<div class="title br-top-12 member-page-title-mob"> {{ 'balance-details-heading' | translate }} </div>
+<div class="panel-body br-bot-12">
+  <div class="heading">
+    <a class="recharge" routerLink="/member/member-deposit/recharge">
+      <span>{{ 'balance-details-account-cta' | translate }}</span>
+    </a>
+  </div>
+  <ul>
+    <li>
+      <div class="icon-box blue-background">
+        <i nz-icon nzIconfont="tgicon-zhanghuyue4"></i>
+      </div>
+      <div class="right">
+        <span class="bule">{{ memberInfo.balance | currency }}元</span>
+        <p>{{ 'balance-details-current-balance' | translate }}</p>
+      </div>
+    </li>
+    <li>
+      <div class="icon-box orange-background">
+        <i nz-icon nzIconfont="tgicon-zhanghuyue1"></i>
+      </div>
+      <div class="right">
+        <span class="orange">{{ memberInfo.amount | currency }}元</span>
+        <p>{{ 'balance-details-amount-of-consumption' | translate }}</p>
+      </div>
+    </li>
+    <li>
+      <div class="icon-box gray-background">
+        <i nz-icon nzIconfont="tgicon-qianbao"></i>
+      </div>
+      <div class="right">
+        <span class="gray">{{ memberInfo.frozenAmount | currency }}元</span>
+        <p>{{ 'balance-details-frozen-amount' | translate }}</p>
+      </div>
+    </li>
+  </ul>
+</div>
+<div class="content br-top-12">
+  <div #scrollingContainer class="mneus scrolling-container" (touchstart)="startTouching()" (touchmove)="checkTouching($event)">
+    <nz-tabset class="scrollable-element">
+      <nz-tab nzTitle="{{ 'balance-details-tab-one' | translate }}" (nzSelect)="getList('')">
+        <div class="main">
+          <nz-table class="br-bot-12" #basicTable [nzData]="balanceData">
+            <thead>
+              <tr class="thead-words">
+                <th>{{ 'balance-details-column-one' | translate }}</th>
+                <th>{{ 'balance-details-column-two' | translate }}</th>
+                <th>{{ 'balance-details-column-three' | translate }}</th>
+                <th>{{ 'balance-details-column-four' | translate }}</th>
+                <th>{{ 'balance-details-column-five' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of basicTable.data">
+                <td *ngIf="data.type == 0">预存款充值</td>
+                <td *ngIf="data.type == 1">预存款调整</td>
+                <td *ngIf="data.type == 2">{{ 'balance-details-type-s' | translate }}</td>
+                <td *ngIf="data.type == 3">{{ 'balance-details-type-order-refund' | translate }}</td>
+                <td *ngIf="data.type == 4">分销提成</td>
+                <td *ngIf="data.type == 5">分销提现</td>
+                <td>{{ data.credit }}</td>
+                <td>{{ data.debit }}</td>
+                <td>{{ data.memo }}</td>
+                <td>{{ data.createdDate | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+      </nz-tab>
+      <nz-tab nzTitle="{{ 'balance-details-tab-two' | translate }}" class="br-bot-12" (nzSelect)="getList('credit')">
+        <div class="main">
+          <nz-table class="br-bot-12" #basicTable [nzData]="balanceData">
+            <thead>
+              <tr class="thead-words">
+                <th>{{ 'balance-details-column-one' | translate }}</th>
+                <th>{{ 'balance-details-column-two' | translate }}</th>
+                <th>{{ 'balance-details-column-three' | translate }}</th>
+                <th>{{ 'balance-details-column-four' | translate }}</th>
+                <th>{{ 'balance-details-column-five' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of basicTable.data">
+                <td *ngIf="data.type == 0">预存款充值</td>
+                <td *ngIf="data.type == 1">预存款调整</td>
+                <td *ngIf="data.type == 2">{{ 'balance-details-type-s' | translate }}</td>
+                <td *ngIf="data.type == 3">{{ 'balance-details-type-order-refund' | translate }}</td>
+                <td *ngIf="data.type == 4">分销提成</td>
+                <td *ngIf="data.type == 5">分销提现</td>
+                <td>{{ data.credit }}</td>
+                <td>{{ data.debit }}</td>
+                <td>{{ data.memo }}</td>
+                <td>{{ data.createdDate | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+      </nz-tab>
+      <nz-tab nzTitle="{{ 'balance-details-tab-three' | translate }}" class="br-bot-12" (nzSelect)="getList('debit')">
+        <div class="main">
+          <nz-table class="br-bot-12" #basicTable [nzData]="balanceData">
+            <thead>
+              <tr class="thead-words">
+                <th>{{ 'balance-details-column-one' | translate }}</th>
+                <th>{{ 'balance-details-column-two' | translate }}</th>
+                <th>{{ 'balance-details-column-three' | translate }}</th>
+                <th>{{ 'balance-details-column-four' | translate }}</th>
+                <th>{{ 'balance-details-column-five' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of basicTable.data">
+                <td *ngIf="data.type == 0">预存款充值</td>
+                <td *ngIf="data.type == 1">预存款调整</td>
+                <td *ngIf="data.type == 2">{{ 'balance-details-type-s' | translate }}</td>
+                <td *ngIf="data.type == 3">{{ 'balance-details-type-order-refund' | translate }}</td>
+                <td *ngIf="data.type == 4">分销提成</td>
+                <td *ngIf="data.type == 5">分销提现</td>
+                <td>{{ data.credit }}</td>
+                <td>{{ data.debit }}</td>
+                <td>{{ data.memo }}</td>
+                <td>{{ data.createdDate | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+      </nz-tab>
+    </nz-tabset>
+    <div class="right">
+      <span class="date">{{ 'balance-details-date-range' | translate }} :</span>
+      <nz-date-picker [(ngModel)]="beginTime" nzPlaceHolder="{{ 'balance-details-date-start' | translate }}"></nz-date-picker>
+      <nz-date-picker [(ngModel)]="endTime" nzPlaceHolder="{{ 'balance-details-date end' | translate }}"></nz-date-picker>
+      <button class="serach lefted-zero" nz-button nzType="default" (click)="search()">{{
+        'balance-details-search-cta' | translate
+      }}</button>
+    </div>
+  </div>
+</div>

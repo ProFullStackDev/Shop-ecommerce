@@ -1,0 +1,316 @@
+<div id="home-top" class="home-content">
+  <div class="container">
+    <!-- banner区域 -->
+    <div class="banner">
+      <div class="banner-left-img"><a href="#"></a></div>
+      <app-product-categories
+        class="home-page-categories"
+        [class.isMobile]="isMobile"
+        [class.no-hover]="homePage"
+        [homePage]="homePage"
+        [isMobile]="isMobile"
+        [productCategories]="productCategories$ | async"
+      ></app-product-categories>
+      <div class="banner-center">
+        <app-shop-ad [positionName]="mainSwiperAdPositionName" [autoplayDelay]="4500" width="100%" height="100%"> </app-shop-ad>
+      </div>
+      <div class="hover-btn">
+        <!-- <ul>
+        <li *ngFor="let item of bannerListImg"><a href="#"><img [src]="item.url" alt="" class="center-block" /></a>
+        </li>
+      </ul> -->
+      </div>
+      <div class="banner-right">
+        <div class="oprate">
+          <ul>
+            <li *ngFor="let item of bannerListIcon" class="icon-links">
+              <div (click)="goByUrl(item)">
+                <a class="datail-style">
+                  <i nz-icon [nzIconfont]="item.icon"></i>
+                  <p>{{ item.words | translate }}</p>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- <div class="detail">
+          <ng-container *ngIf="userPrimeInfo?.hasPrime && userPrimeInfo?.primeInfo; else getPrime">
+            <div class="detail-wrap">
+              <div class="detail-prime-info">
+                <div class="image">
+                  <img [src]="userPrimeInfo.primeInfo.image" [alt]="userPrimeInfo.primeInfo.text | translate" />
+                </div>
+                <div class="title">
+                  <h3>{{ userPrimeInfo.primeInfo.text | translate }}</h3>
+                </div>
+              </div>
+              <div *ngFor="let item of userPrimeInfo.primeInfo.features" class="detail-prime-item">
+                <div class="icon">
+                  <app-tyqoon-icon name="crown"></app-tyqoon-icon>
+                </div>
+                <div class="perk">
+                  <p>{{ item.perk | translate }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="detail-prime__member">
+              <button type="button">
+                <span class="icon">
+                  <app-tyqoon-icon name="check"></app-tyqoon-icon>
+                </span>
+                Prime Member Active
+              </button>
+            </div>
+          </ng-container>
+          <ng-template #getPrime>
+            <div class="detail-get-prime">
+              <button class="get-prime-modal-button main-hover" (click)="openPrimeModal()">
+                <span class="not-prime-crown"></span>
+                <img src="/assets/images/TYQOON-Dollars-cc.png" class="img-dollar-cashback" />
+                Earn More With Prime
+              </button>
+            </div>
+          </ng-template>
+        </div> -->
+
+        <app-my-rebate-credits></app-my-rebate-credits>
+        <app-my-total-savings></app-my-total-savings>
+        <div class="bottom-img">
+          <app-shop-ad [positionName]="asideSwiperAdPositionName" [autoplayDelay]="1800" width="100%" height="100%"> </app-shop-ad>
+        </div>
+      </div>
+      <div class="banner-right-img"><a href="#"></a></div>
+    </div>
+    <div id="found-goods" class="found-goods">
+      <div class="found-goods-banner-wrap">
+        <a routerLink="/gameboard" class="found-goods-banner">
+          <span class="img-mascot-thumb">
+            <img src="/assets/images/mascot-thumbs-up@2x.png" alt="Mascot" />
+          </span>
+          <p class="check-in">Daily Check-in</p>
+          <span class="img-dollar">
+            <picture>
+              <source type="image/png" srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x" />
+              <img src="/assets/images/TYD.png" alt="TYD" />
+            </picture>
+          </span>
+          <p class="earn">Earn Tyqoon Dollars</p>
+          <span class="button">
+            <span class="button-wrap">
+              <span class="icon">
+                <img src="/assets/images/shop@2x.png" alt="Shop" />
+              </span>
+              Play Now
+            </span>
+          </span>
+        </a>
+      </div>
+      <swiper [config]="swiperConfig" class="found-goods-swiper">
+        <ng-template *ngFor="let product of foundGoodsList; let i = index" swiperSlide>
+          <div class="good">
+            <app-product-collection [(isFavorite)]="product.collect" [productId]="product.id"> </app-product-collection>
+            <a class="link" routerLink="/product/detail" [queryParams]="{ id: product.id }">
+              <img class="cover n-full-size-image" [class.hover-to-move-top]="true" [src]="product.cover" alt="" [title]="product.name" />
+              <h5 class="text-overflow name text-sm" [title]="product.name">{{ product.name }}</h5>
+              <h6 class="horizontal-swiper-sell-text">
+                {{ product.price | currency }}
+                <span>{{ product.marketPrice | currency }}</span>
+              </h6>
+              <div class="coin-cash-back cash-back-in-swiper-vertical coin-cash-back-swiper">
+                <div class="dollar-img-cash-cont">
+                  <p class="text-cash">{{ 'cash-back-reward-label' | translate }}</p>
+                </div>
+                <div class="container-cash-back">
+                  <img src="/assets/images/TYD-small.png" class="img-dollar-cashback" />
+                  <p class="num-cash-back">{{ product?.defaultSku?.cashBack | number: '0.2-2' }}</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </ng-template>
+      </swiper>
+    </div>
+    <!-- 人气好货 -->
+    <div class="hot-goods hot-goods-hide" id="hot">
+      <div class="hot-goods-row">
+        <div class="hot-goods-bord">
+          <div class="title">
+            <span class="title-size-font-inc">{{ 'home-popular-title' | translate }}</span>
+            <a routerLink="/product/search" [queryParams]="{ isHot: 'true' }">
+              <i class="icon" nz-icon nzType="right-circle" nzTheme="outline"></i>
+            </a>
+          </div>
+          <div class="content">
+            <swiper
+              *ngIf="hotGoodsList.length > 0"
+              [effect]="'coverflow'"
+              [grabCursor]="true"
+              [centeredSlides]="true"
+              [slidesPerView]="'auto'"
+              [autoplay]="{ delay: 1500, disableOnInteraction: false }"
+              [loop]="true"
+              [coverflowEffect]="{
+                rotate: 0,
+                stretch: 0,
+                depth: 500,
+                modifier: 1,
+                slideShadows: false
+              }"
+              class="mySwiper"
+            >
+              <ng-template swiperSlide *ngFor="let item of hotGoodsList">
+                <div class="product">
+                  <a routerLink="/product/detail" [queryParams]="{ id: item.id }" class="product-img">
+                    <img class="img" [src]="item.cover" alt="" />
+                  </a>
+                  <a routerLink="/product/detail" [queryParams]="{ id: item.id }" class="product-name text-overflow" [title]="item.name">
+                    {{ item.name }}
+                  </a>
+                  <div class="product-caption text-overflow" [title]="item.caption">{{ item.caption }}</div>
+                  <strong class="product-price"> ￥{{ item.price }} </strong>
+                </div>
+              </ng-template>
+            </swiper>
+          </div>
+        </div>
+        <div class="hot-goods-bord">
+          <div class="title">
+            <span class="title-size-font-inc">{{ 'home-new-products-title' | translate }}</span>
+            <a routerLink="/product/search" [queryParams]="{ isNew: 'true' }">
+              <i class="icon" nz-icon nzType="right-circle" nzTheme="outline"></i>
+            </a>
+          </div>
+          <div class="new-product">
+            <ul>
+              <li *ngFor="let goods of newGoodsList">
+                <a routerLink="/product/detail" [queryParams]="{ id: goods.id }">
+                  <img [src]="goods.cover" [alt]="goods.name" class="hover-to-move-bottom" />
+                  <p class="text-overflow" [title]="goods.name">{{ goods.name }}</p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="hot-goods-row">
+        <div class="hot-goods-bord">
+          <div class="title">
+            <span class="title-size-font-inc">{{ 'home-best-sellers-title' | translate }}</span>
+            <a routerLink="/product/search" [queryParams]="{ isLeaderboard: 'true' }">
+              <i class="icon" nz-icon nzType="right-circle" nzTheme="outline"></i>
+            </a>
+          </div>
+          <div class="leader-board">
+            <swiper
+              *ngIf="leaderboardList.length > 0"
+              direction="vertical"
+              [slidesPerView]="3"
+              [slidesPerGroup]="3"
+              [loop]="true"
+              [loopFillGroupWithBlank]="true"
+              [autoplay]="{ delay: 2400, disableOnInteraction: false }"
+              [allowTouchMove]="allowTouchMove"
+              class="mySwiper"
+            >
+              <ng-template swiperSlide *ngFor="let item of leaderboardList; let i = index">
+                <div class="product">
+                  <div class="top-img-swiper">
+                    <div class="product-number">
+                      <span>TOP</span>
+                      <strong> 0{{ i + 1 }} </strong>
+                    </div>
+                    <a class="product-image product-image-style" routerLink="/product/detail" [queryParams]="{ id: item.id }">
+                      <img class="img-swiper-home" [src]="item.cover" />
+                    </a>
+                  </div>
+                  <div class="text-swiper-main">
+                    <a
+                      class="product-link product-link-style"
+                      [title]="item.name"
+                      routerLink="/product/detail"
+                      [queryParams]="{ id: item.id }"
+                    >
+                      {{ item.name }}
+                    </a>
+                  </div>
+                </div>
+              </ng-template>
+            </swiper>
+          </div>
+        </div>
+        <div class="hot-goods-bord">
+          <div class="title">
+            <span class="title-size-font-inc">{{ 'home-best-sellers-title' | translate }}</span>
+            <a routerLink="/product/search" [queryParams]="{ isLeaderboard: 'true' }">
+              <i class="icon" nz-icon nzType="right-circle" nzTheme="outline"></i>
+            </a>
+          </div>
+          <div class="leader-board">
+            <swiper
+              *ngIf="leaderboardList.length > 0"
+              direction="vertical"
+              [slidesPerView]="3"
+              [slidesPerGroup]="3"
+              [loop]="true"
+              [loopFillGroupWithBlank]="true"
+              [autoplay]="{ delay: 4200, disableOnInteraction: false }"
+              [allowTouchMove]="allowTouchMove"
+              class="mySwiper"
+            >
+              <ng-template swiperSlide *ngFor="let item of leaderboardList; let i = index">
+                <div class="product">
+                  <div class="top-img-swiper">
+                    <div class="product-number">
+                      <span>TOP</span>
+                      <strong> 0{{ i + 1 }} </strong>
+                    </div>
+                    <a class="product-image product-image-style" routerLink="/product/detail" [queryParams]="{ id: item.id }">
+                      <img [src]="item.cover" />
+                    </a>
+                  </div>
+                  <div class="text-swiper-main">
+                    <a
+                      class="product-link product-link-style"
+                      [title]="item.name"
+                      routerLink="/product/detail"
+                      [queryParams]="{ id: item.id }"
+                    >
+                      {{ item.name }}
+                    </a>
+                  </div>
+                </div>
+              </ng-template>
+            </swiper>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="app-shop-ad">
+      <app-shop-ad [positionName]="middleAdPositionName" width="100%" class="ng-star-border star-border-color"> </app-shop-ad>
+    </div> -->
+    <!-- <div id="channel" class="content-title">
+      <h4 class="content-title-style">{{ 'home-featured-title' | translate }}</h4>
+    </div> -->
+    <div class="pingdao-ground">
+      <div class="pingdao-ground-item" *ngFor="let channel of channelData">
+        <div class="top-words">
+          <a href="{{ channel.link }}" class="text-x1">{{ channel.name | translate }}</a>
+          <span class="text-x2">{{ channel.description }}</span>
+        </div>
+        <ul class="bottom">
+          <li *ngFor="let product of channel.productList" class="img-color-back">
+            <a routerLink="/product/detail" [queryParams]="{ id: product.id }">
+              <img class="img hover-to-move-bottom" [src]="product.cover" alt="" />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- <div id="recommend" class="content-title content-title-recommend">
+      <h4 class="content-title-style">{{ 'home-recommended-title' | translate }}</h4>
+    </div> -->
+    <!-- 猜你喜欢 -->
+    <app-recommended-for-you></app-recommended-for-you>
+    <!-- <app-shop-ad class="mb-20" [positionName]="bottomAdPositionName" width="100%"></app-shop-ad> -->
+  </div>
+</div>

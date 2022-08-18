@@ -1,0 +1,48 @@
+<ng-container *ngIf="!messagePreview; else previewMessage">
+  <div [class.scrolling]="isScrollable" class="modal__header messages alt messages-list">
+    <div class="title">
+      <span>{{ 'game-messages-title' | translate }}</span>
+    </div>
+    <div class="description">
+      <p>
+        {{ 'game-messages-description' | translate }}
+      </p>
+    </div>
+  </div>
+  <div class="modal__content messages-modal">
+    <div #scrollable class="scrollable" (scroll)="onScroll()">
+      <div *ngIf="messages" class="messages-list">
+        <div *ngFor="let message of messages" class="message__item" [class.read]="message?.isRead" (click)="toggleMessage(message)">
+          <span *ngIf="!message?.isRead" class="notife"></span>
+          <p class="description">{{ message?.message }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-template #previewMessage>
+  <div [class.scrolling]="isScrollable" class="modal__header messages alt messages-text">
+    <div class="title">
+      <button type="button" class="go-back modal-button" (click)="toggleMessage(null)">
+        <svg width="19" height="32" viewBox="0 0 19 32" fill="" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 4.57143L7.125 16L19 27.4286L16.625 32L0 16L16.625 0L19 4.57143Z" fill="" />
+        </svg>
+        {{ 'game-go-back' | translate }}
+      </button>
+    </div>
+  </div>
+  <div class="modal__content messages-modal message-preview-modal">
+    <div #scrollable class="scrollable" (scroll)="onScroll()">
+      <div class="messages-list message-preview">
+        <div class="message__item message-info">
+          <p class="description">{{ messageInfo?.message }}</p>
+        </div>
+      </div>
+      <div class="buttons">
+        <button type="button" class="modal-blue-btn modal-button" (click)="closeModal()">{{
+          'game-messages-go-to-gameboard-btn' | translate
+        }}</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

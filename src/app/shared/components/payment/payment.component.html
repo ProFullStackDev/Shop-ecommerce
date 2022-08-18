@@ -1,0 +1,89 @@
+<!--<div class="pay-way">-->
+<!--  <div-->
+<!--    *ngFor="let item of paymentPlatformList"-->
+<!--    class="pay-way-item"-->
+<!--    [class.selected]="item.platformCode == selectedPaymentCode"-->
+<!--    [title]="item.name"-->
+<!--    (click)="changePlatform(item.platformCode)"-->
+<!--  >-->
+<!--    <img [src]="item.icon" [alt]="item.name" />-->
+<!--  </div>-->
+<!--</div>-->
+<!--<nz-empty *ngIf="(paymentPlatformList || []).length < 1 && !loading.queryList" nzNotFoundContent="暂无支付方式"></nz-empty>-->
+<div *ngIf="paymentTypes$ | async as paymentTypes" class="payment" [class.confirmation-btns]="altButton">
+  <ng-container *ngFor="let paymentType of paymentTypes">
+    <button
+      *ngIf="paymentType.platformCode === 'TRIPLE'"
+      class="crypt"
+      [ngClass]="{
+        'modal-grey-disabled-button':
+          altButton && (totalAmount < paymentType.minAmount || totalAmount > paymentType.maxAmount) && paymentType.name === 'Crypto',
+        alt: altButton
+      }"
+      (click)="changePlatform('TRIPLE', 'triple', paymentType.minAmount, paymentType.maxAmount)"
+      [class.selected]="payMethod === 'triple'"
+      [disabled]="disabled"
+    >
+      <span *ngIf="altButton" class="description">
+        {{ 'store-credit-crypto-decribe-one' | translate }}:
+        <div class="hide-text-crypt">
+          {{ 'store-credit-crypto-decribe-two' | translate }}:
+          <img src="/assets/images/TYD-small.png" alt="TYD" class="payment-coin" />
+        </div>
+      </span>
+      <span class="image">
+        <img src="/assets/images/payment-modals/logos_bitcoin.png" alt="" />
+        <img src="/assets/images/payment-modals/logos_ethereum.png" alt="" />
+        <img src="/assets/images/payment-modals/usdt.png" alt="USDT" />
+      </span>
+      <span *ngIf="!altButton" class="description">
+        {{ paymentType.name }}
+        {{ 'store-credit-crypto-decribe-one' | translate }}
+        <div class="hide-text-crypt">
+          <img src="/assets/images/TYD-small.png" alt="TYD" class="payment-coin" />
+          {{ 'store-credit-crypto-decribe-two' | translate }}
+        </div>
+      </span>
+    </button>
+    <span *ngIf="altButton && totalAmount < paymentType.minAmount && paymentType.name === 'Crypto'" class="error">
+      {{ 'payment-minimum-amount-error' | translate }}: {{ paymentType.minAmount }}
+    </span>
+    <span *ngIf="altButton && totalAmount > paymentType.maxAmount && paymentType.name === 'Crypto'" class="error">
+      {{ 'payment-maximum-amount-error' | translate }}: {{ paymentType.maxAmount }}
+    </span>
+    <button
+      *ngIf="paymentType.platformCode === 'STRIPE'"
+      class="other-method"
+      [ngClass]="{
+        'modal-grey-disabled-button':
+          altButton && (totalAmount < paymentType.minAmount || totalAmount > paymentType.maxAmount) && paymentType.name === 'Stripe',
+        alt: altButton
+      }"
+      (click)="changePlatform('STRIPE', 'stripe', paymentType.minAmount, paymentType.maxAmount)"
+      [class.selected]="payMethod === 'Stripe'"
+      [disabled]="disabled"
+    >
+      <span class="addition-text" *ngIf="altButton">Pay Using Card:</span>
+      <span class="images">
+        <img
+          [src]="altButton ? '/assets/images/footer/payment-alipay-white-min.png' : '/assets/images/payment-modals/payment-alipay-dark.png'"
+          alt="Alipay"
+        />
+        <img
+          [src]="
+            altButton ? '/assets/images/footer/payment-wechatpay-white-min.png' : '/assets/images/payment-modals/payment-wechatpay-dark.png'
+          "
+          alt="Wechat"
+        />
+        <img [src]="'/assets/images/payment-modals/payment-methods.png'" alt="Payments" />
+      </span>
+    </button>
+    <span *ngIf="altButton && totalAmount < paymentType.minAmount && paymentType.name === 'Stripe'" class="error">
+      {{ 'payment-minimum-amount-error' | translate }}: {{ paymentType.minAmount }}
+    </span>
+    <span *ngIf="altButton && totalAmount > paymentType.maxAmount && paymentType.name === 'Stripe'" class="error">
+      {{ 'payment-maximum-amount-error' | translate }}: {{ paymentType.maxAmount }}
+    </span>
+  </ng-container>
+  <p *ngIf="isAdditionalInfo" class="description">{{ 'store-credit-buy-credits-agree' | translate }}</p>
+</div>

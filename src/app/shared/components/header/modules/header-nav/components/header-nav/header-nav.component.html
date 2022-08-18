@@ -1,0 +1,52 @@
+<nav *ngIf="navBar" class="nav">
+  <div class="nav__wrap">
+    <div class="nav__title">
+      <p>{{ navBar.title }}</p>
+    </div>
+    <ul class="nav__list">
+      <li *ngFor="let item of navBar.authList">
+        <a [href]="item.link">{{ item.name }}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="nav__wrap">
+    <ul class="nav__list">
+      <li *ngFor="let item of navBar.funList">
+        <a [href]="item.link">{{ item.name }}</a>
+      </li>
+    </ul>
+    <div class="nav__categories-lists">
+      <ul *ngIf="navBar.merchantServices as merchantService" class="nav__sub-list">
+        <li>
+          <p>
+            {{ merchantService.name }}
+            <span class="icon">
+              <app-tyqoon-icon name="arrowDown" pathsFillColor="light-gray"></app-tyqoon-icon>
+            </span>
+          </p>
+          <ul>
+            <li *ngFor="let item of merchantService.links">
+              <a [href]="item.link">{{ item.name }}</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <ul *ngIf="navBar.qrList as qrList" class="nav__sub-list qr-code-list">
+        <li>
+          <p>
+            {{ qrList.name }}
+            <span class="icon">
+              <app-tyqoon-icon name="arrowDown" pathsFillColor="light-gray"></app-tyqoon-icon>
+            </span>
+          </p>
+          <ul>
+            <li *ngFor="let item of qrList.list">
+              <img [src]="item.image" [alt]="item.name">
+              <p>{{ item.name }}</p>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

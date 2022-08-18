@@ -1,0 +1,12 @@
+.store-credit {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+app-profit, app-buy-credits-button {
+  width: 100%;
+}

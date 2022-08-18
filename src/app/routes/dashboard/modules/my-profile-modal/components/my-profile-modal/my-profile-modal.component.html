@@ -1,0 +1,372 @@
+<div class="modal__header">
+  <div class="title">
+    {{ 'game-nav-my-profile' | translate }}
+  </div>
+</div>
+
+<div class="modal__content">
+  <div class="profile-info" [class.scrolling]="isScrollable">
+    <div class="profile-info-wrap">
+      <div class="avatar">
+        <picture>
+          <!--          <source type="image/jpg" srcset="/assets/images/avatar.jpg 1x, /assets/images/avatar@2x.jpg 2x" />-->
+          <div style="width: 82px; height: 82px">
+            <app-user-avatar [avatarWidth]="82" [crownWidth]="0"></app-user-avatar>
+          </div>
+        </picture>
+      </div>
+      <div class="name">
+        <p>{{ userInfo.username }}</p>
+        <span class="description">
+          <span class="level">
+            <span class="content"> Lv{{ userInfo?.vipLevel }}</span>
+          </span>
+          <span class="status" [class.gray-img]="!this.showPrime">
+            <picture>
+              <source type="image/svg" srcset="/assets/images/game-board/prime.svg 1x, /assets/images/game-board/prime@2x.svg 2x" />
+              <img src="/assets/images/game-board/prime.svg" alt="Prime" />
+            </picture>
+          </span>
+        </span>
+      </div>
+      <ul class="list">
+        <li>
+          <p>{{ 'game-my-profile-direct-invites' | translate }}:</p>
+          <span>{{ userInfo?.recommendPeople }}</span>
+        </li>
+        <li>
+          <p>{{ 'game-my-profile-network-size' | translate }}:</p>
+          <span>{{ userInfo?.networkSize }}</span>
+        </li>
+        <li>
+          <p>{{ 'game-my-profile-earning-from' | translate }}:</p>
+          <span>{{ userInfo?.earningFrom }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div #scrollable class="scrollable" (scroll)="onScroll()">
+    <ng-container *ngIf="prime; else notPrime">
+      <ng-content *ngTemplateOutlet="primeTemplate"></ng-content>
+    </ng-container>
+    <ng-template #notPrime>
+      <ng-content *ngTemplateOutlet="notPrimeTemplate"></ng-content>
+    </ng-template>
+    <div class="invite-info">
+      <!--          TODO: styles Will be removed in future-->
+      <div class="invite-info__wrap" style="padding: 0; border: 0">
+        <button class="btn-primary" (click)="openInviteModal()">
+          {{ 'game-invite-btn' | translate }}
+        </button>
+        <p>
+          {{ 'game-invite-friends-description' | translate }}
+        </p>
+        <div class="icon">
+          <img src="/assets/images/game-board/invite.svg" alt="{{ 'game-invite-btn' | translate }}" />
+        </div>
+      </div>
+    </div>
+    <!--          TODO: Will be return in future-->
+    <!--    <div class="tokens-info">-->
+    <!--      <div class="tokens-info-bg">-->
+    <!--        <div class="tokens-info__wrap">-->
+    <!--          <div class="icon">-->
+    <!--            <picture>-->
+    <!--              <source type="image/png"  srcset="/assets/images/TYQOON-TOKENS-CC.png 1x, /assets/images/TYQOON-TOKENS-CC@2x.png 2x ">-->
+    <!--              <img src="/assets/images/TYQOON-TOKENS-CC.png" alt="Tokens">-->
+    <!--            </picture>-->
+    <!--          </div>-->
+    <!--          <p>-->
+    <!--            <span>TYQOON Tokens</span>-->
+    <!--            <span>-->
+    <!--            <picture>-->
+    <!--              <source type="image/png"  srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x ">-->
+    <!--              <img src="/assets/images/TYD.png" alt="TYQ">-->
+    <!--            </picture>-->
+    <!--          2,342.13-->
+    <!--        </span>-->
+    <!--          </p>-->
+    <!--          <button class="btn-primary main-hover">-->
+    <!--            Manage Tokens-->
+    <!--          </button>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
+  </div>
+</div>
+
+<ng-template #primeTemplate>
+  <div class="counters-info">
+    <div class="counters">
+      <div class="content">
+        <div class="counter" (click)="openInviteModal()">
+          <div class="counter-wrap">
+            <div class="icon">
+              <picture>
+                <source type="image/png" srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x" />
+                <img src="/assets/images/TYD.png" alt="TYD" />
+              </picture>
+            </div>
+            <p>{{ userInfo.point }}</p>
+          </div>
+        </div>
+        <!--          TODO: Will be return in future-->
+        <!--        <div class="counter crypt">-->
+        <!--          <div class="counter-wrap">-->
+        <!--            <div class="icon">-->
+        <!--              <picture>-->
+        <!--                <source type="image/png"  srcset="/assets/images/TYQ.png 1x, /assets/images/TYQ@2x.png 2x ">-->
+        <!--                <img src="/assets/images/TYQ.png" alt="TYQ">-->
+        <!--              </picture>-->
+        <!--            </div>-->
+        <!--            <p>2,342.13</p>-->
+        <!--          </div>-->
+        <!--        </div>-->
+      </div>
+    </div>
+  </div>
+  <div class="earn-info">
+    <div class="earn">
+      <div class="member">
+        <ul>
+          <li>
+            <span class="icon">
+              <app-tyqoon-icon name="crown"></app-tyqoon-icon>
+            </span>
+            <p>{{ 'game-my-profile-prime-perk-one' | translate }}</p>
+          </li>
+          <li>
+            <span class="icon">
+              <app-tyqoon-icon name="crown"></app-tyqoon-icon>
+            </span>
+            <p>{{ 'game-my-profile-prime-perk-two' | translate }}</p>
+          </li>
+          <li>
+            <span class="icon">
+              <app-tyqoon-icon name="crown"></app-tyqoon-icon>
+            </span>
+            <p>{{ 'game-my-profile-prime-perk-three' | translate }}</p>
+          </li>
+        </ul>
+        <div class="member-btn">
+          <button class="main-hover">
+            {{ 'prime-status-active' | translate }}
+          </button>
+        </div>
+      </div>
+      <div class="member-benefits">
+        <div class="benefits">
+          <div class="item low">
+            <div class="content">
+              <span class="icon">
+                <picture>
+                  <source type="image/svg" srcset="/assets/images/human.svg 1x, /assets/images/human@2x.svg 2x" />
+                  <img src="/assets/images/human.svg" alt="Human" />
+                </picture>
+              </span>
+              <p class="amount">
+                <svg>
+                  <text class="svgStroke" x="43%" y="37">1</text>
+                  <text class="svgText" x="43%" y="37">1</text>
+                </svg>
+              </p>
+            </div>
+          </div>
+          <div class="separator anim">
+            <picture>
+              <source type="image/svg" srcset="/assets/images/arrow.svg 1x, /assets/images/arrow@2x.svg 2x" />
+              <img src="/assets/images/arrow.svg" alt="Arrow" />
+            </picture>
+          </div>
+          <div class="item high">
+            <div class="content">
+              <span class="icon">
+                <picture>
+                  <source type="image/svg" srcset="/assets/images/human.svg 1x, /assets/images/human@2x.svg 2x" />
+                  <img src="/assets/images/human.svg" alt="Human" />
+                </picture>
+              </span>
+              <p class="amount">
+                <svg>
+                  <text class="svgStroke" x="35%" y="37">10</text>
+                  <text class="svgText" x="35%" y="37">10</text>
+                </svg>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="text">
+          <p>{{ 'game-my-profile-earning-from' | translate }}: <span>1</span></p>
+          <div class="separator">
+            <picture>
+              <source type="image/svg" srcset="/assets/images/arrow.svg 1x, /assets/images/arrow@2x.svg 2x" />
+              <img src="/assets/images/arrow.svg" alt="Arrow" />
+            </picture>
+          </div>
+          <p>{{ 'game-my-profile-earning-from' | translate }}: <span>10</span></p>
+        </div>
+        <p class="description">
+          {{ 'game-level-up-explanation' | translate }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="progress-info">
+    <div class="progress-info-wrap">
+      <p [innerHTML]="'game-level-up-bonus' | translate"></p>
+      <div class="progress-info__content">
+        <p>Lv {{ userInfo.userLevel }}</p>
+        <div class="progress-bar">
+          <div class="bar" [style.width]="this.getProgress"></div>
+          <p class="progress">{{ userInfo.recommendPeople }} / 10 </p>
+        </div>
+        <p>Lv {{ userInfo.userLevel + 1 }}</p>
+      </div>
+      <p>{{ 'game-direct-invite-members' | translate }}</p>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #notPrimeTemplate>
+  <div class="not-prime">
+    <div class="counters-info">
+      <div class="counters">
+        <div class="content">
+          <div class="counter" (click)="openInviteModal()">
+            <div class="counter-wrap">
+              <div class="icon">
+                <picture>
+                  <source type="image/png" srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x" />
+                  <img src="/assets/images/TYD.png" alt="TYD" />
+                </picture>
+              </div>
+              <p>{{ userInfo.point }}</p>
+            </div>
+          </div>
+          <!--          TODO: Will be return in future-->
+          <!--          <div class="counter crypt">-->
+          <!--            <div class="counter-wrap">-->
+          <!--              <div class="icon">-->
+          <!--                <picture>-->
+          <!--                  <source type="image/png"  srcset="/assets/images/TYQ.png 1x, /assets/images/TYQ@2x.png 2x ">-->
+          <!--                  <img src="/assets/images/TYQ.png" alt="Person">-->
+          <!--                </picture>-->
+          <!--              </div>-->
+          <!--              <p>2,342.13</p>-->
+          <!--            </div>-->
+          <!--          </div>-->
+        </div>
+      </div>
+    </div>
+    <div class="not-prime-wrap">
+      <div class="not-prime-content">
+        <div class="earn-info">
+          <div class="earn">
+            <div class="member">
+              <ul>
+                <li>
+                  <span class="icon">
+                    <app-tyqoon-icon name="crown"></app-tyqoon-icon>
+                  </span>
+                  <p>{{ 'game-my-profile-prime-perk-one' | translate }}</p>
+                </li>
+                <li>
+                  <span class="icon">
+                    <app-tyqoon-icon name="crown"></app-tyqoon-icon>
+                  </span>
+                  <p>{{ 'game-my-profile-prime-perk-two' | translate }}</p>
+                </li>
+                <li>
+                  <span class="icon">
+                    <app-tyqoon-icon name="crown"></app-tyqoon-icon>
+                  </span>
+                  <p>{{ 'game-my-profile-prime-perk-three' | translate }}</p>
+                </li>
+              </ul>
+              <div class="member-btn">
+                <span class="not-prime-crown"></span>
+                <button class="main-hover" (click)="openPrimeModal()">
+                  <span class="crown">
+                    <img src="/" alt="" />
+                  </span>
+                  {{ 'game-get-prime-btn' | translate }}
+                </button>
+              </div>
+            </div>
+            <div class="member-benefits">
+              <div class="benefits">
+                <div class="item low">
+                  <div class="content">
+                    <span class="icon">
+                      <picture>
+                        <source type="image/svg" srcset="/assets/images/human.svg 1x, /assets/images/human@2x.svg 2x" />
+                        <img src="/assets/images/human.svg" alt="Human" />
+                      </picture>
+                    </span>
+                    <p class="amount">
+                      <svg>
+                        <text class="svgStroke" x="43%" y="37">1</text>
+                        <text class="svgText" x="43%" y="37">1</text>
+                      </svg>
+                    </p>
+                  </div>
+                </div>
+                <div class="separator anim">
+                  <picture>
+                    <source type="image/svg" srcset="/assets/images/arrow.svg 1x, /assets/images/arrow@2x.svg 2x" />
+                    <img src="/assets/images/arrow.svg" alt="Arrow" />
+                  </picture>
+                </div>
+                <div class="item high">
+                  <div class="content">
+                    <span class="icon">
+                      <picture>
+                        <source type="image/svg" srcset="/assets/images/human.svg 1x, /assets/images/human@2x.svg 2x" />
+                        <img src="/assets/images/human.svg" alt="Human" />
+                      </picture>
+                    </span>
+                    <p class="amount">
+                      <svg>
+                        <text class="svgStroke" x="35%" y="37">{{ levelConfig.needPeople }}</text>
+                        <text class="svgText" x="35%" y="37">{{ levelConfig.needPeople }}</text>
+                      </svg>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="text">
+                <p>{{ 'game-my-profile-earning-from' | translate }}: <span>1</span></p>
+                <div class="separator">
+                  <picture>
+                    <source type="image/svg" srcset="/assets/images/arrow.svg 1x, /assets/images/arrow@2x.svg 2x" />
+                    <img src="/assets/images/arrow.svg" alt="Arrow" />
+                  </picture>
+                </div>
+                <p
+                  >{{ 'game-my-profile-earning-from' | translate }}: <span>{{ levelConfig.needPeople }}</span></p
+                >
+              </div>
+              <p class="description">
+                {{ 'game-level-up-explanation' | translate }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="progress-info">
+          <div class="progress-info-wrap">
+            <p [innerHTML]="'game-level-up-bonus' | translate"></p>
+            <div class="progress-info__content">
+              <p>Lv {{ userInfo.userLevel }}</p>
+              <div class="progress-bar">
+                <div class="bar" [style.width]="this.getProgress"></div>
+                <p class="progress">{{ userInfo.recommendPeople }}/ {{ levelConfig.needPeople }}</p>
+              </div>
+              <p>Lv {{ userInfo.userLevel + 1 }}</p>
+            </div>
+            <p>{{ 'game-direct-invite-members' | translate }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

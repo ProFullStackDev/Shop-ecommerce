@@ -1,0 +1,5 @@
+<p [class.hide]="hide" class="form-field__error">
+  <ng-container *ngIf="displayedError">
+      {{displayedError?.key || displayedError?.value}}
+  </ng-container>
+</p>

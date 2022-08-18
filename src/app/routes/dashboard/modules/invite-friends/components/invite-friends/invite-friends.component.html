@@ -1,0 +1,132 @@
+<div class="modal__header alt" [class.scrolling]="isScrollable">
+  <div class="title">
+    <div class="icon">
+      <img src="/assets/images/game-board/invite.svg" alt="Invite" />
+    </div>
+    <span>{{ 'game-invite-title' | translate }}</span>
+  </div>
+</div>
+<div class="modal__content invite-friends">
+  <div #scrollable class="scrollable" (scroll)="onScroll()">
+    <div class="shares-info">
+      <div class="shares-info__wrap">
+        <div class="content">
+          <p>{{ 'game-tyqoon-dollars' | translate }}</p>
+          <span>
+            <span class="shares">
+              {{ userInfo?.sumPerformance }}
+            </span>
+            <span class="icon">
+              <!--            TODO: Will be replaced after merge branches-->
+              <!--            <picture>-->
+              <!--              <source type="image/png"  srcset="/assets/images/TYD.png 1x, /assets/images/TYD@2x.png 2x ">-->
+              <!--              <img src="/assets/images/TYD.png" alt="TYQOON Dollars">-->
+              <!--            </picture>-->
+              <img src="/assets/images/TYQOON-SHARE.png" alt="TYQOON Shares" />
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <p class="invite-description">
+      {{ 'game-invite-description' | translate }}
+    </p>
+    <div class="earn-info">
+      <div class="earn">
+        <div class="member-benefits">
+          <div class="benefits">
+            <div class="item low">
+              <div class="content">
+                <span class="icon">
+                  <picture>
+                    <source type="image/svg" srcset="/assets/images/human.svg 1x, /assets/images/human@2x.svg 2x" />
+                    <img src="/assets/images/human.svg" alt="Human" />
+                  </picture>
+                </span>
+                <p class="amount">
+                  <svg>
+                    <text class="svgStroke" x="43%" y="37">1</text>
+                    <text class="svgText" x="43%" y="37">1</text>
+                  </svg>
+                </p>
+              </div>
+            </div>
+            <div class="separator anim">
+              <picture>
+                <source type="image/svg" srcset="/assets/images/arrow.svg 1x, /assets/images/arrow@2x.svg 2x" />
+                <img src="/assets/images/arrow.svg" alt="Arrow" />
+              </picture>
+            </div>
+            <div class="item high">
+              <div class="content">
+                <span class="icon">
+                  <picture>
+                    <source type="image/svg" srcset="/assets/images/human.svg 1x, /assets/images/human@2x.svg 2x" />
+                    <img src="/assets/images/human.svg" alt="Human" />
+                  </picture>
+                </span>
+                <p class="amount">
+                  <svg>
+                    <text class="svgStroke" x="35%" y="37">{{ levelConfig.needPeople }}</text>
+                    <text class="svgText" x="35%" y="37">{{ levelConfig.needPeople }}</text>
+                  </svg>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="text">
+            <p>{{ 'game-my-profile-earning-from' | translate }}: <span>1</span></p>
+            <div class="separator">
+              <picture>
+                <source type="image/svg" srcset="/assets/images/arrow.svg 1x, /assets/images/arrow@2x.svg 2x" />
+                <img src="/assets/images/arrow.svg" alt="Arrow" />
+              </picture>
+            </div>
+            <p
+              >{{ 'game-my-profile-earning-from' | translate }}: <span>{{ levelConfig.needPeople }}</span></p
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="progress-info">
+      <div class="progress-info-wrap">
+        <p [innerHTML]="'game-level-up-bonus' | translate"></p>
+        <div class="progress-info__content">
+          <p>Lv {{ userInfo.userLevel }}</p>
+          <div class="progress-bar">
+            <div class="bar" [style.width]="this.getProgress"></div>
+            <p class="progress">{{ userInfo.recommendPeople }}/ {{ levelConfig.needPeople }} </p>
+          </div>
+          <p>Lv {{ userInfo.userLevel + 1 }}</p>
+        </div>
+        <p>{{ 'game-direct-invite-members' | translate }}</p>
+      </div>
+    </div>
+    <div class="socials-info">
+      <p>{{ 'game-social-media-share' | translate }}</p>
+      <div class="socials-info__wrap">
+        <div *ngFor="let social of socials" class="item">
+          <ng-container *ngIf="social.type !== 'qr'; else qr">
+            <a (click)="share(social.type, $event)" [href]="social.link">
+              <app-tyqoon-icon [name]="social.icon"></app-tyqoon-icon>
+            </a>
+          </ng-container>
+          <ng-template #qr>
+            <button (click)="openQrCodeModal()">
+              <app-tyqoon-icon [name]="social.icon"></app-tyqoon-icon>
+            </button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="share-info share-info-style">
+      <div class="modal-input modal-input-style">
+        {{ shareLinkText }}
+      </div>
+      <button appCopying="shareLink" [successTitle]="successTitle" type="button" class="btn-primary" (copied)="copied($event)">
+        {{ successTitle | translate }}
+      </button>
+    </div>
+  </div>
+</div>

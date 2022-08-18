@@ -1,0 +1,14 @@
+<div class="modal__header">
+  <div class="title">
+    <span>{{ 'checkout-confirm-title' | translate }}</span>
+  </div>
+</div>
+<div class="modal__content">
+  <div class="text">{{ 'checkout-confirm-content' | translate }}</div>
+  <div class="btn-proceed" (click)="close('confirm')">{{ 'confirm-order-modal-button' | translate }}</div>
+  <div class="btn-cancel" (click)="close('cancel')">{{ 'checkout-confirm-cancel' | translate }}</div>
+  <picture class="bg">
+    <source type="image/png" srcset="/assets/images/shopping-checkout/bg.png 1x, /assets/images/shopping-checkout/bg@2x.png 2x" />
+    <img src="/assets/images/shopping-checkout/bg.png" alt="bg" />
+  </picture>
+</div>

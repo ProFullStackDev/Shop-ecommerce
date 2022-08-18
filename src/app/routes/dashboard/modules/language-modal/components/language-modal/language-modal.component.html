@@ -1,0 +1,25 @@
+<div [class.scrolling]="isScrollable" class="modal__header alt">
+  <div class="title">
+    {{ 'language-select' | translate }}
+  </div>
+</div>
+
+<div class="modal__content">
+  <div #scrollable class="scrollable" (scroll)="onScroll()">
+    <ul class="dropdown__option">
+      <li class="dropdown__item" *ngFor="let item of languageList; trackBy: trackById" (click)="setActiveItem(item)">
+        <span class="dropdown__item-wrap">
+          <span class="dropdown__item-icon">
+            <ng-container *ngIf="item.icon; else currency">
+              <app-tyqoon-icon [name]="item.icon"></app-tyqoon-icon>
+            </ng-container>
+            <ng-template #currency>
+              {{ item.currency }}
+            </ng-template>
+          </span>
+          <span class="dropdown__item-name">{{ item?.text }}</span>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="modal__header alt tokens" [class.scrolling]="isScrollable">
+  <div class="title">
+    <div class="icon">
+      <picture>
+        <source type="image/png" srcset="/assets/images/TYQOON-Dollars-cc.png 1x, /assets/images/TYQOON-Dollars-cc@2x.png 2x" />
+        <img src="/assets/images/TYQOON-Dollars-cc.png" alt="Dollars" />
+      </picture>
+    </div>
+    <span>{{ 'earn-dollars-buy-vouchers' | translate }}</span>
+  </div>
+</div>
+
+<div class="modal__content tyqoon-dollars">
+  <div #scrollable class="scrollable" (scroll)="onScroll()">
+    <app-my-total-savings></app-my-total-savings>
+    <div class="dollars-credits-container">
+      <app-tyqoon-dollars></app-tyqoon-dollars>
+      <app-rebate-credits></app-rebate-credits>
+    </div>
+    <div class="voucher-conversion title">
+      <img src="assets/images/ticket-voucher-single-gold.png" alt="" srcset="" />
+      1 Voucher = 500 Rebate Credits
+      <img src="assets/images/tyqoon-credits-stack-gold.png" alt="" srcset="" />
+    </div>
+    <div class="explanation title">
+      We give away up to 100% of the profit margin back to the users as TYQOON Dollars. Earn your rebate by holding Rebate Credits! Rebate
+      Credits convert to dollars automatically with every purchase!
+    </div>
+    <div class="purchase-rebate-vouchers">
+      <div class="purchase title">{{ 'purchase-rebate-vouchers' | translate }}</div>
+      <div class="voucher-input-parent">
+        <div class="prime-voucher title"> <img src="assets/images/ticket-voucher-single-gold.png" alt="" srcset="" /> PRIME Voucher </div>
+        <div class="credits-buy">
+          <div class="credits-buy-btn credits-buy-btn-subtract" (click)="changeVoucherNum(-1)">-</div>
+          <div class="credits-buy-num">{{ voucherNum }}</div>
+          <div class="credits-buy-btn credits-buy-btn-add" (click)="changeVoucherNum(1)">+</div>
+        </div>
+      </div>
+      <div class="credits-to-receive-container">
+        <div class="credit-info">{{ 'rebate-credits-to-receive' | translate }}</div>
+        <div *ngIf="pointStatistics" class="amount-to-receive"
+          >+ {{ voucherNum * 500 }} <img src="/assets/images/tyqoon-credit-yellow.png" alt="" srcset=""
+        /></div>
+      </div>
+      <div class="total-cost-container">
+        <div class="total-cost-title title">{{ 'total-cost' | translate }}</div>
+        <div class="total-cst title">{{ voucherNum * voucherValue | currency }}</div>
+      </div>
+    </div>
+    <div class="button-containers">
+      <button class="close-button" (click)="close()">
+        {{ 'close' | translate }}
+      </button>
+      <!--      TODO: old functionality-->
+      <!--      <button class="buy-now" (click)="openModal(successModal)">-->
+      <!--        {{ 'buy-now' | translate }}-->
+      <!--      </button>-->
+      <button class="buy-now" (click)="buyNow(voucherNum * voucherValue)">
+        {{ 'buy-now' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

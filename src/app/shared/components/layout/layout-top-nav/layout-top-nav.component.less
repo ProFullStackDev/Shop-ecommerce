@@ -1,0 +1,115 @@
+@import '~src/styles/_variables';
+
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .list-inline {
+    > li {
+      padding: 0;
+      > span {
+        margin-right: 10px;
+        color: #666666;
+      }
+      > a {
+        height: 35px;
+        line-height: 35px;
+        display: block;
+        padding: 0 10px;
+        > a:hover {
+          color: @primary-color;
+        }
+      }
+    }
+  }
+
+  .mainHeaderMemberInfo {
+    display: flex;
+    align-items: center;
+    .btn-logout {
+      cursor: pointer;
+      margin-left: 16px;
+    }
+  }
+
+  .funs {
+    display: flex;
+    align-items: center;
+    .top-nav-dropdown {
+      position: relative;
+      z-index: 400;
+      &:hover {
+        > a {
+          color: @primary-color;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          border-color: #dddddd;
+          border-bottom-color: transparent;
+          background-color: #ffffff;
+          &:before {
+            height: 10px;
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: -1px;
+            left: 0;
+            z-index: 100;
+            background-color: #ffffff;
+          }
+        }
+        > ul {
+          max-height: 1000px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          border: 1px solid #dddddd;
+          &.business {
+            width: 100%;
+            right: 0;
+            left: 0;
+          }
+          &.qrcode {
+            padding: 15px 0 10px 0;
+          }
+        }
+      }
+      > a {
+        position: relative;
+        border: 1px solid transparent;
+        transition: 0.3s;
+      }
+      .anticon {
+        color: #cccccc;
+      }
+      > ul {
+        max-height: 0;
+        transition: 0.3s;
+        overflow: hidden;
+        margin-top: -1px;
+        position: absolute;
+        background-color: #ffffff;
+        li a {
+          height: 30px;
+          line-height: 30px;
+          padding: 0 10px;
+        }
+        &.business {
+          width: 85px;
+        }
+        &.qrcode {
+          width: 474px;
+          right: 0;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          li {
+            padding: 0 20px;
+            text-align: center;
+            border-right: 1px solid #eeeeee;
+            flex: 1;
+            &:last-child {
+              border-right: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

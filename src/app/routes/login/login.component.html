@@ -1,0 +1,117 @@
+<main class="login">
+  <div class="container cont-main-style">
+    <img class="image" src="assets/images/login-banner-min.png" alt="" class="ad img-login-style" />
+    <div class="form-con br-12 form-con-style">
+      <nz-card class="br-12" style="width: 100%">
+        <nz-card-tab>
+          <nz-tabset nzCentered nzSize="large" [(nzSelectedIndex)]="loginType">
+            <nz-tab nzTitle="{{ 'login-page-title' | translate }}">
+              <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="validate()">
+                <nz-form-item>
+                  <nz-form-control nzErrorTip="{{ 'login-username-error' | translate }}">
+                    <nz-input-group nzPrefixIcon="user" nzSize="large">
+                      <input
+                        type="text"
+                        nz-input
+                        formControlName="username"
+                        placeholder="{{ 'login-username-input' | translate }}"
+                        maxlength="18"
+                      />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-control nzErrorTip="请输入密码">
+                    <nz-input-group nzPrefixIcon="lock" nzSize="large">
+                      <input
+                        type="password"
+                        nz-input
+                        formControlName="password"
+                        placeholder="{{ 'login-page-password' | translate }}"
+                        maxlength="30"
+                      />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-control nzErrorTip="请输入验证码">
+                    <nz-input-group [nzAddOnAfter]="addOnAfterTemplate">
+                      <input
+                        class="form-verify-code"
+                        type="text"
+                        nz-input
+                        formControlName="captchaCode"
+                        placeholder="{{ 'login-page-verification-code' | translate }}"
+                        maxlength="4"
+                      />
+                      <ng-template #addOnAfterTemplate>
+                        <nz-spin [nzSpinning]="loading.verifyCode">
+                          <img class="form-verify-code-img" [src]="verifyCodeImg" alt="" (click)="getVerifyCode()" />
+                        </nz-spin>
+                      </ng-template>
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+                <div nz-row>
+                  <div nz-col [nzSpan]="12">
+                    <label nz-checkbox formControlName="remember">
+                      <span>{{ 'login-page-remember' | translate }}</span>
+                    </label>
+                  </div>
+                </div>
+                <button class="btn-submit" nz-button nzType="primary" nzBlock nzSize="large" [nzLoading]="loading.submit">{{
+                  'login-page-login' | translate
+                }}</button>
+                <div nz-col [nzSpan]="12">
+                  <a class="btn-register" routerLink="/register">{{ 'login-page-sign-up' | translate }}</a>
+                  <a class="login-form-forgot" routerLink="/forgotPassword">{{ 'login-page-forgot-password' | translate }}</a>
+                </div>
+              </form>
+            </nz-tab>
+            <nz-tab nzTitle="{{ 'login-page-title-phone' | translate }}">
+              <form nz-form [formGroup]="validateMobileForm" class="login-form">
+                <app-phone-control (setMobileFormValue)="setMobileFormValue($event)"></app-phone-control>
+                <nz-form-item>
+                  <nz-form-control nzErrorTip="请输入验证码">
+                    <nz-input-group [nzAddOnAfter]="addOnAfterTemplate1">
+                      <input
+                        type="text"
+                        nz-input
+                        formControlName="smsCode"
+                        placeholder="{{ 'login-page-verification-code' | translate }}"
+                        maxlength="6"
+                      />
+                      <ng-template #addOnAfterTemplate1>
+                        <button nz-button nzType="link" [nzLoading]="loading.sms" [disabled]="smsTimeRemaining > 0" (click)="getSmsCode()">
+                          {{ 'login-page-get-verification-code' | translate }}
+                        </button>
+                      </ng-template>
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+                <div nz-row>
+                  <div nz-col [nzSpan]="24">
+                    <a class="login-form-forgot" routerLink="/forgotPassword">{{ 'login-page-forgot-password' | translate }}</a>
+                    <a class="btn-register" routerLink="/register">{{ 'login-page-sign-up' | translate }}</a>
+                  </div>
+                </div>
+                <button
+                  class="btn-submit"
+                  nz-button
+                  nzType="primary"
+                  nzBlock
+                  nzSize="large"
+                  [nzLoading]="loading.submit"
+                  (click)="validateMobile()"
+                  >{{ 'login-page-login' | translate }}</button
+                >
+              </form></nz-tab
+            >
+          </nz-tabset>
+        </nz-card-tab>
+      </nz-card>
+      <!--        <span class="item" [class.active]="Object.is(loginType, 1)">账号登陆</span>-->
+      <!--        <span class="item" [class.active]="Object.is(loginType, 2)">短信登陆</span>-->
+    </div>
+  </div>
+</main>

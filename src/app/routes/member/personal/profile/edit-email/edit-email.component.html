@@ -1,0 +1,25 @@
+<form nz-form [formGroup]="validateForm" class="login-form">
+  <nz-form-item>
+    <nz-form-control [nzErrorTip]="emailErrorTpl">
+      <nz-input-group [nzAddOnAfter]="addOnAfterTemplate">
+        <input type="text" nz-input formControlName="email" placeholder="请填写邮箱" />
+        <ng-template #addOnAfterTemplate>
+          <button nz-button nzType="link" [nzLoading]="loading.emailCode" [disabled]="emailCodeTimeRemaining > 0" (click)="getEmailCode()">
+            {{ emailCodeText }}
+          </button>
+        </ng-template>
+        <ng-template #emailErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">请填写邮箱</ng-container>
+          <ng-container *ngIf="control.hasError('email')">请填写正确的邮箱</ng-container>
+        </ng-template>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="请填写验证码">
+      <nz-input-group>
+        <input type="text" nz-input formControlName="emailCode" placeholder="请填写邮箱收到的验证码" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+</form>

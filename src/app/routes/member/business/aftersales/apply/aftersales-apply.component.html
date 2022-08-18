@@ -1,0 +1,256 @@
+<div>
+  <nz-card style="width: 100%" nzTitle="申请售后" [nzLoading]="loading.table">
+    <nz-tabset [(nzSelectedIndex)]="tabIndex" (nzSelectedIndexChange)="tabIndexChange($event)">
+      <nz-tab nzTitle="换货申请"> </nz-tab>
+      <nz-tab nzTitle="退货申请"> </nz-tab>
+      <nz-tab nzTitle="退款申请" *ngIf="isRefund"> </nz-tab>
+    </nz-tabset>
+    <div class="panel">
+      <div class="panel-heading">{{ aftersalesType[tabIndex] }}须知</div>
+      <nz-divider></nz-divider>
+      <div class="panel-body">
+        <p [innerHTML]="contentHTML"></p>
+      </div>
+    </div>
+    <div class="panel panel-default" *ngIf="afterSalesDetailsItem.length > 0">
+      <div class="panel-heading">已申请商品</div>
+      <nz-divider></nz-divider>
+      <!-- table-header ----------------start -->
+      <nz-row class="table-header">
+        <nz-col [nzSpan]="tableSpan.product">商品</nz-col>
+        <nz-col [nzSpan]="tableSpan.type">数量</nz-col>
+        <nz-col [nzSpan]="tableSpan.type">类型</nz-col>
+        <nz-col [nzSpan]="tableSpan.status">状态</nz-col>
+        <nz-col [nzSpan]="tableSpan.operation">{{ 'order-operate' | translate }}</nz-col>
+      </nz-row>
+      <!-- table-header ----------------end -->
+      <!-- table-body ----------------start -->
+      <div class="order-item">
+        <div class="order" *ngFor="let afterSales of detailsItem">
+          <nz-row class="order-body">
+            <nz-col [nzSpan]="tableSpan.product">
+              <div class="detail">
+                <nz-row nzAlign="middle" nzJustify="space-between">
+                  <nz-col [nzSpan]="3">
+                    <nz-avatar nzIcon="picture" [nzSrc]="afterSales.orderThumbnail" [nzSize]="50" nzShape="square"></nz-avatar>
+                  </nz-col>
+                  <nz-col [nzSpan]="21">
+                    <p class="name text-overflow">
+                      {{ afterSales.orderName }}
+                    </p>
+                  </nz-col>
+                </nz-row>
+              </div>
+            </nz-col>
+            <nz-col [nzSpan]="tableSpan.type" class="price">
+              <p class="specifications text-overflow">{{ afterSales.afterSalesItem.quantity }}</p>
+            </nz-col>
+            <nz-col [nzSpan]="tableSpan.type" class="price">
+              <p class="specifications text-overflow">{{ afterSales.type | dict: DictKey.AFTERSALES_TYPE:'label' | translate }}</p>
+            </nz-col>
+            <nz-col [nzSpan]="tableSpan.status" class="price">
+              <p class="specifications text-overflow" [style.color]="afterSales.status | dict: DictKey.AFTERSALES_STATUS:'color'">
+                {{ afterSales.status | dict: DictKey.AFTERSALES_STATUS:'label' | translate }}
+              </p>
+            </nz-col>
+            <nz-col class="operation" [nzSpan]="tableSpan.operation">
+              <button nz-button nzType="link" nzBlock>
+                <a
+                  routerLink="/member/aftersales/detail"
+                  [queryParams]="{
+                    afterSalesID: afterSales.id
+                  }"
+                >
+                  <i nz-icon nzType="search" nzTheme="outline"></i>查看详情
+                </a>
+              </button>
+            </nz-col>
+          </nz-row>
+        </div>
+      </div>
+      <!-- table-body ----------------end -->
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading"> 请选择{{ aftersalesType[tabIndex] }}商品 </div>
+      <nz-divider></nz-divider>
+      <!-- table-header ----------------start -->
+      <nz-row class="table-header">
+        <nz-col [nzSpan]="tableSpan.checkBox"
+          ><label nz-checkbox [(ngModel)]="isCheckAll" (ngModelChange)="checkAllChange()" [nzDisabled]="isAllDisabled"></label
+        ></nz-col>
+        <nz-col [nzSpan]="tableSpan.product">商品</nz-col>
+        <nz-col [nzSpan]="tableSpan.number">数量</nz-col>
+        <nz-col [nzSpan]="tableSpan.price">单价</nz-col>
+        <nz-col [nzSpan]="tableSpan.price">凭证状态</nz-col>
+        <nz-col [nzSpan]="tableSpan.price">操作</nz-col>
+      </nz-row>
+      <!-- table-header ----------------end -->
+      <!-- table-body ----------------start -->
+      <div class="order-item">
+        <div class="order" *ngFor="let orderDetail of orderItems; let key = index">
+          <nz-row class="order-body">
+            <nz-col [nzSpan]="tableSpan.checkBox" class="price">
+              <label nz-checkbox [(ngModel)]="orderDetail.applyCheck" [nzDisabled]="orderDetail.disabled"></label>
+            </nz-col>
+            <nz-col [nzSpan]="tableSpan.product">
+              <div class="detail">
+                <nz-row nzAlign="middle" nzJustify="space-between">
+                  <nz-col [nzSpan]="3">
+                    <nz-avatar nzIcon="picture" [nzSrc]="orderDetail.orderItem.thumbnail" [nzSize]="50" nzShape="square"></nz-avatar>
+                  </nz-col>
+                  <nz-col [nzSpan]="21">
+                    <p class="name text-overflow">
+                      <a routerLink="/product/detail" [queryParams]="{ id: orderDetail.product.id }" [title]="orderDetail.orderItem.name">
+                        {{ orderDetail.orderItem.name }}
+                      </a>
+                    </p>
+                    <p class="specifications text-gray text-overflow">{{ orderDetail.orderItem.specifications }}</p>
+                  </nz-col>
+                </nz-row>
+              </div>
+            </nz-col>
+            <nz-col [nzSpan]="tableSpan.number" class="price">
+              <nz-input-number
+                [(ngModel)]="orderDetail.applyQuantity"
+                [nzMin]="1"
+                [nzMax]="orderDetail.orderItem.quantity"
+                [nzStep]="1"
+                [nzDisabled]="orderDetail.disabled"
+              ></nz-input-number>
+            </nz-col>
+            <nz-col [nzSpan]="tableSpan.price" class="price"> ￥{{ orderDetail.orderItem.price }} </nz-col>
+            <nz-col
+              [nzSpan]="tableSpan.price"
+              class="price"
+              *ngIf="orderDetail.orderItem.images && orderDetail.orderItem.images.length == 0"
+              >未上传
+            </nz-col>
+            <nz-col [nzSpan]="tableSpan.price" class="price" *ngIf="orderDetail.orderItem.images && orderDetail.orderItem.images.length > 0"
+              >已上传
+            </nz-col>
+            <nz-col [nzSpan]="tableSpan.price" class="price"
+              ><button nz-button nzType="primary" [disabled]="orderDetail.disabled" (click)="showModal(key)">
+                <span>上传凭证</span>
+              </button></nz-col
+            >
+          </nz-row>
+        </div>
+      </div>
+      <!-- table-body ----------------end -->
+    </div>
+    <form nz-form [formGroup]="validateForm" *ngIf="!isAllDisabled">
+      <div class="panel panel-default">
+        <div class="panel-heading">售后原因</div>
+        <nz-divider></nz-divider>
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="20" nzRequired nzFor="reason">原因</nz-form-label>
+          <nz-form-control [nzSm]="10" [nzXs]="20" nzErrorTip="请输入原因">
+            <textarea rows="4" nz-input formControlName="reason"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="panel panel-default" *ngIf="showAddress">
+        <div class="panel-heading">联系方式</div>
+        <nz-divider></nz-divider>
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="20" nzRequired nzFor="consignee">收货人</nz-form-label>
+          <nz-form-control [nzSm]="10" [nzXs]="20" nzErrorTip="请输入收货人">
+            <input nz-input formControlName="consignee" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="20" nzRequired nzFor="areaId">地区</nz-form-label>
+          <nz-form-control [nzSm]="10" [nzXs]="20" nzErrorTip="请选择地区">
+            <!-- 省市区组件 -->
+            <app-address-select
+              class="address-select"
+              formControlName="areaId"
+              #editCompoent
+              (submitSuccess)="submitSuccess($event)"
+              (citySelected)="citySelected($event)"
+              (regionSelected)="regionSelected($event)"
+              [areaDetails]="areaDetails"
+            >
+            </app-address-select>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="20" nzRequired nzFor="address">地址</nz-form-label>
+          <nz-form-control [nzSm]="10" [nzXs]="20" nzErrorTip="请输入地址">
+            <input nz-input formControlName="address" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="20" nzRequired nzFor="phone">电话</nz-form-label>
+          <nz-form-control [nzSm]="10" [nzXs]="20" nzErrorTip="请输入电话">
+            <input nz-input formControlName="phone" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <!-- <div class="panel panel-default">
+        <div class="panel-heading">退款方式</div>
+        <nz-divider></nz-divider>
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="20" nzRequired nzFor="method">退款方式</nz-form-label>
+          <nz-form-control [nzSm]="10" [nzXs]="20" nzErrorTip="请选择退款方式">
+            <nz-select formControlName="method" (ngModelChange)="methodChange($event)">
+              <nz-option *ngFor="let item of aftersalesMethod" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="isShow">
+          <nz-form-label [nzSm]="6" [nzXs]="20" nzRequired nzFor="bank">退款银行</nz-form-label>
+          <nz-form-control [nzSm]="10" [nzXs]="20" nzErrorTip="请输入退款银行">
+            <input nz-input formControlName="bank" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="isShow">
+          <nz-form-label [nzSm]="6" [nzXs]="20" nzRequired nzFor="account">退款账户</nz-form-label>
+          <nz-form-control [nzSm]="10" [nzXs]="20" nzErrorTip="请输入退款账户">
+            <input nz-input formControlName="account" />
+          </nz-form-control>
+        </nz-form-item>
+      </div> -->
+      <div class="panel-footer">
+        <nz-form-item nz-row class="register-area">
+          <nz-form-control [nzSpan]="10" [nzOffset]="6">
+            <button nz-button nzType="default" class="button-rignt" (click)="goBack()">
+              <span>返回</span>
+            </button>
+            <button nz-button nzType="primary" [disabled]="loading.submit" (click)="validate()">
+              <span>提交</span>
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </form>
+  </nz-card>
+  <nz-modal [(nzVisible)]="isVisible" nzTitle="上传凭证" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+      <nz-upload
+        nzAccept="image/png,image/jpeg,image/gif,image/bmp,image/jpg"
+        nzFileType="image/png,image/jpeg,image/gif,image/bmp,image/jpg"
+        nzListType="picture-card"
+        [(nzFileList)]="fileList"
+        [nzData]="uploadData"
+        [nzMultiple]="true"
+        [nzLimit]="6"
+        [nzAction]="uploadAction"
+        [nzShowButton]="fileList.length < 6"
+        [nzPreview]="handlePreview"
+        [nzRemove]="removeFile"
+        (nzChange)="uploadChange($event)"
+      >
+        <div>
+          <i nz-icon nzType="plus"></i>
+          <div style="margin-top: 8px">Upload</div>
+        </div>
+      </nz-upload>
+      <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible = false">
+        <ng-template #modalContent>
+          <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+        </ng-template>
+      </nz-modal>
+    </ng-container>
+  </nz-modal>
+</div>

@@ -1,0 +1,475 @@
+<div class="container container-product">
+  <div class="container-product-inner">
+    <div nz-row [nzGutter]="16" class="main-detail-product">
+      <div nz-col [nzSpan]="8" class="img-product-style">
+        <app-product-detail-images [productImages]="productInfo?.productImages || '[]'"></app-product-detail-images>
+      </div>
+      <div nz-col [nzSpan]="12" class="product-detail-style">
+        <!-- <div class="icon start" [class.active]="isActive(productInfo.id)" (click)="toggleWishlist(productInfo)">
+          <app-tyqoon-icon [name]="isActive(productInfo.id) ? 'filledStar' : 'stokedStar'"></app-tyqoon-icon>
+        </div> -->
+        <div *ngIf="productInfo; else skeleton">
+          <div class="name text-lg name-text-style" [title]="productInfo.name">
+            {{ productInfo.name }}
+          </div>
+          <!--  product-info-----------start -->
+          <nz-card class="product-info" nzSize="small">
+            <div class="product-info-style">
+              <div [ngClass]="!canBuy ? 'product-info-disabled' : ''" class="left-product-info">
+                <div class="market-price info-item">
+                  <span class="label text-gray-dark">{{ 'shop-product-page-market-price' | translate }}：</span>
+                  <del class="value text-gray-darker">{{ selectedSku?.marketPrice | currency }}</del>
+                </div>
+                <div class="cash-back-style for-mobile">
+                  <p class="text-cash-back-reward">Cash Back Reward: </p>
+                  <p class="text-cash-back">
+                    <img src="/assets/images/TYD-small.png" alt="TYD" />
+                    <span>{{ selectedSku?.cashBack | number: '0.2-2' }}</span>
+                  </p>
+                  <span>+{{ cashbackByDays }}/{{ 'shop-product-page-reward-days-45' | translate }}</span>
+                </div>
+                <div class="price info-item">
+                  <span class="label text-gray-dark">{{ 'shop-product-page-selling-price' | translate }}：</span>
+                  <span class="value text-2xl">
+                    <span class="text-gray-darker" *ngIf="selectedSku?.exchangePoint">{{ selectedSku?.exchangePoint }} 积分 + </span>
+                    <strong class="text-primary">{{ selectedSku?.price | currency }}</strong>
+                  </span>
+                </div>
+                <div class="actual-price info-item">
+                  <span class="label text-gray-dark">Actual Price you pay (after cash back)：</span>
+                  <span class="value text-2xl">
+                    <span class="text-gray-darker" *ngIf="selectedSku?.exchangePoint">{{ selectedSku?.exchangePoint }} 积分 + </span>
+                    <strong class="text-primary blinking-text">{{ actualPrice | currency }}</strong>
+                  </span>
+                </div>
+                <div class="coupon info-item">
+                  <span class="label text-gray-dark cupon-style">优惠券：</span>
+                  <span class="value cupon-style">
+                    <nz-spin *ngIf="loading.otherInfo" nzSimple [nzSize]="'small'"></nz-spin>
+                    <a routerLink="/theme/coupon" *ngFor="let coupon of couponList">
+                      <nz-tag class="coupon-tag" nzColor="#fb8811">{{ coupon.name }}</nz-tag>
+                    </a>
+                  </span>
+                </div>
+                <div class="sn info-item info-item-style">
+                  <span class="label text-gray-dark"># </span>
+                  <span class="value text-gray-darker">
+                    {{ productInfo.sn }}
+                  </span>
+                </div>
+
+                <div class="product-specification for-desktop">
+                  <nz-spin [nzSpinning]="loading.otherInfo">
+                    <nz-row
+                      *ngFor="let specification of specificationItems"
+                      class="product-specification-item text-for-dark-th"
+                      nzAlign="middle"
+                      nzJustify="space-between"
+                    >
+                      <nz-col class="label">{{ specification.name }}：</nz-col>
+                      <nz-col class="content" [nzFlex]="1">
+                        <nz-radio-group
+                          [(ngModel)]="specificationMap['specification-' + specification.name]"
+                          (ngModelChange)="specificationChange()"
+                        >
+                          <label
+                            class="max-width-specification parameters-product-info"
+                            nz-radio-button
+                            *ngFor="let entrie of specification.entries"
+                            [nzValue]="entrie.id"
+                            [nzDisabled]="!specificationSelectable.has(entrie.id)"
+                          >
+                            {{ entrie.value }}
+                          </label>
+                        </nz-radio-group>
+                      </nz-col>
+                    </nz-row>
+                    <nz-row class="product-specification-item" nzAlign="middle" nzJustify="space-between">
+                      <nz-col class="label text-for-dark-th">数量：</nz-col>
+                      <nz-col class="content" [nzFlex]="1">
+                        <nz-input-number
+                          [(ngModel)]="quantity"
+                          [nzMin]="1"
+                          [nzMax]="stockCount"
+                          [nzPrecision]="0"
+                          [nzDisabled]="!canBuy"
+                        ></nz-input-number>
+                        <span class="unit">{{ 'shop-product-page-sku-stock' | translate }}: {{ stockCount }}</span>
+                      </nz-col>
+                    </nz-row>
+                  </nz-spin>
+                </div>
+              </div>
+            </div>
+          </nz-card>
+          <!--  product-info-----------end -->
+
+          <!-- product-count-----------start -->
+          <nz-divider class="product-count-style" style="margin: 8px 0"></nz-divider>
+          <nz-row class="product-count product-count-style" nzAlign="middle">
+            <nz-col nzSpan="4" class="text-for-dark-th">
+              月销量：<span class="text-primary">{{ productInfo.monthSales }}</span>
+            </nz-col>
+            <nz-divider nzType="vertical"></nz-divider>
+            <nz-col nzSpan="4" class="text-for-dark-th">
+              评分数：<span class="text-primary">{{ productInfo.scoreCount }}</span>
+            </nz-col>
+            <nz-divider nzType="vertical"></nz-divider>
+            <nz-col nzSpan="4" class="text-for-dark-th">
+              评分：<span class="text-primary">{{ productInfo.score | number: '1.1-1' }}</span>
+            </nz-col>
+          </nz-row>
+          <nz-divider class="product-count-style" style="margin: 8px 0"></nz-divider>
+          <!-- product-count-----------end -->
+
+          <!-- product-sku-----------start -->
+          <div class="product-specification for-mobile">
+            <nz-spin [nzSpinning]="loading.otherInfo">
+              <nz-row
+                *ngFor="let specification of specificationItems"
+                class="product-specification-item text-for-dark-th"
+                nzAlign="middle"
+                nzJustify="space-between"
+              >
+                <nz-col class="label">{{ specification.name }}：</nz-col>
+                <nz-col class="content" [nzFlex]="1">
+                  <nz-radio-group
+                    [(ngModel)]="specificationMap['specification-' + specification.name]"
+                    (ngModelChange)="specificationChange()"
+                  >
+                    <label
+                      class="max-width-specification parameters-product-info"
+                      nz-radio-button
+                      *ngFor="let entrie of specification.entries"
+                      [nzValue]="entrie.id"
+                      [nzDisabled]="!specificationSelectable.has(entrie.id)"
+                    >
+                      {{ entrie.value }}
+                    </label>
+                  </nz-radio-group>
+                </nz-col>
+              </nz-row>
+              <nz-row class="product-specification-item" nzAlign="middle" nzJustify="space-between">
+                <nz-col class="label text-for-dark-th">数量：</nz-col>
+                <nz-col class="content" [nzFlex]="1">
+                  <nz-input-number
+                    [(ngModel)]="quantity"
+                    [nzMin]="1"
+                    [nzMax]="stockCount"
+                    [nzPrecision]="0"
+                    [nzDisabled]="!canBuy"
+                  ></nz-input-number>
+                  <span class="unit">{{ 'shop-product-page-sku-stock' | translate }}: {{ stockCount }}</span>
+                </nz-col>
+              </nz-row>
+            </nz-spin>
+          </div>
+          <div class="right-product-info for-mobile" *ngIf="hasPrime">
+            <div class="cash-back-style for-desktop">
+              <p class="text-cash-back-reward">Cash Back Reward: </p>
+              <p class="text-cash-back">
+                <img src="/assets/images/TYD-small.png" alt="TYD" />
+                <span>{{ selectedSku?.cashBack | number: '0.2-2' }}</span>
+              </p>
+              <span>+{{ cashbackByDays }}/{{ 'shop-product-page-reward-days-45' | translate }}</span>
+            </div>
+            <strong class="price">{{ selectedSku?.price | currency }}</strong>
+            <nz-select *ngIf="stockCountList.length" class="qty-select" nzPlaceHolder="Qty" [(ngModel)]="quantity" [nzDisabled]="!canBuy">
+              <nz-option *ngFor="let count of stockCountList" [nzValue]="count" [nzLabel]="'Qty: ' + count"></nz-option>
+            </nz-select>
+            <!-- product-btn-----------start -->
+            <nz-space class="product-btn" [nzSize]="16">
+              <button
+                class="gradient-orange-purchase product-purchase"
+                [appFlyingCart]="cover"
+                nz-button
+                nzType="primary"
+                [nzLoading]="loading.addToCart"
+                [disabled]="!canBuy"
+                (click)="addToCart()"
+              >
+                <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+                {{ 'shop-product-page-add' | translate }}
+              </button>
+              <app-product-collection
+                *nzSpaceItem
+                nz-button
+                nzType="primary"
+                [(isFavorite)]="productInfo.collect"
+                [productId]="productInfo.id"
+                [isButton]="true"
+                [isMobile]="true"
+              >
+              </app-product-collection>
+            </nz-space>
+            <!-- product-btn-----------end -->
+            <div class="product-and-share">
+              <div class="share-airplane" (click)="openModal(sharedModal)">
+                <p class="share-text">{{ 'shop-product-page-share' | translate }}</p>
+                <img class="paper-plane" src="assets/images/paper-plane.svg" alt="plane" />
+              </div>
+            </div>
+          </div>
+          <!-- product-sku-----------end -->
+        </div>
+        <ng-template #skeleton>
+          <nz-skeleton [nzParagraph]="{ rows: 8 }"></nz-skeleton>
+        </ng-template>
+      </div>
+      <div nz-col [nzSpan]="4" class="sticky-swiper-right sticky-swiper-left-sided" [class.fixed-block]="isScrolled">
+        <app-product-detail-same [productId]="productId" [isScrolled]="isScrolled"></app-product-detail-same>
+      </div>
+    </div>
+
+    <!--  product-detail-----------start -->
+    <div class="product-detail">
+      <nz-anchor>
+        <app-product-recommend class="recommend"></app-product-recommend>
+      </nz-anchor>
+      <div class="params params-style product-description">
+        <nz-anchor class="anchor display-noned-on-low-resolution display-noned-at-all">
+          <nz-link
+            nzHref="#introduction"
+            class="product-description-text"
+            nzTitle="{{ 'shop-product-page-description' | translate }}"
+          ></nz-link>
+          <nz-link
+            *ngIf="parameterValues.length > 0"
+            class="display-noned-on-low-resolution"
+            nzHref="#parameter"
+            nzTitle="商品参数"
+          ></nz-link>
+          <nz-link *ngIf="reviewList.length > 0" class="display-noned-on-low-resolution" nzHref="#score" nzTitle="商品评论"></nz-link>
+          <nz-link
+            *ngIf="consultationList.length > 0"
+            class="display-noned-on-low-resolution"
+            nzHref="#consultation"
+            nzTitle="商品咨询"
+          ></nz-link>
+          <nz-space class="btn-group">
+            <button
+              *nzSpaceItem
+              class="buy-now product-purchase"
+              nz-button
+              nzType="primary"
+              nzGhost
+              [disabled]="!canBuy"
+              (click)="buyNow()"
+            >
+              {{ 'shop-product-page-buy' | translate }}
+            </button>
+            <button
+              *nzSpaceItem
+              class="gradient-orange-purchase product-purchase"
+              nz-button
+              nzType="primary"
+              [appFlyingCart]="cover"
+              [nzLoading]="loading.addToCart"
+              [disabled]="!canBuy"
+              (click)="addToCart()"
+            >
+              <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+              {{ 'shop-product-page-add' | translate }}
+            </button>
+          </nz-space>
+        </nz-anchor>
+
+        <!--      introduction------------start-->
+        <nz-divider
+          class="anchor"
+          id="introduction"
+          nzText="{{ 'shop-product-page-description' | translate }}"
+          nzOrientation="left"
+        ></nz-divider>
+        <div class="introduction" [innerHTML]="introductionHTML"></div>
+        <!--      introduction------------end-->
+
+        <!--      parameter------------start-->
+        <nz-divider *ngIf="parameterValues.length > 0" class="anchor" id="parameter" nzText="商品参数" nzOrientation="left"></nz-divider>
+        <div *ngIf="parameterValues.length > 0" class="parameter">
+          <nz-descriptions
+            class="descriptions"
+            *ngFor="let parameter of parameterValues"
+            [nzTitle]="parameter.group"
+            nzBordered
+            [nzColumn]="1"
+            nzSize="small"
+          >
+            <nz-descriptions-item *ngFor="let param of parameter.entries" [nzTitle]="param.name">{{ param.value }}</nz-descriptions-item>
+          </nz-descriptions>
+        </div>
+        <!--      parameter------------end-->
+
+        <!--      score------------start-->
+        <nz-divider *ngIf="reviewList.length > 0" class="anchor" id="score" nzText="商品评论" nzOrientation="left"></nz-divider>
+        <nz-row *ngIf="productInfo && reviewList.length > 0" class="score score-style" [nzGutter]="16" nzAlign="middle">
+          <nz-col class="score-level score-item-style" [nzSpan]="4">
+            <h5>评分</h5>
+            <div class="num text-2xl">{{ getReviewTotal.averageScore | number: '1.1-1' }}</div>
+            <nz-rate [ngModel]="getReviewTotal.averageScore" nzDisabled></nz-rate>
+          </nz-col>
+          <nz-col class="score-graph score-item-style" [nzSpan]="8" [nzOffset]="4">
+            <div>
+              <em class="tag" [style.left]="getReviewTotal.averageScore * 20 + '%'">
+                {{ getReviewTotal.averageScore | number: '1.1-1' }}
+                <span class="caret"></span>
+              </em>
+              <nz-progress
+                [nzPercent]="getReviewTotal.averageScore * 20"
+                [nzStrokeColor]="{
+                  '0%': '#FFFFFB',
+                  '20%': '#FFFFA7',
+                  '40%': '#FFF38D',
+                  '60%': '#FFDC80',
+                  '80%': '#FFBE75',
+                  '100%': '#FFA76C'
+                }"
+                [nzShowInfo]="false"
+              ></nz-progress>
+              <div class="text text-ret-style">
+                <div class="text-item">非常不满</div>
+                <div class="text-item">不满意</div>
+                <div class="text-item">一般</div>
+                <div class="text-item">一般</div>
+                <div class="text-item">满意</div>
+              </div>
+            </div>
+          </nz-col>
+          <nz-col class="score-count score-item-style" [nzSpan]="4" [nzOffset]="4">
+            <div class="count text-gray">评分数：{{ getReviewTotal.total }}</div>
+            <!--          <a href="">查看所有评论</a>-->
+          </nz-col>
+        </nz-row>
+        <ng-container *ngIf="reviewList.length > 0">
+          <app-product-review-item
+            *ngFor="let review of reviewList"
+            [review]="review"
+            [storeName]="review.storeName"
+          ></app-product-review-item>
+        </ng-container>
+        <!--      score------------end-->
+
+        <!--      consultation------------start-->
+        <nz-divider
+          *ngIf="consultationList.length > 0"
+          class="anchor"
+          id="consultation"
+          nzText="商品咨询"
+          nzOrientation="left"
+        ></nz-divider>
+        <ng-container *ngIf="consultationList.length > 0">
+          <app-product-consultation-item
+            *ngFor="let consultation of consultationList"
+            [consultation]="consultation"
+            [storeName]="consultation.storeName"
+          ></app-product-consultation-item
+        ></ng-container>
+        <!--      consultation------------end-->
+      </div>
+      <div nz-col [nzSpan]="4" class="recommend-swiper-tablet">
+        <app-product-detail-same [productId]="productId"></app-product-detail-same>
+      </div>
+    </div>
+    <div class="last-block-style">
+      <div nz-col [nzSpan]="4" class="recommend-swiper-mob mob-width">
+        <app-product-detail-same class="mob-width" [productId]="productId"></app-product-detail-same>
+      </div>
+      <app-product-recommend class="recommend-mob"></app-product-recommend>
+    </div>
+    <!--  product-detail-----------end -->
+  </div>
+  <div class="right-product-info for-desktop">
+    <div [ngClass]="!canBuy ? 'product-info-disabled' : ''" class="cash-back-style for-desktop">
+      <p class="text-cash-back-reward">Cash Back Reward: </p>
+      <p class="text-cash-back">
+        <img src="/assets/images/TYD-small.png" alt="TYD" />
+        <span>{{ selectedSku?.cashBack | number: '0.2-2' }}</span>
+      </p>
+      <span>+{{ cashbackByDays }}/{{ 'shop-product-page-reward-days-45' | translate }}</span>
+    </div>
+    <strong class="price">{{ selectedSku?.price | currency }}</strong>
+    <nz-select *ngIf="stockCountList.length" class="qty-select" nzPlaceHolder="Qty" [(ngModel)]="quantity" [nzDisabled]="!canBuy">
+      <nz-option *ngFor="let count of stockCountList" [nzValue]="count" [nzLabel]="'Qty: ' + count"></nz-option>
+    </nz-select>
+    <!-- product-btn-----------start -->
+    <nz-space class="product-btn" [nzSize]="16">
+      <div *nzSpaceItem>
+        <button
+          class="gradient-orange-purchase product-purchase"
+          [appFlyingCart]="cover"
+          nz-button
+          nzType="primary"
+          [nzLoading]="loading.addToCart"
+          [disabled]="!canBuy"
+          (click)="addToCart()"
+        >
+          <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+          {{ 'shop-product-page-add' | translate }}
+        </button>
+      </div>
+      <app-product-collection
+        *nzSpaceItem
+        nz-button
+        nzType="primary"
+        [(isFavorite)]="productInfo.collect"
+        [productId]="productInfo.id"
+        [isButton]="true"
+      >
+      </app-product-collection>
+    </nz-space>
+    <!-- product-btn-----------end -->
+    <div class="product-and-share">
+      <div class="share-airplane" (click)="openModal(sharedModal)">
+        <p class="share-text">{{ 'shop-product-page-share' | translate }}</p>
+        <img class="paper-plane" src="assets/images/paper-plane.svg" alt="plane" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #plansListTemplate>
+  <ng-container *ngIf="!hasPrime; else prime">
+    <div class="prime-plans" (click)="openPrimeModal()">
+      <ul>
+        <li
+          *ngFor="let plan of plansList; first as first"
+          [class.active]="plan.value === primeData.prime"
+          [class.active]="plan.value === 'no prime'"
+        >
+          <div class="image">
+            <img [src]="plan.image" [alt]="plan.value" />
+          </div>
+          <ng-container *ngIf="first; else noPrimeAll">
+            <p>+{{ plan.price | number: '0.2-4' }}{{ plan.days | translate }}</p>
+          </ng-container>
+          <ng-template #noPrimeAll>
+            <p>+{{ plan.price | number: '0.2-2' }}{{ plan.days | translate }}</p>
+          </ng-template>
+        </li>
+      </ul>
+    </div>
+  </ng-container>
+  <ng-template #prime>
+    <div class="prime-plans">
+      <ul>
+        <li *ngFor="let plan of plansList; first as first" [class.active]="plan.value === hasPrime">
+          <div class="image">
+            <img [src]="plan.image" [alt]="plan.value" />
+          </div>
+          <ng-container *ngIf="first; else primeApp">
+            <p>+{{ plan.price | number: '0.2-4' }}{{ plan.days | translate }}</p>
+          </ng-container>
+          <ng-template #primeApp>
+            <p>+{{ plan.price | number: '0.2-2' }}{{ plan.days | translate }}</p>
+          </ng-template>
+        </li>
+      </ul>
+    </div>
+  </ng-template>
+</ng-template>
+<div class="recommended-container">
+  <div id="recommend" class="content-title content-title-recommend">
+    <h4 class="content-title-style">{{ 'home-recommended-title' | translate }}</h4>
+  </div>
+  <app-recommended-for-you></app-recommended-for-you>
+</div>

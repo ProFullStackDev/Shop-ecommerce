@@ -1,0 +1,8 @@
+<div class="gradient-container">
+  <div class="total-savings-container">
+    <h3 class="title"> {{ 'my-total-savings' | translate }} </h3>
+    <h2 class="total-amount">
+      ￥ <span [countUp]="pointStatistics ? +pointStatistics.myselfTotalSavings : 0" [options]="countUpOptions"></span
+    ></h2>
+  </div>
+</div>

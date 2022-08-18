@@ -1,0 +1,37 @@
+<div class="modal__header alt" [class.scrolling]="isScrollable">
+  <div class="title">
+    <div class="icon">
+      <img src="/assets/images/game-board/invite.svg" alt="Invite" />
+    </div>
+    <span>{{ 'shop-product-page-share-modal-title' | translate }}</span>
+  </div>
+</div>
+<div class="modal__content invite-friends">
+  <div #scrollable class="scrollable" (scroll)="onScroll()">
+    <div class="socials-info">
+      <p>{{ 'game-social-media-share' | translate }}</p>
+      <div class="socials-info__wrap">
+        <div *ngFor="let social of socials" class="item">
+          <ng-container *ngIf="social.type !== 'qr'; else qr">
+            <a (click)="share(social.type, $event)" [href]="social.link">
+              <app-tyqoon-icon [name]="social.icon"></app-tyqoon-icon>
+            </a>
+          </ng-container>
+          <ng-template #qr>
+            <button (click)="openQrCodeModal()">
+              <app-tyqoon-icon [name]="social.icon"></app-tyqoon-icon>
+            </button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="share-info share-info-style">
+      <div class="modal-input modal-input-style text-overflow">
+        {{ sharedLink ? sharedLink : currentLink }}
+      </div>
+      <button appCopying="{{ currentLink }}" [successTitle]="successTitle" type="button" class="btn-primary" (copied)="copied($event)">
+        {{ successTitle | translate }}
+      </button>
+    </div>
+  </div>
+</div>

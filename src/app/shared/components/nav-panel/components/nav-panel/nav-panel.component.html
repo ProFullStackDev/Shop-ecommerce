@@ -1,0 +1,36 @@
+<div class="nav-panel">
+  <div class="container">
+    <div class="nav-panel__wrap">
+      <app-product-categories [productCategories]="productCategories$ | async"></app-product-categories>
+      <app-pages-nav [pagesList]="pagesList$ | async"></app-pages-nav>
+      <div class="shopping-wrap">
+        <div class="shopping-btn main-hover">
+          <a *ngIf="shop" routerLink="/" class="shopping">
+            <picture>
+              <source type="image/png" srcset="/assets/images/tyqoon-shopping-bag.png 1x, /assets/images/tyqoon-shopping-bag@2x.png 2x" />
+              <img width="45px" src="/assets/images/tyqoon-shopping-bag.png" alt="Shopping Bag" />
+            </picture>
+            <span>
+              {{ 'header-button-shop' | translate }}
+            </span>
+          </a>
+          <a *ngIf="!shop" routerLink="/gameboard" class="shopping main-hover" [class.console]="!shop">
+            <picture>
+              <source type="image/png" srcset="/assets/images/controller-100px-min.png 1x, /assets/images/controller-250px-min.png 2x" />
+              <img width="45px" src="/assets/images/controller-100px-min.png" alt="Shopping Bag" />
+            </picture>
+            <span>
+              {{ 'header-button-game' | translate }}
+            </span>
+          </a>
+        </div>
+      </div>
+      <!--      <button (click)="takeScreenshot()" type="button" class="btn-primary screen-shot-btn">-->
+      <!--        Screenshot-->
+      <!--        <span class="icon"> TODO to clarify where we need to put this button -->
+      <!--          <app-tyqoon-icon name="camera"></app-tyqoon-icon>-->
+      <!--        </span>-->
+      <!--      </button>-->
+    </div>
+  </div>
+</div>

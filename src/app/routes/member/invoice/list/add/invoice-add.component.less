@@ -1,0 +1,89 @@
+@import '~src/styles/_variables';
+.title {
+  height: 38px;
+  line-height: 38px;
+  padding: 0 15px;
+  border-bottom: 1px solid #f0f0f0;
+  background-color: #fff;
+}
+.content {
+  background-color: #fff;
+  color: #333;
+  padding: 15px;
+  .header-type {
+    span {
+      width: 56px;
+      padding: 5px 15px;
+      color: #333333;
+      border: 1px solid #f1f1f1;
+      background-color: #ffffff;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+  }
+  .confirm {
+    margin-right: 10px;
+  }
+  .area {
+    width: 350px;
+    display: flex;
+    .item {
+      margin-right: 10px;
+      width: 150px;
+    }
+    .item:nth-child(3) {
+      margin-right: 0;
+    }
+  }
+  .footer {
+    height: 52px;
+    padding: 15px 15px;
+    border-top: 1px solid #f0f0f0;
+    background-color: #fff;
+  }
+  .btn-submit {
+    margin-right: 20px;
+    margin-left: -10px;
+  }
+}
+
+/deep/ .ant-input-group > .ant-input:last-child,
+.ant-input-group-addon:last-child {
+  width: 360px;
+}
+
+/deep/ .ant-radio-button-wrapper:first-child {
+  border-left: 1px solid #d9d9d9;
+  border-radius: 2px 0 0 2px;
+  margin-right: 10px;
+}
+/deep/ .ant-input-group-addon {
+  position: relative;
+  padding: 0 11px;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: normal;
+  font-size: 14px;
+  text-align: center;
+  background-color: #fafafa;
+  border: 0px solid #d9d9d9;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+/deep/ .ant-input-group {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  -webkit-font-feature-settings: 'tnum', 'tnum';
+  font-feature-settings: 'tnum', 'tnum';
+  position: relative;
+  display: table;
+  width: 360px;
+  border-collapse: separate;
+  border-spacing: 0;
+}

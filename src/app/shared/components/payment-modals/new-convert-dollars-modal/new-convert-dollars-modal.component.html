@@ -1,0 +1,88 @@
+<div class="modal__header alt tokens" [class.scrolling]="isScrollable">
+  <div class="title">
+    <!-- <div class="icon" (click)="isFromDeposit ? openModal(depositModal) : close()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        version="1.1"
+        id="Layer_1"
+        x="0px"
+        y="0px"
+        viewBox="0 0 1792 1792"
+        style="enable-background: new 0 0 1792 1792"
+        xml:space="preserve"
+      >
+        <path
+          d="M996,1314.5c-55.2,55.2-139.5,55.2-194.8,0c-2.4-2.8-2.4-2.8-2.4-2.8L154.4,670.1c-52.4-55.2-52.4-139.2,0-194.4  c55.2-52.8,139.5-52.8,194.4,0l549.7,552.1l547.2-546.9c52.4-52.4,139.5-52.4,192,0c52.4,52.8,52.4,139.5,0,192L996,1314.5z"
+        />
+      </svg>
+    </div> -->
+    <span>{{ 'convert-dollars' | translate }}</span>
+  </div>
+</div>
+
+<div class="modal__content tyqoon-dollars">
+  <div #scrollable class="scrollable" (scroll)="onScroll()">
+    <div class="tyqoon-dollars-container">
+      <app-tyqoon-dollars></app-tyqoon-dollars>
+    </div>
+    <div class="amount-to-convert title">
+      {{ 'convert-modal-amount-to-convert-label' | translate }}
+    </div>
+    <div class="input-container">
+      <input 
+      [formControl]="dollarsConvert" 
+      class="input"
+      value="{{ slider.value | number: '1.2-2' }}"
+      type="tell"
+      (input)="toMoveSlider()"
+      [max]="30"
+      />
+      <img src="/assets/images/tyqoon-dollar-100.png" alt="" srcset="" />
+    </div>
+    <div class="slider-container">
+      <!--  [value]="minDollars" [max]="userInfo.point!" -->
+      <mat-slider #slider [formControl]="range" [min]="10" [max]="userInfo.point!"></mat-slider>
+    </div>
+    <div class="max-tooltip">
+      <button (click)="maxSlider()" class="tooltip-text">
+        {{ 'max' | translate }}
+      </button>
+    </div>
+    <div class="border-line"></div>
+    <div class="conversion-dt">
+      <div class="dollars-to-convert-container">
+        <div class="convert-text title">
+          {{ 'dollars-to-convert' | translate }}
+        </div>
+        <div class="dollars-to-convert title">
+          -{{ slider.value | number: '1.2-2' }} <img src="/assets/images/tyqoon-dollar-100.png" alt="" srcset="" />
+        </div>
+      </div>
+      <div class="store-credit-container">
+        <div class="convert-text title"> {{ 'store-credit' | translate }}: </div>
+        <div class="store-credit title"> +{{ slider.value | number: '1.2-2' }} ￥ </div>
+      </div>
+      <div class="conversion-fee-container">
+        <div class="convert-text title"> {{ 'conversion-fee' | translate }}: </div>
+        <div class="conversion-fee title"> -{{ slider.value * exchangeFee | number: '1.2-2' }} ￥ </div>
+      </div>
+    </div>
+    <div class="border-line"></div>
+    <div class="total-amount-container">
+      <div class="total-text title">
+        {{ 'total' | translate }}
+      </div>
+      <div class="total-amount title" [class.mb-1]="!(slider.value - slider.value * exchangeFee < minDollars)">
+        +￥{{ slider.value - slider.value * exchangeFee | number: '1.2-2' }}
+        <span class="error" *ngIf="slider.value - slider.value * exchangeFee < minDollars"> Min amonut: {{ minDollars }} </span>
+      </div>
+    </div>
+    <button
+      class="convert-dollars-button title"
+      [disabled]="slider.value - slider.value * exchangeFee < minDollars"
+      (click)="convertDollars(slider.value - slider.value * exchangeFee)"
+      >{{ 'convert-dollars' | translate }}</button
+    >
+  </div>
+</div>

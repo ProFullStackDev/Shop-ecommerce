@@ -1,0 +1,44 @@
+.mySwiper {
+  height: 500px;
+  margin-bottom: 30px;
+}
+
+.detail-same-swiper-prev,
+.detail-same-swiper-next {
+  --swiper-navigation-size: 18px;
+  --swiper-navigation-color: #999;
+  top: unset;
+  bottom: 0;
+  margin-top: unset;
+  transform: rotate(90deg);
+  &:hover {
+    transition: 0.3s;
+    --swiper-navigation-color: #333;
+  }
+}
+.detail-same-swiper-prev {
+  left: 55px;
+  @media (max-width: 1024px) {
+    left: 0;
+  }
+  @media (max-width: 640px) {
+    left: 55px;
+  }
+}
+.detail-same-swiper-next {
+  right: 55px;
+  @media (max-width: 1024px) {
+    right: 0;
+  }
+  @media (max-width: 640px) {
+    right: 55px;
+  }
+}
+
+.scr-prev {
+  left: 55px;
+}
+
+.scr-next {
+  right: 55px;
+}

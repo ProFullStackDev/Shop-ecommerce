@@ -1,0 +1,37 @@
+.page-coupon {
+  .container {}
+  .title {
+    margin-top: 25px;
+    font-size: 21px;
+    text-align: center;
+    span {
+      position: relative;
+      margin-top: 20px;
+      padding: 0 10px;
+      &:before,
+      &:after {
+        position: absolute;
+        top: 50%;
+        width: 31px;
+        height: 15px;
+        content: "";
+        background: url("~src/assets/images/coupon.png") -18px -60px;
+      }
+      &:before {
+        left: 0;
+        transform: translate(-100%, -50%);
+      }
+      &:after {
+        right: 0;
+        transform: translate(100%, -50%);
+      }
+    }
+  }
+}
+
+.coupon-list {
+  .coupon-item {
+    flex: 1;
+  }
+}
+

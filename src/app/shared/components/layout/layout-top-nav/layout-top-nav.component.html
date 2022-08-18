@@ -1,0 +1,50 @@
+<div class="container top-nav">
+  <ul class="mainHeaderMemberInfo list-inline">
+    <li>
+      <span>您好，欢迎来到SHOP++商城</span>
+    </li>
+    <div *ngIf="isLogin; else toLogin">
+      <a routerLink="/member">{{ userInfo?.username }}</a>
+      <span class="btn-logout" (click)="logOut()">退出</span>
+    </div>
+    <ng-template #toLogin>
+      <li>
+        <a routerLink="/login">请登录</a>
+      </li>
+      <li>
+        <a class="text-red" routerLink="/register">注册有礼</a>
+      </li>
+    </ng-template>
+  </ul>
+  <ul class="funs list-inline">
+    <li>
+      <a routerLink="/member/index">会员中心</a>
+    </li>
+    <li>
+      <a routerLink="/member/order/list">我的订单</a>
+    </li>
+    <!--    <li class="top-nav-dropdown">-->
+    <!--      <a routerLink="">-->
+    <!--        商家服务-->
+    <!--        <i nz-icon nzType="caret-down" nzTheme="outline"></i>-->
+    <!--      </a>-->
+    <!--      <ul class="business">-->
+    <!--        <li>-->
+    <!--          <a routerLink="''" target="_blank">商家中心</a>-->
+    <!--        </li>-->
+    <!--        <li>-->
+    <!--          <a routerLink="">商家入驻</a>-->
+    <!--        </li>-->
+    <!--      </ul>-->
+    <!--    </li>-->
+    <!--    <li class="top-nav-dropdown">-->
+    <!--      <a href="javascript:;"> 手机商城 </a>-->
+    <!--      <ul class="qrcode">-->
+    <!--        <li *ngFor="let link of mobileLink">-->
+    <!--          <img [src]="link.qrcode" />-->
+    <!--          <p>{{ link.name }}</p>-->
+    <!--        </li>-->
+    <!--          </ul>-->
+    <!--        </li>-->
+  </ul>
+</div>

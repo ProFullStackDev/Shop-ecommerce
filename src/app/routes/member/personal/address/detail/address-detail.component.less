@@ -1,0 +1,41 @@
+@import '~src/styles/_variables';
+.title {
+  height: 38px;
+  line-height: 38px;
+  padding: 0 15px;
+  border-bottom: 1px solid #f0f0f0;
+  background-color: #fff;
+}
+.content {
+  background-color: #fff;
+  padding: 15px;
+  .confirm {
+    margin-right: 10px;
+  }
+  .area {
+    width: 350px;
+    display: flex;
+    .item {
+      margin-right: 10px;
+      width: 150px;
+    }
+    .item:nth-child(3) {
+      margin-right: 0;
+    }
+  }
+  .footer {
+    height: 52px;
+    padding: 15px 15px;
+    border-top: 1px solid #f0f0f0;
+    background-color: #fff;
+  }
+  .btn-submit {
+    margin-right: 20px;
+    margin-left: -10px;
+  }
+}
+
+/deep/ .ant-input-group > .ant-input:last-child,
+.ant-input-group-addon:last-child {
+  width: 350px;
+}

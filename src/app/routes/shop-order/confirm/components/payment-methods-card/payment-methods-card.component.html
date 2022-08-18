@@ -1,0 +1,25 @@
+<div class="payment-methods-card">
+  <nz-skeleton *ngIf="loading.createPayOrder"></nz-skeleton>
+
+  <div *ngIf="!payResult && !loading.createPayOrder; else paymentElement" class="methods">
+    <div class="title">{{ 'checkout-confirm-amount-to-be-paid' | translate }}:</div>
+    <div class="amount-value">{{ amount | currency }}</div>
+    <div class="title">{{ 'checkout-confirm-choose-method' | translate }}:</div>
+    <button
+      class="btn-payWay"
+      *ngFor="let payWay of payWayList"
+      nz-button
+      nzBlock
+      nzSize="large"
+      (click)="selectPayWay(payWay.platformCode)"
+    >
+      {{ payWay.name | translate }}
+    </button>
+  </div>
+  <ng-template #paymentElement>
+    <div id="payment-element"> </div>
+    <button class="btn-pay" nzType="primary" nz-button nzSize="large" nzBlock [nzLoading]="loading.pay" (click)="pay()">
+      {{ 'checkout-confirm-pay-now' | translate }}
+    </button>
+  </ng-template>
+</div>

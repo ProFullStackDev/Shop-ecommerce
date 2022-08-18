@@ -1,0 +1,100 @@
+.page-register {
+  padding: 60px 0;
+  background: #f8f8f9 url(~src/assets/images/register-bg.png) repeat-x;
+  .panel {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .title {
+    color: #777;
+  }
+
+  .content {
+    display: flex;
+
+    @media (max-width: 715px) {
+      flex-direction: column;
+      align-items: center;
+    }
+    .form {
+      flex: 1;
+
+      .ant-input-affix-wrapper input,
+      input {
+        height: 48px;
+        line-height: 48px;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+
+      .ant-input-affix-wrapper {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+
+      .login-form {
+        width: 70%;
+        margin: 36px auto;
+
+        @media (max-width: 715px) {
+          width: 100%;
+        }
+      }
+
+      .verify-code-input {
+        height: 48px;
+        line-height: 48px;
+      }
+      .verify-code-img {
+        height: 46px;
+        cursor: pointer;
+      }
+      .input-email {
+        max-width: 310px;
+        max-height: 44px;
+      }
+      .mr-2 {
+        margin: 0 8px;
+      }
+
+      .text {
+        font-size: 10px;
+        color: black;
+        font-weight: 600;
+      }
+
+      .pl-3 {
+        padding-right: 12px;
+      }
+
+      .text-wrap {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+    .extra {
+      text-align: center;
+      width: 300px;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      display: none;
+    }
+  }
+}
+
+.justify-between {
+  display: flex;
+  justify-content: space-between;
+  .login {
+    width: 100px;
+    background-image: linear-gradient(270deg,#ff6009 0%,#ff8340 100%);
+    color: #fff;
+    border-color: #fb8811;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+}
+

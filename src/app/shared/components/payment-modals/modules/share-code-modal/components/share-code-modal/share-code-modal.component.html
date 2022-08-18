@@ -1,0 +1,25 @@
+<div class="modal__header alt gray" [class.scrolling]="isScrollable">
+  <div class="title">
+    <div class="icon">
+      <img src="/assets/images/game-board/invite.svg" alt="Invite" />
+    </div>
+    <span>{{ 'shop-product-page-share-modal-title' | translate }}</span>
+  </div>
+</div>
+<div class="modal__content invite-friends payment-modal">
+  <div #scrollable class="scrollable" (scroll)="onScroll()">
+    <span class="label">Here is your code to share with your friends!</span>
+    <div class="share-code">
+      <p class="share-code-title">Code Value:</p>
+      <p class="share-code-value">¥1000.00</p>
+    </div>
+    <div class="share-info centralized">
+      <div class="modal-input">
+        {{ currentLinkWithCode }}
+      </div>
+      <button appCopying="{{ currentLinkWithCode }}" [successTitle]="successTitle" type="button" class="btn-primary btn-primary-copy" (copied)="copied($event)">
+        {{ successTitle | translate }}
+      </button>
+    </div>
+  </div>
+</div>

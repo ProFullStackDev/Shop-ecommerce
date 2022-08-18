@@ -1,0 +1,23 @@
+.recommend-product {
+  /deep/ .product {
+    margin-top: 16px;
+    &:hover {
+      .cover {
+        opacity: 1;
+      }
+    }
+    .cover {
+      transition: 0.3s;
+      opacity: 0.7;
+    }
+  }
+}
+
+.mob-width {
+  max-width: 100%;
+}
+@media (max-width: 315px) {
+  .mob-width {
+    max-width: 250px;
+  }
+}

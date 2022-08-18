@@ -1,0 +1,79 @@
+<div class="title member-page-title-mob" *ngIf="!titleId">{{ 'invoice-header-add-heading' | translate }}</div>
+<div class="title" *ngIf="titleId">抬头编辑</div>
+<div class="content">
+  <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="validate()">
+    <nz-form-item class="header">
+      <nz-form-label [nzSm]="4" [nzXs]="24">{{ 'invoice-header-type' | translate }}</nz-form-label>
+      <div class="header-type">
+        <nz-radio-group
+          [ngModel]="vatRegistrationNumberType"
+          (ngModelChange)="vatRegistrationNumberTypeChange($event)"
+          formControlName="type"
+        >
+          <label nz-radio-button [nzValue]="0">{{ 'invoice-header-type-personal' | translate }}</label>
+          <label nz-radio-button [nzValue]="1">{{ 'invoice-header-type-unit' | translate }}</label>
+        </nz-radio-group>
+      </div>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>{{ 'invoice-header-invoice' | translate }}</nz-form-label>
+      <nz-form-control nzErrorTip="{{ 'invoice-header-invoice-error' | translate }}">
+        <nz-input-group>
+          <input nz-input formControlName="title" placeholder="{{ 'invoice-header-invoice-placeholder' | translate }}" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <div *ngIf="vatRegistrationNumberType === 1">
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>{{ 'increase-invoice-invoice-tax-number' | translate }}</nz-form-label>
+        <nz-form-control nzErrorTip="发票税号不能为空">
+          <nz-input-group>
+            <input nz-input formControlName="vatRegistrationNumber" placeholder="{{ 'enter-invoice-tax-number' | translate }}" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24">{{ 'increase-invoice-registered-address' | translate }}</nz-form-label>
+        <nz-form-control>
+          <nz-input-group>
+            <input nz-input formControlName="registeredAddress" placeholder="{{ 'enter-registration-address' | translate }}" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24">{{ 'increase-invoice-registration-phone' | translate }}</nz-form-label>
+        <nz-form-control>
+          <nz-input-group>
+            <input nz-input formControlName="registeredPhone" placeholder="{{ 'enter-registration-number' | translate }}" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24">{{ 'increase-invoice-depositary-bank' | translate }}</nz-form-label>
+        <nz-form-control>
+          <nz-input-group>
+            <input nz-input formControlName="bankName" placeholder="{{ 'enter-account-bank' | translate }}" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24">{{ 'increase-invoice-bank-account' | translate }}</nz-form-label>
+        <nz-form-control>
+          <nz-input-group>
+            <input nz-input formControlName="bankAccount" placeholder="{{ 'enter-bank-account' | translate }}" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div class="footer">
+      <nz-form-item>
+        <nz-form-control [nzSpan]="10" [nzOffset]="4">
+          <button class="btn-submit" nz-button nzType="primary" (click)="submit()">{{ 'increase-invoice-confirm' | translate }}</button>
+          <button nz-button nzType="default">
+            <a routerLink="/member/header-manage/list">{{ 'increase-invoice-return' | translate }}</a>
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,114 @@
+@import '~src/styles/_variables';
+
+.breadcrumb {
+    margin-top: 15px;
+    padding: 8px 15px;
+    margin-bottom: 17px;
+    list-style: none;
+    background-color: #ffffff;
+}
+
+h4,
+.h4 {
+    font-size: 15px;
+}
+
+.breadcrumb li.active,
+.breadcrumb li.active a {
+  color: @primary-color;
+}
+
+.breadcrumb>li {
+    display: inline-block;
+}
+
+li {
+    text-align: -webkit-match-parent;
+}
+
+.breadcrumb>li+li:before {
+    content: "/\00a0";
+    padding: 0 5px;
+    color: #ccc;
+}
+
+.article-detail .article-content {
+    margin-top: 15px;
+    background-color: #ffffff;
+    border-radius: 0;
+    border: 0;
+    margin-bottom: 15px;
+}
+
+.panel {
+    box-shadow: none;
+}
+
+.panel-default>.panel-heading {
+    color: #333;
+    border-color: #eeeeee;
+    background-color: #ffffff;
+}
+
+.panel-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.panel-body {
+    padding: 15px;
+}
+
+.article-detail .main-header {
+    margin-bottom: 0;
+}
+
+.article-detail main {
+    padding-top: 15px;
+    // background: url("../images/article.png") top center;
+}
+
+.article-detail .breadcrumb {
+    border: 0;
+}
+
+.article-detail .article-content {
+    border-radius: 0;
+    border: 0;
+}
+
+.article-detail .article-content .panel-heading h4 {
+    line-height: 30px;
+    font-weight: normal;
+    margin-bottom: 5px;
+}
+
+.article-detail .article-content .panel-heading>span {
+    color: #888888;
+}
+
+.article-detail .article-content .panel-heading>span:nth-last-child(n+2):after {
+    width: 1px;
+    height: 12px;
+    display: inline-block;
+    margin: -2px 10px 0 10px;
+    content: "";
+    vertical-align: middle;
+    border-left: 1px solid #dddddd;
+}
+
+.article-detail .article-content .panel-body {
+    line-height: 25px;
+}
+
+.article-detail .article-content .panel-body ul {
+    padding-left: 40px;
+    list-style: disc;
+}
+
+.article-detail .article-content .panel-body ol {
+    padding-left: 40px;
+    list-style: decimal;
+}

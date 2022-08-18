@@ -1,0 +1,19 @@
+<div class="chart-block">
+  <ng-container *ngIf="series.length; else noData">
+    <apx-chart
+      [series]="series"
+      [chart]="chart"
+      [dataLabels]="dataLabels"
+      [plotOptions]="plotOptions"
+      [yaxis]="yaxis"
+      [fill]="fill"
+      [xaxis]="xaxis"
+      [grid]="grid"
+    ></apx-chart>
+  </ng-container>
+  <ng-template #noData>
+    <div class="nodata"
+      ><p>{{ 'dashboard-chart-no-data' | translate }}</p></div
+    >
+  </ng-template>
+</div>

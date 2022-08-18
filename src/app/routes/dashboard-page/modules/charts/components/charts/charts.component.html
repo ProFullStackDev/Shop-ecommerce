@@ -1,0 +1,65 @@
+<div class="charts__wrap">
+  <div class="charts__item">
+    <div class="charts__title">
+      <h3>
+        {{ 'game-tyqoon-dollars' | translate }}
+      </h3>
+    </div>
+    <ng-container *ngIf="userPoints$ | async as userPoints">
+      <div class="charts__price charts__top">
+        <div class="charts__price-content charts__top-content">
+          <div class="icon">
+            <img src="/assets/images/TYD-small.png" alt="TYD" />
+          </div>
+          <div class="text">
+            <p>{{ userPoint }}</p>
+            <span>${{ userPointToFixed }} USD</span>
+          </div>
+        </div>
+        <div class="charts__price-percentage">
+          <div class="charts-invite" (click)="openModalInvite()">
+            <div class="charts-counter main-hover">
+              <div class="charts-counter__wrap">
+                <span>
+                  <app-tyqoon-icon name="cross"></app-tyqoon-icon>
+                </span>
+              </div>
+            </div>
+          </div>
+          <span class="icon">
+            <app-tyqoon-icon name="arrowUp"></app-tyqoon-icon>
+          </span>
+          <p>{{ userPointPercentage }}%</p>
+        </div>
+      </div>
+      <app-points [userPoints]="userPoints"></app-points>
+    </ng-container>
+  </div>
+  <div class="charts__item">
+    <div class="charts__title">
+      <h3> Vouncher Sales Volume </h3>
+      <div class="charts-invite orange" (click)="openModalInvite()">
+        <div class="charts-counter main-hover">
+          <div class="charts-counter__wrap">
+            <span>
+              <app-tyqoon-icon name="cross"></app-tyqoon-icon>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="userPerformance$ | async as userPerformance">
+      <div class="charts__tokens charts__top">
+        <div class="charts__tokens-content charts__top-content">
+          <div class="icon">
+            <img src="/assets/images/ticket-voucher.png" alt="Person" />
+          </div>
+          <div class="text">
+            <p class="orange-text">{{ total }}</p>
+          </div>
+        </div>
+      </div>
+      <app-tokens [userPerformance]="userPerformance" (setCurrentPerformance)="setCurrentPerformance($event)"></app-tokens>
+    </ng-container>
+  </div>
+</div>

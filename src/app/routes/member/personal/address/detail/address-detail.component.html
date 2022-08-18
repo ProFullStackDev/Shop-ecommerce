@@ -1,0 +1,17 @@
+<div class="title member-page-title-mob" *ngIf="!editId">{{ 'account-add-shipping-address-new-address' | translate }}</div>
+<div class="title" *ngIf="editId">编辑收货地址</div>
+<div class="content">
+  <app-address-form #editCompoent (submitStart)="submitStart()" (submitSuccess)="submitSuccess($event)" [id]="editId"> </app-address-form>
+  <div class="footer">
+    <nz-form-item>
+      <nz-form-control [nzSpan]="10" [nzOffset]="4">
+        <button class="btn-submit" nz-button nzType="primary" (click)="submitComponent()">{{
+          'account-add-shipping-address-confirm-cta' | translate
+        }}</button>
+        <button nz-button nzType="default">
+          <a routerLink="/member/address/list">{{ 'account-add-shipping-address-return-cta' | translate }}</a>
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+</div>

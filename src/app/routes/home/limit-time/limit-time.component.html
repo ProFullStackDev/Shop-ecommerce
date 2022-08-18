@@ -1,0 +1,28 @@
+<div id="limited" class="limited-time-promotion">
+  <div class="left">
+    <img [src]="limtTimeUrl" alt="" />
+  </div>
+  <div class="swiper-container">
+    <swiper [slidesPerView]="5" [navigation]="true" [spaceBetween]="5" [pagination]="false" class="mySwiper">
+      <ng-template swiperSlide *ngFor="let item of limtTimeList">
+        <div class="product-img">
+          <a href="#">
+            <img [src]="item.url" alt="" />
+          </a>
+        </div>
+        <div class="product-name">
+          <a href="#">
+            <span>{{ item.name }}</span>
+          </a>
+        </div>
+        <div class="price">
+          <span>￥{{ item.price }}</span>
+          <del>￥{{ item.price }}</del>
+        </div>
+        <div class="time"
+          ><i nz-icon nzIconfont="tgicon-zhongbiao"></i><span>{{ item.date }}</span></div
+        >
+      </ng-template>
+    </swiper>
+  </div>
+</div>

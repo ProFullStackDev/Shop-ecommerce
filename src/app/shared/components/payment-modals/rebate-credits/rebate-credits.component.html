@@ -1,0 +1,10 @@
+<div class="tyqoon-dollars-container noselect">
+  <div class="user-amount user-amount-yellow">
+    <img src="/assets/images/tyqoon-credit-yellow.png" alt="" />
+    <div class="user-amount-inner">
+      <div class="title">{{ 'platform-total-savings' | translate }}</div>
+      <div class="amount" [countUp]="pointStatistics ? +pointStatistics.myRebateCredits : 0"
+           [options]="countUpOptions"></div>
+    </div>
+  </div>
+</div>

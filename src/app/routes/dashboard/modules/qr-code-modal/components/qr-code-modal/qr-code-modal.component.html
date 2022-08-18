@@ -1,0 +1,36 @@
+<div [class.scrolling]="isScrollable" class="modal__header alt with-arrow">
+  <div class="title">
+    <div class="icon" (click)="openInviteModal()">
+      <img src="/assets/images/modal-back-arrow.svg" alt="Prime" />
+    </div>
+    My QR
+  </div>
+</div>
+
+<div class="modal__content qr-code-modal">
+  <div #scrollable class="scrollable" (scroll)="onScroll()">
+    <div class="qr-code-modal__wrap" id="qr">
+      <div class="image">
+        <img src="/assets/images/qr-code-modal/social-media-share-image.jpg" alt="Social Media Share" crossorigin="anonymous" />
+        <div class="qr-image">
+          <qr-code [value]="this.shareLink" [size]="162"></qr-code>
+          <!--          -->
+          <!--          <qr-code [value]="'All QR Code data goes here!'" [size]="150"></qr-code>-->
+          <!--          <img src="/assets/images/qr-code-modal/qr-code.png" alt="QR Code" id="userQrcode" />-->
+        </div>
+      </div>
+      <div class="avatar">
+        <img [src]="userInfo?.avatar" alt="User" />
+        <!--        <img src="/assets/images/avatar.jpg" alt="User" crossorigin="anonymous" />-->
+        <div class="name">{{ userInfo.username }}</div>
+      </div>
+      <div class="modal-input-wrap">
+        <div class="modal-input">{{ shareLink }}</div>
+      </div>
+    </div>
+    <div class="buttons">
+      <button class="modal-blue-btn brighter" (click)="openInviteModal()">Go Back</button>
+      <button class="btn-primary" (click)="downloadQr()">Save QR</button>
+    </div>
+  </div>
+</div>

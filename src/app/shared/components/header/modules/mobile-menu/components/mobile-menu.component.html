@@ -1,0 +1,62 @@
+<div class="avatar">
+  <div class="avatar-wrap" [class.no-login]="">
+    <button type="button" class="close-modal" (click)="closeMenu()">
+      <app-tyqoon-icon name="closeMenu"></app-tyqoon-icon>
+    </button>
+    <app-user-avatar [avatarWidth]="50"></app-user-avatar>
+    <!-- <picture class="avatar-picture">
+      <source type="image/jpg" [srcset]="headerService.userInfo?.avatar" />
+      <img [src]="headerService.userInfo?.avatar" alt="Avatar" />
+    </picture> -->
+    <div class="avatar-info">
+      <span>Welcome,</span>
+      <p>{{ headerService.userInfo?.username }}</p>
+    </div>
+  </div>
+  <div class="menu">
+    <app-nav-bar></app-nav-bar>
+  </div>
+  <div class="mobile-menu-footer">
+    <div class="game-board__header-wrap"></div>
+    <div class="shopping-wrap">
+      <div class="shopping-btn main-hover display-noned-btn">
+        <a *ngIf="isConsole" routerLink="/" class="shopping">
+          <picture>
+            <source type="image/png" srcset="/assets/images/tyqoon-shopping-bag.png 1x, /assets/images/tyqoon-shopping-bag@2x.png 2x" />
+            <img width="45px" src="/assets/images/tyqoon-shopping-bag.png" alt="Shopping Bag" />
+          </picture>
+          <span>
+            {{ 'header-button-shop' | translate }}
+          </span>
+        </a>
+        <a *ngIf="!isConsole" routerLink="/gameboard" class="shopping main-hover" [class.console]="!isConsole">
+          <picture>
+            <source type="image/png" srcset="/assets/images/controller-100px-min.png 1x, /assets/images/controller-250px-min.png 2x" />
+            <img width="45px" src="/assets/images/controller-100px-min.png" alt="Shopping Bag" />
+          </picture>
+          <span>
+            {{ 'header-button-game' | translate }}
+          </span>
+        </a>
+      </div>
+    </div>
+    <div class="btns">
+      <div class="btns-wrap">
+        <div class="language" (click)="openLanguageModal()">
+          <div class="icon">
+            <ng-container *ngIf="headerService.activeItem.icon">
+              <app-tyqoon-icon [name]="headerService.activeItem.icon"></app-tyqoon-icon>
+            </ng-container>
+          </div>
+          <p>{{ headerService.activeItem.text }}</p>
+        </div>
+        <div class="switch-wrap">
+          <label class="switch">
+            <input type="checkbox" (change)="toggleTheme($event)" [checked]="!themeCheck" />
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

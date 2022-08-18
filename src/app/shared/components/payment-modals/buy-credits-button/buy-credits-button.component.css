@@ -1,0 +1,23 @@
+button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #272727;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: white;
+  height: 52px;
+}
+
+svg {
+  height: 36px;
+  fill: white;
+  color: white;
+}
+
+.text {
+  padding-left: 8px;
+  font-family: Gotham Pro,sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+}

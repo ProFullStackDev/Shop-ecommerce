@@ -1,0 +1,595 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~swiper/swiper-bundle.css';
+@import '~src/styles/_variables';
+@import '/src/styles/_header';
+@import '/src/styles/dashboard/_dashboard';
+@import '/src/styles/dashboard/_page';
+@import '/src/styles/buttons/_buttons';
+@import '/src/styles/_payment-modals';
+@import '/src/styles/_navigation-bar.less';
+@import '/src/styles/_footer.less';
+@import '~intl-tel-input/build/css/intlTelInput.css';
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-size: 0.75rem;
+  color: #333;
+}
+
+.container {
+  max-width: @container-width;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 1380px) {
+  .container {
+    max-width: @container-width-1;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    max-width: 100%;
+    padding: 0 20px;
+    padding-right: calc(@main-sidebar-width + 20px);
+  }
+}
+
+/* ---------- base ---------- */
+html {
+  font-size: 16px;
+  color: #666666;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -ms-overflow-style: scrollbar;
+}
+
+a {
+  color: #666666;
+}
+
+a:hover,
+a:focus {
+  color: @primary-color;
+  text-decoration: none;
+  outline: none;
+}
+
+img:-moz-loading {
+  color: transparent;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+.hidden-element {
+  display: none;
+}
+
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.horizontal-swiper-sell-text {
+  text-align: center;
+  font-size: 10pt;
+  color: #fb8811;
+  margin-bottom: 2px;
+
+  span {
+    display: none; // No need to show this for now
+    color: grey;
+    font-size: 8pt;
+    text-decoration: line-through;
+  }
+}
+/* ---------- font-size ---------- */
+.text-xs {
+  font-size: 0.625rem;
+}
+
+.text-sm {
+  font-size: 0.75rem;
+}
+
+.text-base {
+  font-size: 0.875rem;
+}
+
+.text-lg {
+  font-size: 1rem;
+}
+
+.text-xl {
+  font-size: 1.125rem;
+}
+
+.text-2xl {
+  font-size: 1.25rem;
+}
+
+.text-3xl {
+  font-size: 1.5rem;
+}
+
+.text-4xl {
+  font-size: 1.875rem;
+}
+
+.text-5xl {
+  font-size: 2.25rem;
+}
+
+.text-6xl {
+  font-size: 3rem;
+}
+
+.text-7xl {
+  font-size: 4rem;
+}
+
+.text-8xl {
+  font-size: 5rem;
+}
+
+/* ---------- color ---------- */
+.text-primary {
+  color: @primary-color;
+}
+.text-red-darker {
+  color: #bd2636;
+}
+
+.text-red-dark {
+  color: #d73435;
+}
+
+.text-red {
+  color: @primary-color;
+}
+
+.text-red-light {
+  color: #f46e65;
+}
+
+.text-red-lighter {
+  color: #f79992;
+}
+
+.text-green-darker {
+  color: #007b43;
+}
+
+.text-green-dark {
+  color: #00924c;
+}
+
+.text-green {
+  color: #00a854;
+}
+
+.text-green-light {
+  color: #3dbd7d;
+}
+
+.text-green-lighter {
+  color: #76d0a3;
+}
+
+.text-blue-darker {
+  color: #0c60aa;
+}
+
+.text-blue-dark {
+  color: #0e77ca;
+}
+
+.text-blue {
+  color: #108ee9;
+}
+
+.text-blue-light {
+  color: #49a9ee;
+}
+
+.text-blue-lighter {
+  color: #7ec2f3;
+}
+
+.text-pink-darker {
+  color: #c11c7b;
+}
+
+.text-pink-dark {
+  color: #dc277d;
+}
+
+.text-pink {
+  color: #f5317f;
+}
+
+.text-pink-light {
+  color: #f7629e;
+}
+
+.text-pink-lighter {
+  color: #fa90ba;
+}
+
+.text-orange-darker {
+  color: #b93600;
+}
+
+.text-orange-dark {
+  color: #d75000;
+}
+
+.text-orange {
+  color: #f56a00;
+}
+
+.text-orange-light {
+  color: #f78e3d;
+}
+
+.text-orange-lighter {
+  color: #faaf76;
+}
+
+.text-purple-darker {
+  color: #533eb4;
+}
+
+.text-purple-dark {
+  color: #6252cd;
+}
+
+.text-purple {
+  color: #7265e6;
+}
+
+.text-purple-light {
+  color: #948aec;
+}
+
+.text-purple-lighter {
+  color: #b3acf2;
+}
+
+.text-yellow-darker {
+  color: #c17500;
+}
+
+.text-yellow-dark {
+  color: #e09a00;
+}
+
+.text-yellow {
+  color: #ffbf00;
+}
+
+.text-yellow-light {
+  color: #ffce3d;
+}
+
+.text-yellow-lighter {
+  color: #ffdd76;
+}
+
+.text-cyan-darker {
+  color: #00707f;
+}
+
+.text-cyan-dark {
+  color: #008997;
+}
+
+.text-cyan {
+  color: #00a2ae;
+}
+
+.text-cyan-light {
+  color: #3db8c1;
+}
+
+.text-cyan-lighter {
+  color: #76cdd3;
+}
+
+.text-gray-darker {
+  color: #5a5a5a;
+}
+
+.text-gray-dark {
+  color: #919191;
+}
+
+.text-gray {
+  color: #bfbfbf;
+}
+
+.text-gray-light {
+  color: #d9d9d9;
+}
+
+.text-gray-lighter {
+  color: #e9e9e9;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.text-black {
+  color: #000000;
+}
+
+.bg-red-darker {
+  background-color: #bd2636;
+}
+
+.bg-red-dark {
+  background-color: #d73435;
+}
+
+.bg-red {
+  background-color: @primary-color;
+}
+
+.bg-red-light {
+  background-color: #f46e65;
+}
+
+.bg-red-lighter {
+  background-color: #f79992;
+}
+
+.bg-green-darker {
+  background-color: #007b43;
+}
+
+.bg-green-dark {
+  background-color: #00924c;
+}
+
+.bg-green {
+  background-color: #00a854;
+}
+
+.bg-green-light {
+  background-color: #3dbd7d;
+}
+
+.bg-green-lighter {
+  background-color: #76d0a3;
+}
+
+.bg-blue-darker {
+  background-color: #0c60aa;
+}
+
+.bg-blue-dark {
+  background-color: #0e77ca;
+}
+
+.bg-blue {
+  background-color: #108ee9;
+}
+
+.bg-blue-light {
+  background-color: #49a9ee;
+}
+
+.bg-blue-lighter {
+  background-color: #7ec2f3;
+}
+
+.bg-pink-darker {
+  background-color: #c11c7b;
+}
+
+.bg-pink-dark {
+  background-color: #dc277d;
+}
+
+.bg-pink {
+  background-color: #f5317f;
+}
+
+.bg-pink-light {
+  background-color: #f7629e;
+}
+
+.bg-pink-lighter {
+  background-color: #fa90ba;
+}
+
+.bg-orange-darker {
+  background-color: #b93600;
+}
+
+.bg-orange-dark {
+  background-color: #d75000;
+}
+
+.bg-orange {
+  background-color: #f56a00;
+}
+
+.bg-orange-light {
+  background-color: #f78e3d;
+}
+
+.bg-orange-lighter {
+  background-color: #faaf76;
+}
+
+.bg-purple-darker {
+  background-color: #533eb4;
+}
+
+.bg-purple-dark {
+  background-color: #6252cd;
+}
+
+.bg-purple {
+  background-color: #7265e6;
+}
+
+.bg-purple-light {
+  background-color: #948aec;
+}
+
+.bg-purple-lighter {
+  background-color: #b3acf2;
+}
+
+.bg-yellow-darker {
+  background-color: #c17500;
+}
+
+.bg-yellow-dark {
+  background-color: #e09a00;
+}
+
+.bg-yellow {
+  background-color: #ffbf00;
+}
+
+.bg-yellow-light {
+  background-color: #ffce3d;
+}
+
+.bg-yellow-lighter {
+  background-color: #ffdd76;
+}
+
+.bg-cyan-darker {
+  background-color: #00707f;
+}
+
+.bg-cyan-dark {
+  background-color: #008997;
+}
+
+.bg-cyan {
+  background-color: #00a2ae;
+}
+
+.bg-cyan-light {
+  background-color: #3db8c1;
+}
+
+.bg-cyan-lighter {
+  background-color: #76cdd3;
+}
+
+.bg-gray-darker {
+  background-color: #5a5a5a;
+}
+
+.bg-gray-dark {
+  background-color: #919191;
+}
+
+.bg-gray {
+  background-color: #bfbfbf;
+}
+
+.bg-gray-light {
+  background-color: #d9d9d9;
+}
+
+.bg-gray-lighter {
+  background-color: #e9e9e9;
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+
+.bg-black {
+  background-color: #000000;
+}
+
+.hover-to-move-top {
+  position: relative;
+  top: 0;
+  transition: 0.3s;
+  &:hover {
+    top: -2px;
+  }
+}
+
+.hover-to-move-bottom {
+  position: relative;
+  top: 0;
+  transition: 0.3s;
+  &:hover {
+    top: 2px;
+  }
+}
+
+.hover-box-shadow {
+  box-shadow: none;
+  transition: 0.3s;
+  &:hover {
+    top: 2px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+  }
+}
+
+app-shop-ad img {
+  border-radius: 12px;
+}
+
+.ad img {
+  border-radius: 0;
+}
+
+.mb-20 img {
+  margin-bottom: 20px;
+}
+
+.animation-card {
+  animation-duration: 0.25s;
+  animation-name: slidein;
+}
+
+@keyframes slidein {
+  from {
+    transform: translateX(300%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.br-top-12 {
+  border-radius: 12px 12px 0 0;
+  border-top: solid 1px #bdbdbd69;
+  border-left: solid 1px #bdbdbd69;
+  border-right: solid 1px #bdbdbd69;
+}
+
+.br-bot-12 {
+  border-radius: 12px;
+  border: solid 1px #bdbdbd69;
+}
+
+.stop-scroll {
+  overflow: hidden;
+}
+@import 'overrides.less';

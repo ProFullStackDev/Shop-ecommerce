@@ -1,0 +1,30 @@
+<div class="modal__content">
+  <div class="header">
+    <picture class="icon-stop">
+      <source type="image/png" srcset="/assets/images/shopping-cart/stop.png 1x, /assets/images/shopping-cart/stop@2x.png 2x" />
+      <img src="/assets/images/shopping-cart/stop.png" alt="stop" />
+    </picture>
+    Hold Up!
+    <picture class="icon-shape">
+      <source type="image/png" srcset="/assets/images/shopping-cart/shape.png 1x, /assets/images/shopping-cart/shape@2x.png 2x" />
+      <img src="/assets/images/shopping-cart/shape.png" alt="shape" />
+    </picture>
+    <picture class="icon-mascot">
+      <source type="image/png" srcset="/assets/images/shopping-cart/mascot.png 1x, /assets/images/shopping-cart/mascot@2x.png 2x" />
+      <img src="/assets/images/shopping-cart/mascot.png" alt="mascot" />
+    </picture>
+  </div>
+  <div class="content">
+    <div class="text text1">{{ 'cart-hold-up-text1' | translate }}</div>
+    <div class="cashback">
+      <span>{{ modalData.realCashback | number: '0.2-2' }}</span>
+      <span>/</span>
+      <span>{{ modalData.totalCashback | number: '0.2-2' }}</span>
+      <img src="/assets/images/tyd-stack-25px-min.png" alt="Tyqoon Dollars" />
+    </div>
+    <div class="text text2">{{ 'cart-hold-up-text2' | translate }}</div>
+    <div class="text text3">{{ 'cart-hold-up-text3' | translate }}</div>
+    <button class="btn-get-vouchers" (click)="getVouchers()">{{ 'cart-hold-up-get-vouchers' | translate }}</button>
+    <p class="btn-continue" (click)="continueCheckout()">{{ 'cart-hold-up-continue' | translate }}</p>
+  </div>
+</div>

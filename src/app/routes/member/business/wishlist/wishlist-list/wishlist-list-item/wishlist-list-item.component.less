@@ -1,0 +1,146 @@
+@import "~src/styles/_variables";
+
+.wishlist-item {
+  padding: 10px 0;
+
+  &-header {
+    line-height: 3em;
+    border-bottom: 1px solid @border-color;
+    padding-left: 8px;
+    width: 100%;
+  }
+
+  &-body {
+    .detail {
+      padding: 16px 10px;
+
+      .name,
+      .specifications {
+        padding-left: 8px;
+      }
+    }
+
+    .price,
+    .status,
+    .operation {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+
+      .wishlist-item-add-button {
+        background: linear-gradient(270deg, #ff6009 0%, #ff8340 100%);
+
+        svg {
+          width: 70%;
+          height: auto;
+
+        }
+      }
+    }
+
+    // .price,
+    // .operation {
+    //   min-width: 161px !important;
+    // } 
+
+    .operation-delete {
+      display: none;
+    }
+
+    .operation-delete:hover {
+      color: @primary-color
+    }
+
+    .wishlist-text-hide {
+      display: none;
+    }
+  }
+}
+
+
+@media (max-width: 1210px) {
+  nz-avatar {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  .ant-row-middle {
+    .ant-col-2 {
+      margin: 15px 0 0 0;
+      align-self: flex-start;
+    }
+
+    .ant-col-21 {
+      flex: 0 1 80%;
+      max-width: 100%;
+      .text-overflow {
+        white-space: normal !important;
+      }
+    }
+  }
+
+  .ant-row {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 767px) {
+  .scrollable-element {
+    max-width: 730px !important;
+  }
+
+  .ant-col-16 {
+    display: block;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .ant-row-middle {
+    .ant-col-21 {
+      align-self: flex-start;
+
+      .text-overflow {
+        white-space: nowrap !important;
+      }
+    }
+    .ant-col-2 {
+      flex: 0 0 6.333333%;
+      max-width: 6.333333%;
+    }
+  }
+
+  .wishlist-item-body {
+    position: relative;
+
+    .operation {
+      position: absolute !important;
+      bottom: 5%;
+      right: 5%;
+    }
+  
+    .price {
+      position: absolute !important;
+      bottom: 10%;
+      left: 34%;
+    }
+  }
+}
+
+@media (max-width: 430px) {
+  .wishlist-item-body { 
+    .price {
+      position: absolute !important;
+      bottom: 10%;
+      left: 45%;
+    }
+  }
+
+  .ant-row-middle {
+    .ant-col-2 {
+      flex: 0 0 10%;
+      max-width: 10%;
+    }
+  }
+}

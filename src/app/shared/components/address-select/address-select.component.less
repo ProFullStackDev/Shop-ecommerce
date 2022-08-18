@@ -1,0 +1,19 @@
+@import '~src/styles/_variables';
+.content {
+  background-color: #fff;
+  .area {
+    display: flex;
+    .item {
+      margin-right: 10px;
+      width: 100%;
+    }
+    .item:nth-child(3) {
+      margin-right: 0;
+    }
+  }
+}
+
+/deep/ .ant-input-group > .ant-input:last-child,
+.ant-input-group-addon:last-child {
+  // width: 460px;
+}

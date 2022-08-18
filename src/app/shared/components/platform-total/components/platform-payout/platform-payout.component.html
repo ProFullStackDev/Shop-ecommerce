@@ -1,0 +1,9 @@
+<div class="platform-payout">
+  <img src="/assets/images/bg-coin-temp.png" alt="bg-coin" />
+  <div class="num-block">
+    <h3>Platform Total Payout</h3>
+    <ng-container *ngIf="totalDevidend$ | async as totalDevidend">
+      <h2>¥{{ (totalDevidend ? totalDevidend : '0') | number: '1.2-2' }}</h2>
+    </ng-container>
+  </div>
+</div>

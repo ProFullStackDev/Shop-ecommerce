@@ -1,0 +1,19 @@
+<div class="container">
+  <nz-card class="br-12" style="width: 100%">
+    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="validate()">
+      <app-phone-control (setMobileFormValue)="setMobileFormValue($event)"></app-phone-control>
+      <div class="footer">
+        <!-- <button nz-button nzSize="large" *ngIf="smsTimeRemaining > 0">下一步</button> -->
+        <button
+          class="btn-submit"
+          nz-button
+          nzType="primary"
+          nzSize="large"
+          [nzLoading]="loading.submit"
+          [disabled]="smsTimeRemaining > 0"
+          >{{ smsCodeText }}</button
+        >
+      </div>
+    </form>
+  </nz-card>
+</div>

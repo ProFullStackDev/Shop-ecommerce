@@ -1,0 +1,119 @@
+<div class="dashboard-page container">
+  <div class="my-dashboard">
+    <div class="my-dashboard__wrap">
+      <div class="title">
+        <h2>Dashboard</h2>
+      </div>
+      <div class="shopping-wrap">
+        <div class="shopping-btn main-hover">
+          <a routerLink="/gameboard" class="shopping main-hover console">
+            <picture>
+              <source type="image/png" srcset="/assets/images/controller-100px-min.png 1x, /assets/images/controller-250px-min.png 2x" />
+              <img width="45px" src="/assets/images/controller-100px-min.png" alt="Shopping Bag" />
+            </picture>
+            <span>
+              {{ 'header-button-game' | translate }}
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="mob-header-dashboard">
+        <div class="title-and-console">
+          <div class="title">
+            <h2>My Dashboard</h2>
+          </div>
+          <div class="shopping-wrap">
+            <div class="shopping-btn main-hover">
+              <a routerLink="/gameboard" class="shopping main-hover console">
+                <picture>
+                  <source
+                    type="image/png"
+                    srcset="/assets/images/controller-100px-min.png 1x, /assets/images/controller-250px-min.png 2x"
+                  />
+                  <img width="45px" src="/assets/images/controller-100px-min.png" alt="Shopping Bag" />
+                </picture>
+                <span>
+                  {{ 'header-button-game' | translate }}
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dashboard-page__wrap">
+    <div class="maskot">
+      <picture>
+        <source
+          type="image/png"
+          srcset="/assets/images/TYQOON-MASCOT-MONEY-BAGS.png 1x, /assets/images/TYQOON-MASCOT-MONEY-BAGS@2x.png 2x"
+        />
+        <img src="/assets/images/TYQOON-MASCOT-MONEY-BAGS.png" alt="Mascot" />
+      </picture>
+    </div>
+
+    <div class="dashboard-page__content">
+      <div class="dashboard-personal-info">
+        <app-platform-total-savings></app-platform-total-savings>
+        <app-my-total-savings></app-my-total-savings>
+        <div class="my-store-credit">
+          <img src="/assets/images/bg-coin-temp.png" />
+          <app-profit></app-profit>
+        </div>
+        <app-tyqoon-dollars></app-tyqoon-dollars>
+        <app-my-rebate-credits></app-my-rebate-credits>
+      </div>
+      <div class="assets rounded-block buy-block-display-none">
+        <div class="assets__header">
+          <h3>{{ 'game-build-buy-nft' | translate }}</h3>
+          <button class="btn-primary" (click)="openModal(modalNftShop)">
+            {{ 'game-dashboard-buy-assets' | translate }}
+          </button>
+        </div>
+        <div class="assets__content">
+          <ng-container *ngFor="let asset of userNFT">
+            <div *ngIf="asset.icon">
+              <div class="assets__item" [style.opacity]="asset.numright ? 1 : 0.5">
+                <div class="assets__image">
+                  <img [src]="asset.icon[1]" [alt]="asset.name" />
+                </div>
+                <div class="assets__title">
+                  <p>{{ asset.name | translate }}</p>
+                </div>
+                <div class="assets__owned">
+                  <p
+                    >{{ 'game-build-owned' | translate }}: <span [class.marked]="asset.numright > 0">{{ asset.numright }}</span></p
+                  >
+                </div>
+                <div class="assets__total">
+                  <p>{{ 'game-build-total-remaining' | translate }}: {{ asset.numright }}</p>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="charts rounded-block">
+        <app-charts (openInviteModal)="openModal($event)"></app-charts>
+      </div>
+      <div class="info rounded-block">
+        <app-invites (openInviteModal)="openModal($event)"></app-invites>
+      </div>
+      <div class="features rounded-block">
+        <app-features></app-features>
+      </div>
+    </div>
+
+    <div class="dollars">
+      <picture>
+        <source type="image/png" srcset="/assets/images/TYQOON-Dollars-cc.png 1x, /assets/images/TYQOON-Dollars-cc@2x.png 2x" />
+        <img src="/assets/images/TYQOON-Dollars-cc.png" alt="Dollars" />
+      </picture>
+    </div>
+
+    <div class="sidebar">
+      <app-sidebar (openModalTrim)="openModal($event)"></app-sidebar>
+    </div>
+  </div>
+</div>

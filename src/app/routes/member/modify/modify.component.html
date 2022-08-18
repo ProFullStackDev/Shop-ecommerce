@@ -1,0 +1,26 @@
+<div class="title br-top-12 member-page-title-mob">Payment Password</div>
+<div class="content" *ngIf="!isSettingPaymentKey; else showPayment">
+  <div class="create_password">
+    <div class="titles">{{ 'order-create-payment-password' | translate }}</div>
+    <div class="description">{{ 'order-payment-password-info1' | translate }}，{{ 'order-payment-password-info2' | translate }}</div>
+    <div class="button orange-button-for-payment" (click)="createPayment()">{{ 'order-payment-password-button' | translate }}</div>
+  </div>
+</div>
+<ng-template #showPayment>
+  <div class="content">
+    <div class="create_password">
+      <div class="titles">修改支付密码 </div>
+      <div class="description">{{ 'order-payment-password-info1' | translate }}，{{ 'order-payment-password-info2' | translate }}</div>
+      <div class="button" (click)="changePayment()">
+        <div class="text">立即修改</div>
+      </div>
+    </div>
+    <div class="create_password">
+      <div class="titles">找回支付密码</div>
+      <div class="description">如忘记支付密码，可通过 手机短信验证码进行找回并充值密码</div>
+      <div class="button" (click)="forgetPayment()">
+        <div class="text">立即找回</div>
+      </div>
+    </div>
+  </div>
+</ng-template>

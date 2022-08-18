@@ -1,0 +1,9 @@
+<div class="gradient-container">
+  <div class="total-savings-container">
+    <div class="title">{{ 'my-total-savings' | translate }}</div>
+    <div class="total-amount title">
+      ￥<span [countUp]="pointStatistics ? +pointStatistics.myselfTotalSavings : 0" [options]="countUpOptions"></span
+    ></div>
+    <!-- <img src="/assets/images/faded-dollar.png" alt="" srcset=""> -->
+  </div>
+</div>

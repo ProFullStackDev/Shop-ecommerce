@@ -1,0 +1,96 @@
+<div class="title br-top-12">
+  <div class="left">我的订单</div>
+  <div class="right">
+    <a routerLink="/member/order/list">更多 ></a>
+  </div>
+</div>
+<div class="content br-bot-12">
+  <div class="product-info" *ngFor="let item of orderList">
+    <div class="product-detail">
+      <div class="img-words">
+        <div class="item" *ngFor="let productItem of item.orderItems">
+          <div class="left"
+            ><a href=""><img [src]="productItem.thumbnail" alt="" /></a
+          ></div>
+          <div class="right">
+            <h5 class="name"
+              ><a href="">{{ productItem.productName }}</a></h5
+            >
+            <span>{{ productItem.specifications }}</span>
+            <p class="quantity">{{ item.amount | currency }} x {{ item.quantity }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="status-box">
+        <div class="main">
+          <strong *ngIf="item.status == '0'" class="text-orange">等待付款</strong>
+          <strong *ngIf="item.status == '1'">等待审核</strong>
+          <strong *ngIf="item.status == '2'" class="text-orange">等待发货</strong>
+          <strong *ngIf="item.status == '3'">已发货</strong>
+          <strong *ngIf="item.status == '4'">已收货</strong>
+          <strong *ngIf="item.status == '5'">已完成</strong>
+          <strong *ngIf="item.status == '6'">{{ 'order-canceled' | translate }}</strong>
+          <strong *ngIf="item.status == '7'" class="text-gray-dark">已取消</strong>
+          <strong *ngIf="item.status == '8'" class="reject">已拒绝</strong>
+          <p class="number"># {{ item.sn }}</p>
+          <p
+            ><span>{{ item.storeName }}</span
+            ><span class="status-time">{{ item.lastModifiedDate | date: 'yyyy-MM-dd' }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="oprater">
+        <div class="price">{{ item.price | currency }}</div>
+        <div class="search">
+          <!-- 去order详情 -->
+          <a
+            routerLink="/member/order/list"
+            routerLinkActive="actived"
+            [queryParams]="{ id: item.id }"
+            [routerLinkActiveOptions]="{ exact: true }"
+            ><i nz-icon nzIconfont="tgicon-sousuo_o"></i
+          ></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nz-empty
+    *ngIf="orderList.length === 0"
+    style="margin-top: 15vh; margin-bottom: 25vh"
+    nzNotFoundContent="{{ 'invoice-page-no-info' | translate }}"
+  >
+  </nz-empty>
+</div>
+<!-- <div class="wordsTitleProduct">
+  <div class="title">
+    <div class="left">商品收藏</div>
+    <div class="right">
+      <a>更多 ></a>
+    </div>
+  </div>
+  <ul class="item-ul">
+    <li class="item-li" *ngFor="let item of productList">
+      <a href="#">
+        <img [src]="item.url" alt="">
+        <p class="product-name">{{item.name}}</p>
+      </a>
+    </li>
+  </ul>
+</div> -->
+
+<!-- <div class="wordsTitleStore">
+  <div class="title">
+    <div class="left">店铺收藏</div>
+    <div class="right">
+      <a>更多 ></a>
+    </div>
+  </div>
+  <ul class="item-ul">
+    <li class="item-li" *ngFor="let item of storeList">
+      <a href="#">
+        <img [src]="item.logo" alt="">
+        <p>{{item.name}}</p>
+      </a>
+    </li>
+  </ul>
+</div> -->

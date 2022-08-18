@@ -1,0 +1,9 @@
+<div class="platform-distribution">
+  <img src="/assets/images/tyqoon-dollar-100.png" alt="TYCOON Dollar img" />
+  <div class="num-block">
+    <h3>My Total Distribution</h3>
+    <ng-container *ngIf="myTotalDividend$ | async as myTotalDividend">
+      <h2>{{ myTotalDividend | number: '1.2-2' }}</h2>
+    </ng-container>
+  </div>
+</div>

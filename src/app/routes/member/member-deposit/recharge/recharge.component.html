@@ -1,0 +1,58 @@
+<!-- <app-title [wordsTitle]="wordsTitle"></app-title> -->
+<div class="title">账户充值</div>
+<div class="content">
+  <form nz-form [formGroup]="validateForm">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">可用余额</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzErrorTip="可用余额">
+        {{ memberInfo.balance | currency }}
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzRequired nzFor="amount">账户充值</nz-form-label>
+      <nz-form-control
+        [nzSpan]="12"
+        [class.error]="
+          (validateForm.get('amount')?.invalid && validateForm.get('amount')?.touched) ||
+          validateForm.get('amount')?.errors?.min ||
+          validateForm.get('amount')?.errors?.max
+        "
+      >
+        <nz-input-number
+          style="width: 200px"
+          formControlName="amount"
+          [nzMin]="0.01"
+          [nzStep]="1"
+          nzPlaceHolder="请输入充值金额"
+          [nzPrecision]="2"
+        ></nz-input-number>
+        <span *ngIf="validateForm.get('amount')?.errors?.required && validateForm.get('amount')?.touched" class="error">
+          请输入充值金额
+        </span>
+        <span *ngIf="validateForm.get('amount')?.errors?.min" class="error">
+          {{ 'payment-minimum-amount-error' | translate }}: {{ minAmount }}
+        </span>
+        <span *ngIf="validateForm.get('amount')?.errors?.max" class="error">
+          {{ 'payment-maximum-amount-error' | translate }}: {{ maxAmount }}
+        </span>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <div class="pay-title">
+    <div class="words">支付方式</div>
+  </div>
+  <app-payment
+    #paymentComponent
+    (platformChange)="platformChange($event)"
+    [disabled]="validateForm.invalid"
+    (paySuccess)="paySuccess()"
+  ></app-payment>
+</div>
+<div class="footer-btn">
+  <button class="left" nz-button nzType="primary" [disabled]="!selectedPaymentCode" (click)="validate()" [nzLoading]="loading.recharge">
+    {{ 'increase-invoice-confirm' | translate }}</button
+  >
+  <button nz-button nzType="default">
+    <a class="recharge" routerLink="/member/index"> {{ 'increase-invoice-return' | translate }} </a>
+  </button>
+</div>

@@ -1,0 +1,25 @@
+<div class="content">
+  <form nz-form [formGroup]="validateForm">
+    <nz-form-item>
+      <nz-form-control>
+        <div class="area">
+          <nz-select class="item" nzShowSearch nzPlaceHolder="请选择省份" formControlName="provinceName"
+            (ngModelChange)="provinceChange($event)">
+            <nz-option *ngFor="let item of ProvinceData" [nzValue]="item.value" [nzLabel]="item.label">
+            </nz-option>
+          </nz-select>
+          <nz-select *ngIf="cityData.length>0" class="item" nzShowSearch nzPlaceHolder="请选择城市"
+            (ngModelChange)="cityChange($event)" formControlName="cityName">
+            <nz-option *ngFor="let item of cityData" [nzValue]="item.value" [nzLabel]="item.label">
+            </nz-option>
+          </nz-select>
+          <nz-select *ngIf="regionData.length>0" class="item" nzShowSearch nzPlaceHolder="请选择区域"
+            formControlName="regionName" (ngModelChange)="regionChange($event)">
+            <nz-option *ngFor="let item of regionData" [nzValue]="item.value" [nzLabel]="item.label">
+            </nz-option>
+          </nz-select>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>

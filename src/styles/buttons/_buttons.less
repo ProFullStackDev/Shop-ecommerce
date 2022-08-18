@@ -1,0 +1,205 @@
+@import '/src/styles/vars/_variables';
+@import '/src/styles/vars/_fonts';
+
+button {
+  cursor: pointer;
+  background-color: unset;
+  border: 0;
+  outline: 0;
+  padding: 0;
+
+  &.btn-primary {
+    border-color: transparent;
+    background-image: @main-gradient-color-button;
+    background-position: 0;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.05);
+    height: 32px;
+    padding: 4px 15px;
+    font-size: 14px;
+    user-select: none;
+    touch-action: manipulation;
+
+    &:hover {
+      background: @main-gradient-color;
+      transition: background 0.3s ease-in-out;
+    }
+  }
+
+  &.text-white {
+    color: @color-white;
+  }
+
+  &.rounded {
+    border-radius: 4px;
+  }
+}
+
+.shopping-wrap {
+  height: 40px;
+  position: relative;
+  max-width: 177px;
+  min-width: 177px;
+}
+
+.shopping-btn {
+  //TEMPORARILY display: none;
+  display: none;
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  padding: 2px;
+  border-radius: 13px;
+  z-index: 0;
+
+  &.main-hover {
+    &:after,
+    &:after {
+      opacity: 0.5;
+      filter: blur(15px);
+      animation: steam 20s linear infinite;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+
+      @media(max-width: 992px) {
+        opacity: 0;
+      }
+    }
+
+    &:before,
+    &:before {
+      opacity: 1;
+      animation: steam 20s linear infinite;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .main-hover:before,
+    .main-hover:after {
+      height: 100%;
+    }
+  }
+  .purple-console {
+    background-image: linear-gradient(90deg, #7308ff 0%, #a87aec 100%) !important;
+    &:after {
+      background-image: linear-gradient(90deg, #7308ff 0%, #9357d3 100%) !important;
+    }
+  }
+  .shopping {
+    font-family: @Gotham;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 23px;
+    letter-spacing: 0.02em;
+    border-radius: 12px;
+    padding: 0 8px;
+    overflow: hidden;
+
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+
+    width: 174px;
+    height: 50px;
+
+    position: relative;
+    background-image: linear-gradient(to right, #0084ff 0%, #083cff 100%);
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      background-image: linear-gradient(to right, #083cff 0%, #0084ff 100%);
+      animation: shoppingBtnAnim 1.5s alternate infinite;
+      z-index: 0 !important;
+      filter: blur(5px);
+      opacity: 1;
+
+      @media (max-width: 992px) {
+        height: 100%;
+        filter: blur(1px);
+        animation: shoppingBtnAnim 2s alternate infinite;
+      }
+    }
+
+    &.console {
+      background-image: linear-gradient(90deg, #2200ff 0%, #7308ff 100%); //this one works
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        background-image: linear-gradient(90deg, #7003e74d 0%, #f7f7f72e 100%);
+        animation: shoppingBtnAnim 2.1s alternate infinite;
+        z-index: 0 !important;
+        filter: blur(5px);
+        opacity: 1;
+
+        @media (max-width: 992px) {
+          height: 100%;
+          filter: blur(1px);
+          animation: shoppingBtnAnim 2s alternate infinite;
+        }
+      }
+    }
+
+    picture,
+    span {
+      position: relative;
+      z-index: 1;
+    }
+
+    //&:after {
+    //  content: '';
+    //  position: absolute;
+    //  top: 0;
+    //  left: 0;
+    //  width: 100%;
+    //  height: 50px;
+    //  background-image: linear-gradient(to right, #77ff08 0%, #b42317 100%);
+    //  animation: shoppingBtnAnim 1.5s alternate infinite;
+    //  z-index: 0 !important;
+    //  filter: blur(5px);
+    //  opacity: 1;
+    //
+    //  @media (max-width: 992px) {
+    //    height: 100%;
+    //    filter: blur(1px);
+    //    animation: shoppingBtnAnim 2s alternate infinite;
+    //  }
+    //}
+
+    @keyframes shoppingBtnAnim {
+      0% {
+        width: 0;
+      }
+      100% {
+        width: 100%;
+      }
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      margin-right: 8px;
+    }
+  }
+}

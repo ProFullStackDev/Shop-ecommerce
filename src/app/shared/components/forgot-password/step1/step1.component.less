@@ -1,0 +1,38 @@
+@import '~src/styles/_variables';
+.login-form {
+  width: 100%;
+  margin: 36px auto;
+}
+.container {
+  display: flex;
+  align-items: center;
+  .form-con {
+    max-width: 50%;
+    flex: 1;
+    margin: 46px 0 46px 40px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 20%);
+
+    .form-verify-code {
+      height: 48px;
+      line-height: 48px;
+      &-img {
+        height: 46px;
+        cursor: pointer;
+      }
+    }
+
+    .btn-register {
+      float: right;
+      color: @primary-color;
+    }
+    .btn-submit {
+      margin-top: 16px;
+    }
+  }
+}
+.footer {
+  text-align: center;
+}
+button {
+  margin-right: 5px;
+}

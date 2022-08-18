@@ -1,0 +1,38 @@
+<div class="modal__header alt gray" [class.scrolling]="isScrollable">
+  <div class="title">
+    <span>Send Credits</span>
+  </div>
+</div>
+<div class="modal__content payment-modal">
+  <div #scrollable class="scrollable" (scroll)="onScroll()">
+    <form class="search-form" [formGroup]="form">
+      <span class="label">Amount of Credits to Send</span>
+      <label [class.error]="form.get('amountOfCredits')?.invalid && form.get('amountOfCredits')?.touched">
+        <input
+          id="amount"
+          type="number"
+          formControlName="amountOfCredits"
+          [min]="1"
+          placeholder="0"
+        >
+        <span class="currency">¥</span>
+      </label>
+      <p class="available"><span>Available:</span><span>¥ 23412.00</span></p>
+      <span class="label">Username to Send to</span>
+      <label [class.error]="form.get('username')?.invalid && form.get('username')?.touched">
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          placeholder="Enter Username"
+        >
+      </label>
+      <button class="button credits" type="button" (click)="sendData()" [disabled]="form.invalid">
+      <span class="description">
+        Send credits
+      </span>
+      </button>
+    </form>
+  </div>
+</div>
+

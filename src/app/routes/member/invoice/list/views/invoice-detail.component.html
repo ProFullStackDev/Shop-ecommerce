@@ -1,0 +1,88 @@
+<div class="main">
+  <div class="title">查看发票</div>
+</div>
+<div class="content">
+  <div class="group1">
+    <nz-steps [nzCurrent]="stepCurrent">
+      <nz-step nzTitle="提交订单" nzDescription=""></nz-step>
+      <nz-step nzTitle="订单完成" nzDescription=""></nz-step>
+      <nz-step class="three" nzTitle="发票开具" nzDescription=""></nz-step>
+    </nz-steps>
+  </div>
+  <div class="group2">
+    <div class="title">
+      <span>发票信息</span>
+    </div>
+    <div class="item">
+      <div class="left">{{ 'order-inv-type' | translate }}</div>
+      <div class="right">{{ billType[detailInfo.type].label }}</div>
+    </div>
+    <div class="item">
+      <div class="left">{{ 'order-billing-status' | translate }}</div>
+      <div class="right wait-check" [style]="'color:' + billStatus[detailInfo.status].color">{{ billStatus[detailInfo.status].label }}</div>
+    </div>
+    <div class="item" *ngIf="detailInfo.status == 3 && detailInfo.failedReason">
+      <div class="left">失败原因</div>
+      <div class="right">{{ detailInfo.failedReason }}</div>
+    </div>
+    <div class="item">
+      <div class="left">{{ 'order-invoice-content' | translate }}</div>
+      <div class="right">{{ billContentType[detailInfo.contentType].label }}</div>
+    </div>
+    <div class="item">
+      <div class="left">{{ 'account-menu-header' | translate }}</div>
+      <div class="right">{{ detailInfo.title }}</div>
+    </div>
+    <div class="item" *ngIf="detailInfo.vatRegistrationNumber">
+      <div class="left">{{ 'increase-invoice-invoice-tax-number' | translate }}</div>
+      <div class="right">{{ detailInfo.vatRegistrationNumber }}</div>
+    </div>
+    <div class="item" *ngIf="getfapiaoImages.length > 0">
+      <div class="left">发票图片</div>
+      <div class="right"
+        ><nz-image-group>
+          <img
+            *ngFor="let url of getfapiaoImages; let key = index"
+            nzDisablePreview
+            nz-image
+            class="img-class"
+            [nzSrc]="url"
+            alt="Bill"
+            (click)="downLoad(key)"
+          /> </nz-image-group
+        ><button nz-button nzType="primary" (click)="preview()">Preview</button></div
+      >
+    </div>
+  </div>
+  <div class="group2 group3">
+    <div class="title">
+      <span>{{ 'increase-invoice-invoice-information' | translate }}</span>
+    </div>
+    <div class="item">
+      <div class="left">{{ 'increase-invoice-billing-name' | translate }}</div>
+      <div class="right">{{ detailInfo.billingAccountName }}</div>
+    </div>
+    <div class="item">
+      <div class="left">{{ 'increase-invoice-phone-number' | translate }}</div>
+      <div class="right">{{ detailInfo.billingAccountPhone }}</div>
+    </div>
+    <div class="item">
+      <div class="left">{{ 'order-ticket-collection' | translate }}</div>
+      <div class="right">{{ detailInfo.billingAccountEmail }}</div>
+    </div>
+    <div class="item">
+      <div class="left">{{ 'increase-invoice-province-name' | translate }}</div>
+      <div class="right">{{ detailInfo.billingAccountAreaName }}</div>
+    </div>
+    <div class="item">
+      <div class="left">{{ 'increase-invoice-billing-address' | translate }}</div>
+      <div class="right">{{ detailInfo.billingAccountAddress }}</div>
+    </div>
+  </div>
+  <div class="footer">
+    <button class="left" nz-button nzType="primary" *ngIf="stepCurrent == 1"
+      ><a routerLink="/member/invoice/edit" [queryParams]="{ id: id }" routerLinkActive="actived">编辑发票</a></button
+    >
+    <button class="back" nz-button (click)="goBack()">返回</button>
+  </div>
+</div>

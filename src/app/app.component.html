@@ -1,0 +1,28 @@
+<!-- <app-shop-ad *ngIf="isAd" class="ad" [class.hidden]="adHidden" [positionName]="layoutTopAdPosition" width="100%">
+  <i class="ad-icon" nz-icon nzType="close" nzTheme="outline" (click)="closeAd()"></i>
+</app-shop-ad> -->
+<ng-container *ngIf="!isMember">
+  <app-header [isConsole]="isConsole" [isCategory]="isCategory"></app-header>
+</ng-container>
+<ng-container *ngIf="isMember && !isMobile">
+  <app-header [isConsole]="isConsole" [isCategory]="isCategory"></app-header>
+</ng-container>
+<div class="page-wrap">
+  <div class="page-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<app-navigation-bar *ngIf="isNav"></app-navigation-bar>
+<ng-container *ngIf="!isMember">
+  <app-layout-footer *ngIf="isFooter"></app-layout-footer>
+</ng-container>
+<ng-container *ngIf="isMember && !isMobile">
+  <app-layout-footer *ngIf="isFooter"></app-layout-footer>
+</ng-container>
+<ng-container *ngIf="isMember && isMobile">
+  <div class="member-footer-logo">
+    <a href="/">
+      <app-tyqoon-icon name="logo"></app-tyqoon-icon>
+    </a>
+  </div>
+</ng-container>

@@ -1,0 +1,20 @@
+<div *ngIf="!isButton" class="icon start" [class.active]="isFavorite" (click)="isActive()">
+  <app-tyqoon-icon [name]="isFavorite ? 'filledStar' : 'stokedStar'"></app-tyqoon-icon>
+</div>
+
+<ng-container *ngIf="!isMobile; else mobile">
+  <button *ngIf="isButton" [class.active]="isFavorite" (click)="isActive()" class="favorite-btn">
+    <app-tyqoon-icon [name]="isFavorite ? 'filledStar' : 'stokedStar'">
+      <span *ngIf="!isFavorite">{{ 'shop-product-page-add-to-wishlist' | translate }}</span>
+      <span *ngIf="isFavorite">{{ 'shop-product-page-in-the-wishlist' | translate }}</span>
+    </app-tyqoon-icon>
+  </button>
+</ng-container>
+<ng-template #mobile>
+  <button *ngIf="isButton" [class.active]="isFavorite" (click)="isActive()" class="favorite-btn">
+    <app-tyqoon-icon [name]="isFavorite ? 'filledStarMobile' : 'stokedStarMobile'">
+      <span *ngIf="!isFavorite">{{ 'shop-product-page-add-to-wishlist' | translate }}</span>
+      <span *ngIf="isFavorite">{{ 'shop-product-page-in-the-wishlist' | translate }}</span>
+    </app-tyqoon-icon>
+  </button>
+</ng-template>

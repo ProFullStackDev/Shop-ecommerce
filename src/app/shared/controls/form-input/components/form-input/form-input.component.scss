@@ -1,0 +1,11 @@
+:host {
+	width: 100%;
+	&.ng-invalid.ng-dirty {
+		.form__input {
+			border-color: red;
+		}
+		.form__block-text {
+			color: red;
+		}
+	}
+}

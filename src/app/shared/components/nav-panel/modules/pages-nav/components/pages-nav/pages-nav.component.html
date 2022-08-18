@@ -1,0 +1,11 @@
+<ul class="menus">
+  <li *ngFor="let item of pagesList">
+    <a
+      routerLink="{{ item.link }}"
+      [class.actived]="isLinkActive(item.link)"
+      routerLinkActive="actived"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >{{ item.label | translate }}</a
+    >
+  </li>
+</ul>

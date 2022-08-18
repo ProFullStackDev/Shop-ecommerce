@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="payment-container" [class.show]="!loading.getData">
+    <div class="pay-amount">
+      支付金额：<span class="amount" *ngIf="payResult">{{ payResult.amount | currency }}</span>
+    </div>
+    <div id="payment-element"> </div>
+    <button
+      *ngIf="showPayBtn"
+      class="btn-pay"
+      nzType="primary"
+      nz-button
+      nzSize="large"
+      nzBlock
+      [disabled]="loading.platform"
+      [nzLoading]="loading.pay"
+      (click)="pay()"
+    >
+      立即支付
+    </button>
+  </div>
+  <nz-skeleton class="skeleton" [nzParagraph]="{ rows: 15 }" *ngIf="loading.getData"></nz-skeleton>
+</div>

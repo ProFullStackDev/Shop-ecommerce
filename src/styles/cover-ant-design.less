@@ -1,0 +1,26 @@
+@import "~/../node_modules/ng-zorro-antd/ng-zorro-antd.less";
+@import "~src/styles/_variables";
+// https://github.com/NG-ZORRO/ng-zorro-antd/blob/master/components/style/themes/default.less
+// -------- custom -----------
+
+
+a {
+  transition: color 0.3s;
+  color: #666666;
+  &:hover {
+    color: @link-color;
+  }
+}
+
+body {
+  font-size: 0.75rem;
+}
+
+.ant-col {
+  min-width: 1px;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+  padding: 0;
+  margin: 0;
+}

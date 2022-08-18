@@ -1,0 +1,20 @@
+<div class="modal__header alt tokens" [class.scrolling]="isScrollable">
+  <div class="title">
+    <span>{{'success' | translate}}</span>
+  </div>
+</div>
+
+<div class="modal__content tyqoon-dollars">
+  <div #scrollable class="scrollable" (scroll)="onScroll()">
+    <div class="giant-mascot">
+      <img src="assets/images/mascot-thumbs-up@2x.png" alt="">
+    </div>
+    <div class="buttons">
+      <app-buy-credits-button class="spacing"></app-buy-credits-button>
+      <app-redeem-code-button class="spacing"></app-redeem-code-button>
+      <app-covert-dollars-button class="spacing"></app-covert-dollars-button>
+      <app-buy-rebate-credits-button class="spacing"></app-buy-rebate-credits-button>
+      <button class="close" (click)="close()">{{'close' | translate}}</button>
+    </div>
+  </div>
+</div>

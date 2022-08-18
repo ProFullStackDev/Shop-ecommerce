@@ -1,0 +1,98 @@
+<ng-container *ngIf="!success; else successContent">
+  <ng-container *ngIf="!withdraw; else withdrawContent">
+    <div [class.scrolling]="isScrollable" class="modal__header alt">
+      <div class="title">
+        <span>{{ detailsContent.title | translate }}</span>
+      </div>
+    </div>
+    <div class="modal__content nft-details-modal">
+      <div #scrollable class="scrollable" (scroll)="onScroll()">
+        <div class="nft-details-modal__content">
+          <div class="image">
+            <app-tyqoon-icon [name]="detailsContent.image"></app-tyqoon-icon>
+          </div>
+          <div class="text">
+            <p>{{ detailsContent.description1 | translate }}</p>
+            <p>{{ detailsContent.description2 | translate }}</p>
+            <!--          TODO: May be return in future-->
+
+            <!--            <p>-->
+            <!--              Shops are NFTs, you are in full control of them and can withdraw to a BSC address at any time. However, you will not earn-->
+            <!--              rewards if the NFT shop is not on your TYQOON gameboard.-->
+            <!--            </p>-->
+          </div>
+        </div>
+        <div class="nft-details-modal__buttons">
+          <button type="button" class="modal-blue-btn brighter" (click)="closeModal()"> Close </button>
+          <!--          TODO: May be return in future-->
+          <!--          <button type="button" class="modal-blue-btn brighter" (click)="toggleWithdraw()">-->
+          <!--        <span>-->
+          <!--          <app-tyqoon-icon name="withdraw"></app-tyqoon-icon>-->
+          <!--        </span>-->
+          <!--            Withdraw-->
+          <!--          </button>-->
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #withdrawContent>
+    <div [class.scrolling]="isScrollable" class="modal__header alt">
+      <div class="title">
+        <div class="icon">
+          <img src="/assets/images/game-board-parts/shop.png" alt="Shop" />
+        </div>
+        <span>Withdraw NFT</span>
+      </div>
+    </div>
+    <div class="modal__content nft-details-modal">
+      <div #scrollable class="scrollable" (scroll)="onScroll()">
+        <div class="nft-details-modal__content alt">
+          <div class="image">
+            <img src="/assets/images/game-board-parts/shop.png" alt="Shop" />
+          </div>
+          <div class="text">
+            <p>
+              Withdraw your NFT to any BSC Address. You will no longer receive revenue share rewards from this NFT until it is back on your
+              TYQOON account.
+            </p>
+          </div>
+          <div class="nft-address">
+            <p>BSC Withdraw Address</p>
+            <div class="modal-input"> 0x173hr839h287489f498ry9428ry9428ry9428 </div>
+          </div>
+        </div>
+        <div class="nft-details-modal__buttons alt">
+          <button type="button" class="modal-blue-btn" (click)="closeModal()"> Close </button>
+          <button type="button" class="modal-blue-btn light-blue" (click)="successWithdraw()"> Withdraw </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ng-container>
+<ng-template #successContent>
+  <div [class.scrolling]="isScrollable" class="modal__header alt">
+    <div class="title">
+      <span>Success</span>
+    </div>
+  </div>
+  <div class="modal__content nft-details-modal">
+    <div #scrollable class="scrollable success" (scroll)="onScroll()">
+      <div class="nft-details-modal__content success">
+        <div class="image">
+          <img src="/assets/images/game-board/mascot-thumbs-up.png" alt="Success" />
+        </div>
+        <div class="text">
+          <p> Your withdrawal request has been successful. </p>
+          <p> Depending on BSC Network speeds, please allow up to 24 hours for the withdrawal to complete. </p>
+        </div>
+        <div class="nft-address">
+          <p>Transaction ID</p>
+          <div class="modal-input"> 0x173hr839h287489f498ry9428ry9428ry9428 193rhf84fh3948fh3948v48nv48n4 </div>
+        </div>
+      </div>
+      <div class="nft-details-modal__buttons success">
+        <button type="button" class="modal-blue-btn light-blue" (click)="closeModal()"> Finished </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

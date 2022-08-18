@@ -1,0 +1,84 @@
+.noselect * {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.total-savings-container {
+  padding-top: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  height: 83px;
+  position: relative;
+  background: #F8F8F8 url('/assets/images/faded-dollar.png') no-repeat 50% 2px;
+  background-size: 80px;
+}
+
+.gradient-container {
+  border: double 2px transparent;
+  border-radius: 10px;
+  background-image: linear-gradient(white, white), radial-gradient(circle at top left, #FF05C9,#00AEFF);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+
+.total-amount {
+  background: -webkit-linear-gradient(0deg, #FF00A6, #00b2FF, #74F942);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: -5px
+}
+
+/deep/ .modal .total-amount {
+  font-size: 42px!important;
+}
+
+.modal .total-amount span {
+  font-size: 42px!important;
+  font-weight: 700;
+  letter-spacing: -2.2px;
+  line-height: 20px;
+}
+
+.total-amount span {
+  font-weight: bold;
+}
+
+.title {
+  color: #192227!important;
+  position: relative;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.tooltip {
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  border-radius: 50%;
+  border: 1px solid #192227;
+  height: 16px;
+  width: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transform: translate(0%, -50%);
+  font-size: 14px;
+}
+
+img {
+  position: absolute;
+  height: 100%;
+  padding: 6px;
+}

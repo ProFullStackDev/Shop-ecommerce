@@ -1,0 +1,197 @@
+<footer id="grve-footer" data-sticky-footer="no" class="grve-border grve-bookmark" [class.dark-footer]="themeCheck">
+  <div id="grve-bottom-bar" class="grve-bookmark">
+    <div
+      class="grve-section grve-row-section grve-fullwidth-background grve-padding-top-2x grve-padding-bottom-1x grve-bg-none"
+      [class.dark-footer]="themeCheck"
+    >
+      <div class="grve-container">
+        <div class="grve-row grve-bookmark grve-columns-gap-30">
+          <div class="grve-column wpb_column grve-column-2-5">
+            <div class="grve-column-wrapper">
+              <div class="grve-row-inner grve-bookmark">
+                <div class="grve-column-inner wpb_column grve-column-3-4">
+                  <div class="grve-column-wrapper-inner">
+                    <div class="grve-element grve-image grve-align-center" style="">
+                      <div class="grve-image-wrapper">
+                        <app-tyqoon-icon name="logoFooter" class="logo-footer"> </app-tyqoon-icon>
+                      </div>
+                    </div>
+                    <div class="grve-empty-space" style="height: 12px"></div>
+                    <div class="grve-element grve-text grve-leader-text" [class.dark-footer-text]="themeCheck">
+                      <p>{{ 'footer-description' | translate }}</p>
+                    </div>
+                    <div class="grve-empty-space" style="height: 12px"></div>
+                  </div>
+                </div>
+                <div class="grve-column-inner wpb_column grve-column-1-4"> </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            *ngFor="let article of articleList; let last = last"
+            [class.grve-mobile-column-1-2]="!last"
+            class="grve-column wpb_column grve-column-1-5"
+          >
+            <div class="grve-column-wrapper">
+              <div class="grve-element grve-text grve-leader-text">
+                <h4 [class.dark-footer-text]="themeCheck">{{ article.title | translate }}</h4>
+                <p *ngFor="let link of article.links">
+                  <a
+                    *ngIf="link.external"
+                    [href]="link.link + '?lang=' + lang"
+                    [class.dark-footer-text-a]="themeCheck"
+                    target="{{ link.target }}"
+                    >{{ link.text | translate }}</a
+                  >
+                  <a *ngIf="!link.external" routerLink="{{ link.link }}" [class.dark-footer-text-a]="themeCheck">{{
+                    link.text | translate
+                  }}</a>
+                </p></div
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="grve-section grve-row-section grve-fullwidth-background grve-padding-top-1x grve-padding-bottom-1x grve-bg-none grve-custom-height grve-middle-content footer-images grve-show-custom-height"
+    >
+      <div class="grve-container">
+        <div class="grve-row grve-bookmark grve-columns-gap-60">
+          <div class="grve-column wpb_column grve-column-1-5 grve-tablet-sm-column-1-5 grve-mobile-column-1 grve-middle">
+            <div class="grve-column-wrapper" style="height: 35px">
+              <div class="grve-element grve-image grve-align-center" style="">
+                <div class="grve-image-wrapper"
+                  ><img
+                    width="332"
+                    height="75"
+                    src="assets/images/footer/Singapore_Fintech_Association_75px-min.png"
+                    class="attachment-full size-full"
+                    alt=""
+                    loading="lazy"
+                    style="opacity: 1"
+                /></div>
+              </div>
+            </div>
+          </div>
+          <div class="grve-column wpb_column grve-column-1-5 grve-tablet-sm-column-1-5 grve-mobile-column-1-4 grve-middle">
+            <div class="grve-column-wrapper" style="height: 35px">
+              <div class="grve-element grve-image grve-align-center" style="">
+                <div class="grve-image-wrapper"
+                  ><img
+                    width="295"
+                    height="89"
+                    src="assets/images/footer/payment-crypto-min.png"
+                    class="attachment-full size-full"
+                    alt=""
+                    loading="lazy"
+                    style="opacity: 1"
+                /></div>
+              </div>
+            </div>
+          </div>
+          <div class="grve-column wpb_column grve-column-1-5 grve-tablet-sm-column-1-5 grve-mobile-column-1-4 grve-middle">
+            <div class="grve-column-wrapper" style="height: 35px">
+              <div class="grve-element grve-image grve-align-center" style="">
+                <div class="grve-image-wrapper"
+                  ><img
+                    width="335"
+                    height="88"
+                    [src]="
+                      !themeCheck
+                        ? '/assets/images/footer/payment-alipay-dark-min.png'
+                        : '/assets/images/footer/payment-alipay-white-min.png'
+                    "
+                    class="attachment-full size-full"
+                    alt=""
+                    loading="lazy"
+                    sizes="(max-width: 335px) 100vw, 335px"
+                    style="opacity: 1"
+                /></div>
+              </div>
+            </div>
+          </div>
+          <div class="grve-column wpb_column grve-column-1-5 grve-tablet-sm-column-1-5 grve-mobile-column-1-4 grve-middle">
+            <div class="grve-column-wrapper" style="height: 35px">
+              <div class="grve-element grve-image grve-align-center" style="">
+                <div class="grve-image-wrapper">
+                  <img
+                    width="322"
+                    height="81"
+                    [src]="
+                      !themeCheck
+                        ? '/assets/images/footer/payment-wechatpay-dark-min.png'
+                        : '/assets/images/footer/payment-wechatpay-white-min.png'
+                    "
+                    class="attachment-full size-full"
+                    alt=""
+                    loading="lazy"
+                    sizes="(max-width: 322px) 100vw, 322px"
+                    style="opacity: 1"
+                /></div>
+              </div>
+            </div>
+          </div>
+          <div class="grve-column wpb_column grve-column-1-5 grve-tablet-sm-column-1-5 grve-mobile-column-1-4 grve-middle">
+            <div class="grve-column-wrapper" style="height: 35px">
+              <div class="grve-element grve-image grve-align-center" style="">
+                <div class="grve-image-wrapper"
+                  ><img
+                    width="610"
+                    height="111"
+                    src="assets/images/footer/payment-vise-master-amex-min.png"
+                    class="attachment-full size-full"
+                    alt=""
+                    loading="lazy"
+                    sizes="(max-width: 610px) 100vw, 610px"
+                    style="opacity: 1"
+                /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grve-background-wrapper"></div>
+    </div>
+    <div
+      class="grve-section grve-row-section about-us grve-fullwidth-background grve-padding-top-1x grve-bg-none"
+      style="background-color: #282828; color: #ffffff; padding-bottom: 12px"
+    >
+      <div class="grve-container">
+        <div class="grve-row grve-bookmark grve-columns-gap-30">
+          <div class="grve-column wpb_column grve-column-1">
+            <div class="grve-column-wrapper">
+              <div class="grve-element grve-text grve-leader-text">
+                <p style="text-align: center"
+                  ><span style="color: #ffffff">
+                    <ng-container *ngFor="let nav of bottomNav; let i = index">
+                      <a *ngIf="nav.external" [href]="nav.link + '?lang=' + lang" class="footer-botton" target="_blank">{{
+                        nav.text | translate
+                      }}</a>
+                      <a *ngIf="!nav.external" routerLink="{{ nav.link }}">{{ nav.text | translate }}</a>
+                      <span *ngIf="i < bottomNav.length - 1"> | </span>
+                    </ng-container>
+                  </span></p
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="grve-footer-wrapper">
+    <div class="grve-footer-bar grve-padding-top-1x grve-padding-bottom-1x" data-align-center="yes">
+      <div class="grve-container">
+        <div class="grve-bar-content grve-left-side">
+          <div class="grve-copyright">
+            <p class="wp-english">{{ 'footer-copyright-before' | translate }}</p>
+            <p class="ch-s">{{ 'TYQOON Enterprises Pte Ltd' | translate }}</p>
+            <p class="ch-t">{{ 'footer-copyright-after' | translate }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

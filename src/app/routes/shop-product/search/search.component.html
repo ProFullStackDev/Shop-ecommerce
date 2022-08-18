@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="search-goods-sidebar" style="position: sticky; top: 0">
+    <app-product-recommend class="recommend"></app-product-recommend>
+  </div>
+  <div class="product-con">
+    <app-product-search-bar (paramsChange)="paramsChange($event)"></app-product-search-bar>
+    <div
+      class="product-list"
+      infinite-scroll
+      [infiniteScrollDistance]="scrollConfig.distance"
+      [infiniteScrollDisabled]="scrollConfig.noMore || scrollConfig.loading"
+      [infiniteScrollThrottle]="scrollConfig.throttle"
+      (scrolled)="onScrollDown()"
+    >
+      <nz-list [nzSplit]="false">
+        <div class="product-list-content">
+          <nz-list-item *ngFor="let product of productList; let i = index">
+            <!--        {{ i }}-->
+            <!--          <nz-skeleton *ngIf="!item" [nzAvatar]="true" [nzParagraph]="{ rows: 1 }"></nz-skeleton>-->
+            <app-product-item class="product-item" [product]="product" [showTools]="true"></app-product-item>
+          </nz-list-item>
+        </div>
+      </nz-list>
+      <app-data-loading-status
+        [loading]="scrollConfig.loading"
+        [noMore]="scrollConfig.noMore"
+        [empty]="productList.length < 1 && scrollConfig.noMore"
+      ></app-data-loading-status>
+    </div>
+  </div>
+</div>

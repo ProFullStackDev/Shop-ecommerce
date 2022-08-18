@@ -1,0 +1,151 @@
+@import "~src/styles/_variables";
+
+.wishlist-page {
+  min-height: 70vh;
+  border-radius: 12px;
+  display: flex;
+  align-items: flex-start;
+
+  nz-card {
+    @media (min-width: 993px) {
+      width: 100%;
+    }
+  }
+}
+
+.ant-card.wishlist-page{
+  border: solid 1px #bdbdbd69;
+  border-radius: 12px !important;
+}
+
+::ng-deep .wishlist-page .ant-card-head-title {
+  font-size: 25px;
+}
+
+::ng-deep div .wishlist-page .ant-tabs-tab {
+  font-size: 16px;
+}
+
+.wishlist-page span {
+  font-size: 16px;
+}
+
+.wishlist-item {
+  margin-top: 16px;
+}
+
+.table-header {
+  text-align: center;
+  background-color: @background-color;
+  line-height: 3em;
+  font-size: 16px;
+
+  .hide-text {
+    display: none;
+  }
+}
+
+.ant-pagination {
+  margin-top: 5px;
+  text-align: center;
+}
+.wishlist-search-button {
+  background: linear-gradient(270deg,#ff6009 0%,#ff8340 100%);
+  &[disabled] {
+    border: 1px solid #d9d9d9;
+    opacity: .5;
+    background: #c4c4c4;
+    cursor: unset;
+  }
+}
+.wishlist-title-wrap .wishlist-actions .wishlist-add-cart {
+  background: linear-gradient(270deg,#ff6009 0%,#ff8340 100%);
+  color: #fff;
+  border: unset;
+  &[disabled] {
+    border: 1px solid #d9d9d9;
+    opacity: .5;
+    background: #c4c4c4;
+    cursor: unset;
+  }
+}
+
+.wishlist-title-wrap .wishlist-actions .wishlist-delete-button {
+  color: #fff;
+  background: #ff0000;
+  border: unset;
+ &[disabled] {
+   border: 1px solid #d9d9d9;
+   opacity: .5;
+   background: #c4c4c4;
+   cursor: unset;
+ }
+
+  svg {
+    path {
+      fill: #fff;
+    }
+  }
+}
+
+.wishlist-page {
+  /deep/ .ant-checkbox-input:focus {
+    border: 1px solid #d9d9d9;
+  }
+  /deep/ .ant-checkbox-input:focus + .ant-checkbox-inner {
+    border: 1px solid #d9d9d9;
+  }
+}
+
+@media (max-width: 767px) {
+  .wishlist-title-wrap {
+    display: flex;
+    flex-direction: column;
+
+    .wishlist-search {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+
+      .wishlist-search-input {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        & input {
+          width: 82%;
+        }
+      }
+
+      & button {
+        margin: 15px 0 0 0;
+        width: 100%;
+        height: 40px;
+      }
+    }
+  }
+}
+
+@media (max-width: 350px) {
+  .wishlist-title-wrap {
+    .wishlist-search {
+      .wishlist-search-input {
+        width: 100%;
+          & input {
+            width: 62%;
+          }
+      }
+
+        & button {
+          margin: 10px 0 0 0;
+          width: 100%;
+        }
+    }
+
+    .wishlist-actions {
+      .wishlist-add-cart {
+        width: 100px;
+      }
+    }
+  }
+}

@@ -1,0 +1,256 @@
+.noselect * {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.dollars-credits-container {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+app-tyqoon-dollars, app-rebate-credits {
+  width: 49%;
+}
+
+.custom-scroll {
+  overflow: auto;
+}
+
+.voucher-conversion {
+  text-align: center;
+  font-size: 20px;
+  margin: 12px 0px;
+  font-weight: bold;
+}
+
+.explanation {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.voucher-conversion img {
+  height: 40px;
+}
+
+.voucher-input-parent {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+@media screen and (max-width: 600px) {
+  .voucher-input-parent {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .voucher-input-parent .prime-voucher {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .voucher-input-parent .input-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  input {
+    height: 48px!important;
+  }
+  .minus, .plus {
+    height: 35px!important;
+    width: 35px!important;
+  }
+}
+
+
+.prime-voucher {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.prime-voucher img {
+  height: 40px;
+}
+
+.purchase-rebate-vouchers .purchase {
+  text-align: center;
+  font-size: 30px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #9B9FA5;
+  margin-bottom: 12px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+}
+
+.minus, .plus {
+  height: 24px;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: #FF0060;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.plus {
+  background: #10BA6E;
+}
+
+input {
+  text-align:center;
+  width: 40px;
+  height: 30px;
+  font-size: 20px;
+  margin: 0px 8px;
+  border-radius: 6px;
+  border: 1px solid #929292;
+  background: #EDEDED;
+}
+
+.credits-to-receive-container {
+  font-size: 20px;
+  font-weight: bold;
+  color: #FFB341;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #929292;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+}
+
+.amount-to-receive img {
+  height: 30px;
+}
+
+.total-cost-container {
+  display: flex;
+  justify-content: space-between;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 20px;
+
+}
+
+.button-containers {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.button-containers button {
+  display: flex;
+  border-radius: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  height: 88px;
+  width: 200px;
+}
+
+.close-button {
+  border: 2px solid #9B9FA5;
+  background-color: #9B9FA5;
+  color: white;
+}
+
+.buy-now {
+  border: 2px solid #E4B114;
+  background: linear-gradient(90deg, #FFD510, #FEE068);
+}
+
+/deep/ .modal {
+  max-width: 605px;
+  animation: none;
+  top: 50%;
+}
+
+.credits-buy {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.credits-buy-text {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000000;
+  text-transform: uppercase;
+}
+
+.credits-buy-icon {
+  margin: 0 12px 0 8px;
+  width: 20px;
+}
+
+.credits-buy-btn {
+  text-align: center;
+  width: 28px;
+  height: 28px;
+  line-height: 22px;
+  border-radius: 50%;
+  font-size: 32px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.credits-buy-btn:hover {
+  transform: scale(1.1);
+}
+
+.credits-buy-btn.credits-buy-btn-subtract {
+  background: #FF0060;
+}
+
+.credits-buy-num {
+  text-align: center;
+  margin: 0 8px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #181818;
+  width: 42px;
+  height: 30px;
+  line-height: 30px;
+  background: #F8F8F8;
+  border: 1px solid #E1E1E1;
+  border-radius: 6px;
+}
+
+.credits-buy-btn.credits-buy-btn-add {
+  background: #10BA6E;
+}
+
+@keyframes scaleUp {
+  0% {
+    top: 100%;
+    opacity: 0;
+  }
+  100% {
+    top: 50%;
+    opacity: 1;
+  }
+}

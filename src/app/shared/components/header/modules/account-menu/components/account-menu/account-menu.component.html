@@ -1,0 +1,212 @@
+<div class="content">
+  <div class="main-content">
+    <div class="main-menu">
+      <dl>
+        <dt class="myacc-title">
+          <span class="arrow-close" (click)="closeMenu()">
+            <app-tyqoon-icon name="arrowRight" class="item-arrow-myacc"></app-tyqoon-icon>
+          </span>
+          {{ 'account-menu-title-account' | translate }}
+        </dt>
+        <dt class="hide-title-acc">
+          <i class="iconfont1" nz-icon nzIconfont="tgicon-qianbao"></i>
+          <span class="icon-font-style">{{ 'account-menu-title-info' | translate }}</span></dt
+        >
+        <dd routerLinkActive="active">
+          <a
+            routerLink="/member/order/list"
+            routerLinkActive="actived"
+            class="list-font-style"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >{{ 'account-menu-orders' | translate }}</a
+          >
+        </dd>
+        <dd routerLinkActive="active">
+          <a
+            routerLink="/member/my-favorites/list"
+            routerLinkActive="actived"
+            class="list-font-style"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >{{ 'account-menu-wishlist' | translate }}</a
+          >
+        </dd>
+        <dd routerLinkActive="active">
+          <a routerLink="/member/point" routerLinkActive="actived" class="list-font-style" [routerLinkActiveOptions]="{ exact: true }">{{
+            'account-menu-credits' | translate
+          }}</a>
+        </dd>
+        <dd routerLinkActive="active">
+          <a
+            routerLink="/member/aftersales/list"
+            routerLinkActive="actived"
+            class="list-font-style"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >{{ 'account-menu-aftersales' | translate }}</a
+          >
+        </dd>
+        <!--        <dd routerLinkActive="active">-->
+        <!--          <a routerLink="/member/aftersales/list" routerLinkActive="actived" class="list-font-style"-->
+        <!--            [routerLinkActiveOptions]="{ exact: true }">{{ 'account-menu-aftersales' | translate }}</a>-->
+        <!--        </dd>-->
+      </dl>
+      <!-- <dl>
+        <dt>
+          <i class="iconfont1" nz-icon nzIconfont="tgicon-guanzhu"></i>
+          <span>我的关注</span></dt>
+        <dd>
+          <a routerLink="/member/history" routerLinkActive="actived" [routerLinkActiveOptions]="{exact:true}">我的足迹</a>
+        </dd>
+        <dd>
+          <a routerLink="" routerLinkActive="actived" [routerLinkActiveOptions]="{exact:true}">商品收藏</a>
+        </dd>
+        <dd>
+          <a routerLink="" routerLinkActive="actived" [routerLinkActiveOptions]="{exact:true}">店铺收藏</a>
+        </dd>
+        <dd>
+          <a routerLink="">到货通知</a>
+        </dd>
+        <dd>
+          <a routerLink="">商品评论</a>
+        </dd>
+        <dd>
+          <a routerLink="">商品咨询</a>
+        </dd>
+      </dl> -->
+      <!-- <dl>
+        <dt>
+          <i class="iconfont1" nz-icon nzIconfont="tgicon-xinxi"></i>
+          <span>我的消息</span></dt>
+        <dd>
+          <a routerLink="">发送消息</a>
+        </dd>
+        <dd>
+          <a routerLink="">消息列表</a>
+        </dd>
+      </dl> -->
+      <!--      <dl>-->
+      <!--        <dt class="hide-title-acc">-->
+      <!--          <i class="iconfont1" nz-icon nzIconfont="tgicon-fapiao"></i>-->
+      <!--          <span class="icon-font-style">{{ 'account-menu-title-invoice' | translate }}</span></dt-->
+      <!--        >-->
+      <!--        <dd routerLinkActive="active">-->
+      <!--          <a-->
+      <!--            routerLink="/member/invoice/list"-->
+      <!--            routerLinkActive="actived"-->
+      <!--            class="list-font-style"-->
+      <!--            [routerLinkActiveOptions]="{ exact: true }"-->
+      <!--            >{{ 'account-menu-receipts' | translate }}</a-->
+      <!--          >-->
+      <!--        </dd>-->
+      <!--        <dd routerLinkActive="active">-->
+      <!--          <a-->
+      <!--            routerLink="/member/increase/list"-->
+      <!--            routerLinkActive="actived"-->
+      <!--            class="list-font-style"-->
+      <!--            [routerLinkActiveOptions]="{ exact: true }"-->
+      <!--            >{{ 'account-menu-increase' | translate }}</a-->
+      <!--          >-->
+      <!--        </dd>-->
+      <!--        <dd routerLinkActive="active">-->
+      <!--          <a-->
+      <!--            routerLink="/member/header-manage/list"-->
+      <!--            routerLinkActive="actived"-->
+      <!--            class="list-font-style"-->
+      <!--            [routerLinkActiveOptions]="{ exact: true }"-->
+      <!--            >{{ 'account-menu-header' | translate }}</a-->
+      <!--          >-->
+      <!--        </dd>-->
+      <!--      </dl>-->
+      <dl>
+        <dt class="hide-title-acc">
+          <i class="iconfont1" nz-icon nzIconfont="tgicon-yue"></i>
+          <span class="icon-font-style">{{ 'account-menu-title-balance' | translate }}</span></dt
+        >
+        <!-- <dd>
+          <a routerLink="/member/member-deposit/recharge" routerLinkActive="actived"
+            [routerLinkActiveOptions]="{exact:true}">账户充值</a>
+        </dd> -->
+        <dd routerLinkActive="active">
+          <a
+            routerLink="/member/member-deposit/log"
+            routerLinkActive="actived"
+            class="list-font-style"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >{{ 'account-menu-balance' | translate }}</a
+          >
+        </dd>
+      </dl>
+      <!-- <dl>
+        <dt>
+          <i class="iconfont1" nz-icon nzIconfont="tgicon-jiaoseguanli"></i>
+          <span>分销管理</span></dt>
+        <dd>
+          <a routerLink="">我的推广</a>
+        </dd>
+        <dd>
+          <a routerLink="">分销提现</a>
+        </dd>
+        <dd>
+          <a routerLink="">分销佣金</a>
+        </dd>
+        <dd>
+          <a routerLink="">下级会员</a>
+        </dd>
+        <dd>
+          <a routerLink="">提现记录</a>
+        </dd>
+      </dl> -->
+      <dl class="last">
+        <dt class="hide-title-acc">
+          <i class="iconfont1" nz-icon nzIconfont="tgicon-yue"></i>
+          <span class="icon-font-style">{{ 'account-menu-title-account' | translate }}</span></dt
+        >
+        <dd routerLinkActive="active">
+          <a
+            routerLink="/member/profile/edit"
+            routerLinkActive="actived"
+            class="list-font-style"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >{{ 'account-menu-info' | translate }}</a
+          >
+        </dd>
+        <dd routerLinkActive="active">
+          <a
+            routerLink="/member/modify-payment-password"
+            routerLinkActive="actived"
+            class="list-font-style"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            {{ 'order-payment-password' | translate }}
+          </a>
+        </dd>
+        <dd routerLinkActive="active">
+          <a
+            routerLink="/member/password/edit"
+            routerLinkActive="actived"
+            class="list-font-style"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >{{ 'account-menu-password' | translate }}</a
+          >
+        </dd>
+        <dd routerLinkActive="active">
+          <a
+            routerLink="/member/address/list"
+            routerLinkActive="actived"
+            class="list-font-style"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >{{ 'account-menu-shipping' | translate }}</a
+          >
+        </dd>
+        <dd routerLinkActive="active">
+          <a
+            routerLink="/member/account-bind/list"
+            routerLinkActive="actived"
+            class="list-font-style"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >{{ 'account-menu-bind' | translate }}</a
+          >
+        </dd>
+      </dl>
+    </div>
+  </div>
+</div>

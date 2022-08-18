@@ -1,0 +1,8 @@
+<div class="modal__wrap">
+  <ng-container *ngComponentOutlet="content"></ng-container>
+  <button *ngIf="showCloseBtn" (click)="close()" class="modal-close" aria-label="close">
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M29.0625 4.95516L25.0448 0.9375L15 10.9823L4.95516 0.9375L0.9375 4.95516L10.9823 15L0.9375 25.0448L4.95516 29.0625L15 19.0177L25.0448 29.0625L29.0625 25.0448L19.0177 15L29.0625 4.95516Z" fill="white"/>
+    </svg>
+  </button>
+</div>

@@ -1,0 +1,5 @@
+<picture class="user-avatar" [style.width]="avatarWidth + 'px'">
+  <img [src]="crown" alt="crown" class="crownClass" [style.width]="crownWidth + 'px'" *ngIf="showCrown" />
+  <source type="image/jpg" [srcset]="avatar" />
+  <img [style.width]="avatarWidth + 'px'" [style.height]="avatarWidth + 'px'" [src]="avatar" alt="Avatar" [style.object-fit]="'cover'" />
+</picture>

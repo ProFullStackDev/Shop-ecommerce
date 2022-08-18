@@ -1,0 +1,151 @@
+<div class="title br-top-12 member-page-title-mob">{{ 'increase-invoice-main-heading' | translate }}</div>
+<div class="content br-bot-12 content-invoice">
+  <p
+    >{{ 'increase-invoice-description' | translate }}
+    <br />
+    {{ 'increase-invoice-description-one' | translate }}
+    <br />
+    {{ 'increase-invoice-description-two' | translate }}</p
+  >
+  <div class="detail-btn" *ngIf="detailBoolean">
+    <span>您的增票资质：</span>
+    <span class="status" [style.color]="billStatus[validateForm.value.reviewStatus].color">{{
+      billStatus[validateForm.value.reviewStatus].label
+    }}</span>
+    <button class="btn-submit" nz-button nzType="default" (click)="updateBtn()">修改</button>
+    <button class="btn-submit" nz-button nzType="primary" (click)="deleteBtn()">删除</button>
+  </div>
+
+  <form nz-form [formGroup]="validateForm" class="login-form">
+    <h4>{{ 'increase-invoice-header-information' | translate }}</h4>
+    <div *ngIf="detailBoolean" calss="detail-content">
+      <dl style="margin-left: 70px; color: #999">
+        <dd style="height: 32px">{{ 'account-menu-header' | translate }}：{{ validateForm.value.title }}</dd>
+        <dd style="height: 32px"
+          >{{ 'increase-invoice-invoice-tax-number' | translate }}：{{ validateForm.value.vatRegistrationNumber }}</dd
+        >
+        <dd style="height: 32px">{{ 'increase-invoice-registered-address' | translate }}：{{ validateForm.value.registeredAddress }}</dd>
+        <dd style="height: 32px">{{ 'increase-invoice-registration-phone' | translate }}：{{ validateForm.value.registeredPhone }}</dd>
+        <dd style="height: 32px">{{ 'increase-invoice-depositary-bank' | translate }}：{{ validateForm.value.bankName }}</dd>
+        <dd style="height: 32px">账户银行：{{ validateForm.value.bankAccount }}</dd>
+      </dl>
+    </div>
+    <div *ngIf="!detailBoolean" class="add">
+      <nz-form-item>
+        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>{{ 'increase-invoice-company-name' | translate }}</nz-form-label>
+        <nz-form-control [nzSm]="10" nzErrorTip="{{ 'increase-invoice-company-name-error' | translate }}">
+          <nz-input-group>
+            <input nz-input formControlName="title" placeholder="{{ 'increase-invoice-company-name-placeholder' | translate }}" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>{{ 'increase-invoice-invoice-tax-number' | translate }}</nz-form-label>
+        <nz-form-control [nzSm]="10" nzErrorTip="{{ 'increase-invoice-invoice-tax-number-validation' | translate }}">
+          <nz-input-group>
+            <input
+              nz-input
+              formControlName="vatRegistrationNumber"
+              placeholder="{{ 'increase-invoice-invoice-tax-number-placeholder' | translate }}"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>{{ 'increase-invoice-registered-address' | translate }}</nz-form-label>
+        <nz-form-control [nzSm]="10" nzErrorTip="{{ 'increase-invoice-registered-address-validation' | translate }}">
+          <nz-input-group>
+            <input
+              nz-input
+              formControlName="registeredAddress"
+              placeholder="{{ 'increase-invoice-registered-address-placeholder' | translate }}"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>{{ 'increase-invoice-registration-phone' | translate }}</nz-form-label>
+        <nz-form-control [nzSm]="10" nzErrorTip="{{ 'increase-invoice-registration-phone-validation' | translate }}">
+          <nz-input-group>
+            <input
+              nz-input
+              formControlName="registeredPhone"
+              placeholder="{{ 'increase-invoice-registration-phone-placeholder' | translate }}"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>{{ 'increase-invoice-depositary-bank' | translate }}</nz-form-label>
+        <nz-form-control [nzSm]="10" nzErrorTip="{{ 'increase-invoice-depositary-bank-validation' | translate }}">
+          <nz-input-group>
+            <input nz-input formControlName="bankName" placeholder="{{ 'increase-invoice-depositary-bank-placeholder' | translate }}" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>{{ 'increase-invoice-bank-account' | translate }}</nz-form-label>
+        <nz-form-control [nzSm]="10" nzErrorTip="{{ 'increase-invoice-bank-account-validation' | translate }}">
+          <nz-input-group>
+            <input nz-input formControlName="bankAccount" placeholder="{{ 'increase-invoice-bank-account-placeholder' | translate }}" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <h4>{{ 'increase-invoice-invoice-information' | translate }}</h4>
+    <nz-form-item>
+      <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>{{ 'increase-invoice-billing-name' | translate }}</nz-form-label>
+      <nz-form-control [nzSm]="10" nzErrorTip="{{ 'increase-invoice-billing-name-validation' | translate }}">
+        <nz-input-group>
+          <input nz-input formControlName="name" placeholder="{{ 'increase-invoice-billing-name-placeholder' | translate }}" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>{{ 'increase-invoice-phone-number' | translate }}</nz-form-label>
+      <nz-form-control [nzSm]="10" nzErrorTip="{{ 'increase-invoice-phone-number-validation' | translate }}">
+        <nz-input-group>
+          <input nz-input formControlName="phone" placeholder="{{ 'increase-invoice-phone-number-placeholder' | translate }}" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>{{ 'increase-invoice-province-name' | translate }}</nz-form-label>
+      <nz-form-control [nzSm]="9" nzErrorTip="收票地区不能为空">
+        <!-- 省市区组件 -->
+        <app-address-select
+          class="address-select"
+          formControlName="areaId"
+          #editCompoent
+          (submitSuccess)="submitSuccess($event)"
+          (citySelected)="citySelected($event)"
+          (regionSelected)="regionSelected($event)"
+          [areaDetails]="areaDetails"
+        >
+        </app-address-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>{{ 'increase-invoice-billing-address' | translate }}</nz-form-label>
+      <nz-form-control [nzSm]="10" nzErrorTip="{{ 'increase-invoice-billing-address-validation' | translate }}">
+        <nz-input-group>
+          <input nz-input formControlName="address" placeholder="{{ 'increase-invoice-billing-address-placeholder' | translate }}" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <div class="footer">
+    <nz-form-item>
+      <nz-form-control [nzSpan]="10" [nzOffset]="4">
+        <button class="btn-submit" nz-button nzType="primary" (click)="validate()">{{ 'increase-invoice-confirm' | translate }}</button>
+        <button nz-button nzType="default" (click)="goBack()"> {{ 'increase-invoice-return' | translate }} </button>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+</div>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="提示信息" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <p>您确定要删除嘛？</p>
+  </ng-container>
+</nz-modal>

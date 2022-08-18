@@ -1,0 +1,59 @@
+<div [class.scrolling]="isScrollable" class="modal__header alt">
+  <div class="title">
+    <div class="icon">
+      <img src="/assets/images/game-board/prime.svg" alt="Prime" />
+    </div>
+    Get Prime
+  </div>
+</div>
+
+<div class="modal__content get-prime-modal">
+  <div #scrollable class="scrollable" (scroll)="onScroll()">
+    <p class="select-plan"> Select Plan </p>
+    <div class="plan-list">
+      <ng-container *ngFor="let plan of planList">
+        <div class="plan-item" [class.active]="radio.checked" (click)="(radio.checked); setPlan(plan.skuId)">
+          <label [class.active]="radio.checked">
+            <input #radio type="radio" name="plans" [formControl]="plansControl" [value]="plan.skuId" (change)="setPlan(plan.skuId)" />
+          </label>
+          <div class="image">
+            <img [src]="plan.image" [alt]="plan.type" />
+          </div>
+          <div class="description">
+            <p>{{ plan.type | translate }}</p>
+            <span>{{ plan.days | translate }}</span>
+          </div>
+          <div class="price">
+            <span *ngIf="plan.oldPrice" class="old-price">
+              <span class="cross-line">${{ plan.oldPrice }}</span>
+            </span>
+            <p>${{ plan.price }}</p>
+          </div>
+          <div *ngIf="plan.value === 'gold'" class="ribbon-wrap">
+            <div class="ribbon">
+              <span>{{ 'prime-modal-value' | translate }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="earn-info">
+          <div class="earn">
+            <div class="member">
+              <ul>
+                <li *ngFor="let planDescription of plan.description">
+                  <span class="icon">
+                    <app-tyqoon-icon name="crown"></app-tyqoon-icon>
+                  </span>
+                  <p>{{ planDescription.text | translate }}</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="prime-btns">
+      <button (click)="openProfileModal()">don’t get prime</button>
+      <button (click)="openProfileModal(plansControl.value)" [disabled]="!plansControl.value">Buy Now</button>
+    </div>
+  </div>
+</div>

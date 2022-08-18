@@ -1,0 +1,36 @@
+.title {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.giant-mascot {
+  text-align: center;
+}
+
+img {
+  height: 200px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+}
+
+.buttons * {
+  width: 220px;
+}
+
+.spacing {
+  margin-bottom: 12px;
+}
+
+.close {
+  font-size: 20px;
+}
+
+/deep/ .member-credits-block-buy-credits .text, /deep/ .redeem-button .text {
+  color: white!important;
+}
+
+

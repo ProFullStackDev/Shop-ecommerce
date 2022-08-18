@@ -1,0 +1,61 @@
+<div class="title">个人资料</div>
+<div class="content">
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24">头像</nz-form-label>
+      <!-- <nz-form-control [nzSm]="10" [nzXs]="24">
+        <nz-upload nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76" [nzFileList]="fileList">
+          <button nz-button>
+            <i nz-icon nzType="upload"></i>
+            Upload
+          </button>
+        </nz-upload>
+      </nz-form-control> -->
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24">用户名</nz-form-label>
+      <nz-form-control [nzSm]="10" [nzXs]="24">
+        <div class="item">
+          <span class="text-left">{{ memberInfo.username }}</span>
+          <span class="icon-right">
+            <a href="javascript:;" (click)="tabsName()">
+              <i nz-icon nzType="eye-invisible" nzTheme="twotone"></i>
+            </a>
+          </span>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24">E-mail</nz-form-label>
+      <nz-form-control [nzSm]="10" [nzXs]="24">
+        <div class="item">
+          <span class="text-left">{{ memberInfo.email }}</span>
+          <span class="icon-right"
+            ><a href=""><i nz-icon nzType="edit" nzTheme="twotone"></i></a
+          ></span>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24">手机</nz-form-label>
+      <nz-form-control [nzSm]="10" [nzXs]="24">
+        <div class="item">
+          <span class="text-left">{{ memberInfo.mobile }}</span>
+          <span class="icon-right"
+            ><a href=""><i nz-icon nzType="edit" nzTheme="twotone"></i></a
+          ></span>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <div class="footer">
+      <nz-form-item nz-row class="register-area">
+        <nz-form-control [nzSpan]="10" [nzOffset]="6">
+          <button class="confirm" nz-button nzType="primary" (click)="confirm()">确 定</button>
+          <button nz-button nzType="default">
+            <a routerLink="/member/index">{{ 'increase-invoice-return' | translate }}</a>
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </form>
+</div>

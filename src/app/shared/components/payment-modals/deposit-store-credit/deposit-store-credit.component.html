@@ -1,0 +1,65 @@
+<div class="modal__header alt tokens" [class.scrolling]="isScrollable">
+  <div class="title">
+    <span>￥ {{ 'deposit-store-credits' | translate }}</span>
+  </div>
+</div>
+
+<div class="modal__content tyqoon-dollars">
+  <div #scrollable class="scrollable" (scroll)="onScroll()">
+    <div class="description text">
+      {{ 'deposit-store-credit-to-use-on-the-tyqoon-shop' | translate }}
+    </div>
+    <div class="description text">
+      {{ 'how-much-store-credit-to-deposit' | translate }}
+    </div>
+    <div class="input-container">
+      <input type="text" [formControl]="credits" (blur)="roundingInput()"/>
+      <div class="currency-symbol"> ￥ </div>
+    </div>
+    <div class="details">
+      {{ 'details' | translate }}
+      <div class="border-line"></div>
+    </div>
+    <div class="details-container">
+      <div class="amount-details title"> ￥{{ credits.value ? credits.value : 0 }} </div>
+      <div class="amount-text title">
+        {{ 'amount-to-deposit' | translate }}
+      </div>
+    </div>
+    <div class="border-line"></div>
+    <div class="total-container">
+      <div class="total-title title"> {{ 'total' | translate }}: </div>
+      <div class="total title"> ￥{{ credits.value ? credits.value : 0 }} </div>
+    </div>
+    <button class="payment-methods" [disabled]="!credits.value">{{ 'continue-to-payment-methods' | translate }}</button>
+    <div class="or-container">
+      <div class="border-line"></div>
+      <div class="or title">{{ 'or' | translate }}</div>
+      <div class="border-line"></div>
+    </div>
+    <!--  [disabled]="!credits.value" -->
+    <button class="convert-dollars-container" (click)="openModal(convertDollarsModal)">
+      <div class="image-container">
+        <img src="/assets/images/tyqoon-dollar-100.png" alt="" srcset="" />
+      </div>
+      <div class="text">
+        {{ 'convert-dollars-to-store-credit' | translate }}
+      </div>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        version="1.1"
+        id="Layer_1"
+        x="0px"
+        y="0px"
+        viewBox="0 0 1792 1792"
+        style="enable-background: new 0 0 1792 1792"
+        xml:space="preserve"
+      >
+        <path
+          d="M996,1314.5c-55.2,55.2-139.5,55.2-194.8,0c-2.4-2.8-2.4-2.8-2.4-2.8L154.4,670.1c-52.4-55.2-52.4-139.2,0-194.4  c55.2-52.8,139.5-52.8,194.4,0l549.7,552.1l547.2-546.9c52.4-52.4,139.5-52.4,192,0c52.4,52.8,52.4,139.5,0,192L996,1314.5z"
+        />
+      </svg>
+    </button>
+  </div>
+</div>

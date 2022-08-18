@@ -1,0 +1,7 @@
+<nz-descriptions nzBordered nzLayout="vertical">
+  <nz-descriptions-item *ngFor="let key of displayConfigKeys" [nzTitle]="itemConfig[key].title(content) | translate">
+    <span [style]="itemConfig[key].style ? itemConfig[key].style(content[key], content) : ''">
+      {{ (itemConfig[key].format ? itemConfig[key].format(content[key], content) : content[key]) | translate}}
+    </span>
+  </nz-descriptions-item>
+</nz-descriptions>

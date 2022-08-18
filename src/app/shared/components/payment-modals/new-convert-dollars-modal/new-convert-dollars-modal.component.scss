@@ -1,0 +1,169 @@
+
+
+::ng-deep .mat-slider-thumb {
+	background-color: #2FDA94 !important;
+}
+
+::ng-deep .mat-slider-thumb-label {
+	background-color: #2FDA94 !important;
+}
+
+::ng-deep .mat-slider-track-fill {
+	background-color: #2FDA94 !important;
+}
+
+.tyqoon-dollars-container {
+  width: 300px;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 8px;
+}
+
+.amount-to-convert {
+  color: #424242;
+  font-size: 14px;
+
+  .title {
+    font-size: 14px;
+  }
+}
+
+.slider-container {
+  width: 100%;
+  mat-slider {
+    width: 100%;
+  }
+}
+
+.max-tooltip {
+  text-align: right;
+  height: 32px;
+}
+
+.tooltip-text {
+  display: inline-block;
+  float: right;
+  padding: 4px;
+  font-size: 16px;
+  background: #E9F8F1;
+  color: #2FDA94;
+  border-radius: 10px;
+}
+
+.input-container {
+  width: 100%;
+  position: relative;
+  margin-bottom: 12px;
+  color: #434343;
+  input {
+    padding: 4px;
+    width: 100%;
+    font-size: 30px;
+    border-radius:10px;
+    border: 1px solid #D9D9D9;
+    padding-left: 30px;
+    text-align: right;
+    padding-right: 8px;
+    color: #2FDA94 !important;
+    background-color: #406899;
+  }
+
+  img {
+    height: 40px;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+  }
+}
+
+::ng-deep .modal {
+  max-width: 605px;
+  animation: none;
+  top: 50%;
+}
+
+.scrollable > .border-line {
+  flex-grow: 1;
+  border: 1px solid #D9D9D9;
+  margin: 6px 0px;
+}
+
+.dollars-to-convert-container, .store-credit-container, .conversion-fee-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .convert-text {
+    font-size: 13px;
+    color: #424242;
+    .title {
+      font-size: 13px;
+    }
+  };
+  .dollars-to-convert {
+    color: #2FDA94 !important;
+    font-size: 20px;
+    img {
+      height: 30px;
+    }
+  }
+  .store-credit, .conversion-fee {
+    color: #424242;
+    font-size: 20px;
+    .title {
+      font-size: 20px;
+    }
+  }
+}
+
+.total-amount-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 30px;
+  margin-bottom: 10px;
+
+  .title {
+    font-size: 30px;
+  }
+}
+
+.convert-dollars-button {
+  font-size: 20px;
+  background: #FFD800;
+  border-radius: 5px;
+  width: 100%;
+  color: #424242;
+  padding: 28px;
+  margin-bottom: 20px;
+}
+
+.icon {
+  transform: rotate(90deg);
+  fill: #C6C6C6;
+}
+
+.total-amount {
+  position: relative;
+
+  span.error {
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    font-size: 12px;
+    color: red !important;
+  }
+}
+
+button:disabled {
+  border: 1px solid #d9d9d9;
+  opacity: .5;
+  background: #c4c4c4;
+  cursor: default;
+  pointer-events: none;
+}
+
+
+.mb-1 {
+  margin-bottom: 2px;
+}

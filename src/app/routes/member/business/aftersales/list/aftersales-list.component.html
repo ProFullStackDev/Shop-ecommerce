@@ -1,0 +1,84 @@
+<div class="scrolling-container">
+  <div class="title br-top-12 scrollable-element member-page-title-mob">{{ 'after-sales-page-title' | translate }}</div>
+  <div class="content scrollable-element">
+    <div class="mneus mneus-sales">
+      <nz-tabset class="br-bot-12 scrollable-element" [(nzSelectedIndex)]="tabIndex" (nzSelectedIndexChange)="tabIndexChange($event)">
+        <nz-tab nzTitle="{{ 'after-sales-header-all' | translate }}"> </nz-tab>
+        <nz-tab nzTitle="{{ 'after-sales-header-exchange' | translate }}"> </nz-tab>
+        <nz-tab nzTitle="{{ 'after-sales-header-return' | translate }}"> </nz-tab>
+        <nz-tab nzTitle="退款申请"> </nz-tab>
+      </nz-tabset>
+      <div class="main main-sales">
+        <div class="content">
+          <div class="product-status aftersale-menu">
+            <span class="detail">{{ 'after-sales-header-order-details' | translate }}</span>
+            <span class="price">{{ 'after-sales-header-type' | translate }}</span>
+            <span class="status">{{ 'after-sales-header-status' | translate }}</span>
+            <span class="operate">{{ 'order-operate' | translate }}</span>
+          </div>
+          <div class="product-info" *ngFor="let item of afterSalesList">
+            <div class="top-news">
+              <span class="time">{{ item.afterSales.createdDate | date: 'yyyy-MM-dd HH:mm:ss' }}</span>
+              <span class="number"># {{ item.afterSales.orderSn }}</span>
+            </div>
+            <div class="product-detail">
+              <div class="img-words" *ngFor="let detail of item.afterSalesDetailsItem">
+                <div class="img-words-left"
+                  ><a href=""><nz-avatar nzIcon="picture" [nzSrc]="detail.orderThumbnail" [nzSize]="50" nzShape="square"></nz-avatar></a
+                ></div>
+                <div class="img-words-right">
+                  <h5 class="name"
+                    ><a href="">{{ detail.orderName }}</a></h5
+                  >
+                  <p>x {{ detail.quantity }}</p>
+                </div>
+              </div>
+              <div class="price">{{ item.afterSales.dtype | dict: DictKey.AFTERSALES_TYPE:'label' | translate }}</div>
+              <div class="status">
+                <strong [style.color]="item.afterSales.status | dict: DictKey.AFTERSALES_STATUS:'color'">{{
+                  item.afterSales.status | dict: DictKey.AFTERSALES_STATUS:'label' | translate
+                }}</strong>
+              </div>
+              <div class="oprater">
+                <div class="search">
+                  <a
+                    routerLink="/member/aftersales/detail"
+                    routerLinkActive="actived"
+                    [queryParams]="{ afterSalesID: item.afterSales.id }"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    ><i nz-icon nzIconfont="tgicon-sousuo_o"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nz-pagination
+          style="text-align: center; padding-bottom: 10px"
+          [(nzPageIndex)]="page"
+          [nzTotal]="total"
+          [(nzPageSize)]="rows"
+          nzShowQuickJumper
+          nzShowSizeChanger
+          (nzPageIndexChange)="pageIndexChange()"
+          (nzPageSizeChange)="pageSizeChange()"
+        >
+        </nz-pagination>
+        <nz-empty
+          class="emprty"
+          *ngIf="afterSalesList.length < 1"
+          style="margin-top: 15vh; padding-bottom: 15vh"
+          nzNotFoundContent="{{ 'after-sales-no-info' | translate }}"
+        >
+        </nz-empty>
+      </div>
+      <div class="right">
+        <span class="date">{{ 'after-sales-header-date-range' | translate }} :</span>
+        <nz-date-picker [(ngModel)]="beginTime" nzPlaceHolder="{{ 'after-sales-header-date-start' | translate }}"></nz-date-picker>
+        <nz-date-picker [(ngModel)]="endTime" nzPlaceHolder="{{ 'after-sales-header-date-end' | translate }}"></nz-date-picker>
+        <input class="input" nz-input placeholder="{{ 'after-sales-header-order-placeholder' | translate }}" [(ngModel)]="orderSn" />
+        <button class="serach" nz-button nzType="default" (click)="search()">{{ 'after-sales-header-search' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>

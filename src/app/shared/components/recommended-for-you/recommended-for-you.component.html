@@ -1,0 +1,66 @@
+<div class="nav-tabs">
+  <ul
+    class="scrolling-wrapper"
+    #navelemt
+    (mousedown)="startDragging($event, false, navelemt)"
+    (mouseup)="stopDragging($event, false, navelemt)"
+    (mouseleave)="stopDragging($event, false, navelemt)"
+    (mousemove)="moveEvent($event, navelemt)"
+    (touchstart)="startTouching()"
+    (touchmove)="checkTouching($event)"
+  >
+    <li
+      *ngFor="let tab of recommendTabs; let i = index"
+      (click)="recommendKey = tab.key; scrollOnSelect($event)"
+      [class.active]="recommendKey == tab.key"
+      [class.active1]="i == 0"
+      [class.active2]="i == 1"
+      [class.active3]="i == 2"
+      [class.active4]="i == 3"
+      class="card"
+    >
+      <a class="tab-title">
+        <h5>{{ tab.title | translate }}</h5>
+      </a>
+    </li>
+    <span class="glider"></span>
+  </ul>
+</div>
+<!-- 推荐商品 -->
+<div class="product-category-content">
+  <div>
+    <ul
+      class="product-category-content-container scroll"
+      id="scroll"
+      #elemt
+      (mousedown)="startDragging($event, false, elemt)"
+      (mouseup)="stopDragging($event, false, elemt)"
+      (mouseleave)="stopDragging($event, false, elemt)"
+      (mousemove)="moveEvent($event, elemt)"
+      (touchstart)="startTouchingSlider()"
+      (touchmove)="checkTouchingSlider($event)"
+    >
+      <li class="item hover-box-shadow animation-card card" *ngFor="let item of currentRecommendList">
+        <a routerLink="/product/detail" [queryParams]="{ id: item.id }">
+          <img class="animation-card-img" [src]="item.cover" alt="" height="170" />
+        </a>
+        <a routerLink="/product/detail" [queryParams]="{ id: item.id }">
+          <div class="product-name" [title]="item.name">{{ item.name }}</div>
+        </a>
+        <div class="product-price">
+          <!--            <span>{{ item.name }} 积分</span>-->
+          <span>￥ {{ item.price }}</span>
+        </div>
+        <div class="coin-cash-back cash-back-in-swiper-vertical coin-cash-back-swiper">
+          <div class="dollar-img-cash-cont">
+            <p class="text-cash">{{ 'cash-back-reward-label' | translate }}</p>
+          </div>
+          <div class="container-cash-back">
+            <img src="/assets/images/TYD-small.png" class="img-dollar-cashback" />
+            <p class="num-cash-back">{{ item?.defaultSku?.cashBack | number: '0.2-2' }}</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

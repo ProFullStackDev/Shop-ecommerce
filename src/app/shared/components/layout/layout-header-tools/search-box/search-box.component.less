@@ -1,0 +1,25 @@
+@import "~src/styles/_variables";
+
+.hot-search {
+  display: flex;
+
+  dt {
+    color: #999;
+    font-weight: normal;
+    margin-right: 10px;
+    line-height: 30px;
+  }
+
+  dd {
+    margin-right: 5px;
+    line-height: 30px;
+
+    a {
+      color: #999;
+
+      &:hover {
+        color: @primary-color;
+      }
+    }
+  }
+}

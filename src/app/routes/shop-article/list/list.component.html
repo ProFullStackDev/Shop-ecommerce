@@ -1,0 +1,49 @@
+<div class="container">
+  <nz-skeleton *ngIf="loading" [nzParagraph]="{ rows: 20 }" [nzActive]="true"></nz-skeleton>
+  <!-- <div class="breadcrumb" *ngIf="!loading">
+        <li>
+            <a routerLink="/">
+                <i nz-icon nzType="home"></i>
+                首页
+            </a>
+        </li>
+        <li class="active" *ngIf="articleCategoryName">{{articleCategoryName}}</li>
+    </div> -->
+  <div class="article-list" *ngIf="!loading">
+    <div class="list panel panel-default">
+      <div class="panel-body">
+        <div class="no-result" *ngIf="articleList.length == 0">
+          <dl>
+            <dt>暂无文章</dt>
+          </dl>
+        </div>
+        <ul *ngIf="articleList.length > 0">
+          <li *ngFor="let article of articleList">
+            <h4>
+              <a
+                routerLink="/article/detail"
+                [queryParams]="{ articleId: article.id, articleCategoryId: articleCategoryId, articleCategoryName: articleCategoryName }"
+                >{{ article.title }}</a
+              >
+            </h4>
+            <p class="text-overflow">{{ article.content }}</p>
+            <p>
+              <span class="small text-gray">{{ article.author }}</span>
+              <span class="small text-gray">{{ article.createdDate | date: 'YYYY-MM-dd' }}</span>
+            </p>
+          </li>
+        </ul>
+        <nz-pagination
+          [(nzPageIndex)]="page"
+          [nzTotal]="total"
+          [(nzPageSize)]="rows"
+          nzShowQuickJumper
+          nzShowSizeChanger
+          (nzPageIndexChange)="pageIndexChange()"
+          (nzPageSizeChange)="pageSizeChange()"
+        >
+        </nz-pagination>
+      </div>
+    </div>
+  </div>
+</div>

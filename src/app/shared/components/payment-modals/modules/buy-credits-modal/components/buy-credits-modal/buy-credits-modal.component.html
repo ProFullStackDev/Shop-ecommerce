@@ -1,0 +1,53 @@
+<div class="modal__header alt gray" [class.scrolling]="isScrollable">
+  <div class="title">
+    <span>{{ 'store-credit-buy-credits' | translate }}</span>
+  </div>
+</div>
+<div class="modal__content payment-modal">
+  <div #scrollable class="scrollable" (scroll)="onScroll()">
+    <span class="label">{{ 'store-credit-credits-amount' | translate }}</span>
+    <label [class.error]="(amountOfCredits.invalid && amountOfCredits.touched) || amountMinError || amountMaxError">
+      <input
+        id="amount"
+        type="number"
+        (input)="amountMinError = null; amountMaxError = null"
+        [formControl]="amountOfCredits"
+        placeholder="0"
+      />
+      <span class="currency">¥</span>
+    </label>
+    <!--    <span *ngIf="amountOfCredits?.errors?.min" class="error"> {{ 'payment-minimum-amount-error' | translate }}: {{ minAmount }} </span>-->
+    <!--    <span *ngIf="amountOfCredits?.errors?.max" class="error"> {{ 'payment-maximum-amount-error' | translate }}: {{ maxAmount }} </span>-->
+
+    <span *ngIf="amountMinError" class="error"> {{ 'payment-minimum-amount-error' | translate }}: {{ amountMinError }} </span>
+    <span *ngIf="amountMaxError" class="error"> {{ 'payment-maximum-amount-error' | translate }}: {{ amountMaxError }} </span>
+    <app-payment
+      #paymentComponent
+      (platformChange)="paymentPlatformChange($event)"
+      (paySuccess)="paySuccess()"
+      [disabled]="amountOfCredits.invalid || amountOfCredits.value === 0"
+    ></app-payment>
+    <!--    <button class="crypt" (click)="sendData('crypt')" [disabled]="amountOfCredits.invalid">-->
+    <!--      <span class="image">-->
+    <!--        <img src="/assets/images/payment-modals/logos_bitcoin.png" alt="">-->
+    <!--        <img src="/assets/images/payment-modals/logos_ethereum.png" alt="">-->
+    <!--        <img src="/assets/images/payment-modals/usdt.png" alt="USDT">-->
+    <!--      </span>-->
+    <!--      <span class="description">-->
+    <!--        Pay with Crypto Get +    5 Bonus-->
+    <!--      </span>-->
+    <!--    </button>-->
+    <!--    <div class="buttons-wrap">-->
+    <!--      <button (click)="sendData('alipay')" [disabled]="amountOfCredits.invalid">-->
+    <!--        <img src="/assets/images/payment-modals/payment-alipay-dark.png" alt="Alipay">-->
+    <!--      </button>-->
+    <!--      <button (click)="sendData('wechat')" [disabled]="amountOfCredits.invalid">-->
+    <!--        <img src="/assets/images/payment-modals/payment-wechatpay-dark.png" alt="Wechat">-->
+    <!--      </button>-->
+    <!--      <button (click)="sendData('payments')" [disabled]="amountOfCredits.invalid">-->
+    <!--        <img src="/assets/images/payment-modals/payment-methods.png" alt="Payments">-->
+    <!--      </button>-->
+    <!--    </div>-->
+    <!--    <p class="description">By purchasing shop credits, you agree to our Terms of Service Agreement.</p>-->
+  </div>
+</div>

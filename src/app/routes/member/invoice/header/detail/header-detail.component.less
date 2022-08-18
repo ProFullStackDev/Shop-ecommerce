@@ -1,0 +1,58 @@
+@import '~src/styles/_variables';
+.title {
+  height: 38px;
+  line-height: 38px;
+  padding: 0 15px;
+  border-bottom: 1px solid #f0f0f0;
+  background-color: #fff;
+}
+.content {
+  background-color: #fff;
+  padding: 15px;
+  .header-type {
+    span {
+      width: 56px;
+      padding: 5px 15px;
+      color: #333333;
+      border: 1px solid #f1f1f1;
+      background-color: #ffffff;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+  }
+  .confirm {
+    margin-right: 10px;
+  }
+  .area {
+    width: 350px;
+    display: flex;
+    .item {
+      margin-right: 10px;
+      width: 150px;
+    }
+    .item:nth-child(3) {
+      margin-right: 0;
+    }
+  }
+  .footer {
+    height: 52px;
+    padding: 15px 15px;
+    border-top: 1px solid #f0f0f0;
+    background-color: #fff;
+  }
+  .btn-submit {
+    margin-right: 20px;
+    margin-left: -10px;
+  }
+}
+
+/deep/ .ant-input-group > .ant-input:last-child,
+.ant-input-group-addon:last-child {
+  width: 350px;
+}
+
+/deep/ .ant-radio-button-wrapper:first-child {
+  border-left: 1px solid #d9d9d9;
+  border-radius: 2px 0 0 2px;
+  margin-right: 10px;
+}

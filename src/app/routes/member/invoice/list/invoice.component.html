@@ -1,0 +1,87 @@
+<nz-card class="order-page" nzTitle="{{ 'invoice-page-my-invoice' | translate }}" nzSize="small" [nzLoading]="loading.table">
+  <nz-card-tab>
+    <nz-tabset nzSize="small" [(nzSelectedIndex)]="statusTabIndex" (nzSelectedIndexChange)="statusChange($event)">
+      <nz-tab *ngFor="let title of statusTab" [nzTitle]="title | translate"></nz-tab>
+    </nz-tabset>
+  </nz-card-tab>
+  <div class="content br-bot-12">
+    <div class="product-status">
+      <span class="detail">{{ 'my-orders-header-details' | translate }}</span>
+      <span class="price">{{ 'order-inv-type' | translate }}</span>
+      <span class="status">{{ 'order-billing-status' | translate }}</span>
+      <span class="operate">{{ 'order-operate' | translate }}</span>
+    </div>
+    <div class="product-info" *ngFor="let item of billList">
+      <div class="top-news">
+        <span class="time">{{ item.createdDate | date: 'yyyy-MM-dd HH:mm:ss' }}</span>
+        <span class="number"># {{ item.sn }}</span>
+        <!-- <span class="store">{{ item.storeName }}</span>
+      <span class="type" *ngIf="item.shopType === 1">自营</span> -->
+      </div>
+      <div class="product-detail">
+        <div class="img-words">
+          <div class="item" *ngFor="let productItem of item.orderItems">
+            <div class="left"
+              ><a href="#"><img [src]="productItem.thumbnail" alt="" /></a
+            ></div>
+            <div class="right">
+              <h5 class="name"
+                ><a routerLink="/product/detail" [queryParams]="{ id: productItem.productId }">{{ productItem.productName }}</a></h5
+              >
+              <span>{{ productItem.specifications }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="price"
+          ><span *ngIf="item.fapiao">{{ billType[item.fapiao.type].label }}</span></div
+        >
+        <div class="status">
+          <span *ngIf="item.fapiao" [style]="'color:' + billStatus[item.fapiao.status].color">{{
+            billStatus[item.fapiao.status].label
+          }}</span></div
+        >
+        <div class="oprater">
+          <div class="search" *ngIf="item.fapiao">
+            <a
+              routerLink="/member/invoice/views"
+              routerLinkActive="actived"
+              [queryParams]="{ id: item.fapiao.id }"
+              [routerLinkActiveOptions]="{ exact: true }"
+              title="查看发票"
+              ><i nz-icon nzIconfont="tgicon-sousuo_o"></i
+            ></a>
+          </div>
+          <!-- <div class="search" *ngIf="!item.fapiao">
+            <a
+              routerLink="/member/invoice/add"
+              routerLinkActive="actived"
+              [queryParams]="{ orderId: item.id, storeId: item.storeId }"
+              [routerLinkActiveOptions]="{ exact: true }"
+              title="{{ 'order-canceled' | translate }}"
+              ><i nz-icon nzType="plus"></i
+            ></a>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <!-- table-pagination ----------------start -->
+    <nz-pagination
+      class="pagination"
+      [nzPageIndex]="pageParams.page + 1"
+      [nzTotal]="totalNum"
+      [nzShowTotal]="totalTemplate"
+      [nzHideOnSinglePage]="true"
+      (nzPageIndexChange)="pageChange($event)"
+    >
+      <ng-template #totalTemplate let-total>全部 {{ totalNum }}条</ng-template>
+    </nz-pagination>
+    <!-- table-pagination ----------------end -->
+    <nz-empty
+      class="emprty"
+      *ngIf="billList.length < 1"
+      style="margin-top: 15vh; margin-bottom: 15vh"
+      nzNotFoundContent="{{ 'invoice-page-no-info' | translate }}"
+    >
+    </nz-empty>
+  </div>
+</nz-card>

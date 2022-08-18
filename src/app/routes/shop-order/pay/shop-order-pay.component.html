@@ -1,0 +1,36 @@
+<div class="page-order-pay container">
+  <div class="need-pay">
+    {{ 'checkout-total-confirm' | translate }}：<span class="amount">{{ needPayAmount | currency }}</span>
+  </div>
+  <!--  TODO: Order time-out countdown -->
+  <!--  <div class="time-out">-->
+  <!--    超时时间：<span class="time">{{ expire }}</span>-->
+  <!--  </div>-->
+  <nz-card nzTitle="{{ 'checkout-use-credits' | translate }}" class="balance-card">
+    <label
+      nz-checkbox
+      [nzDisabled]="!canUseBalance"
+      [(ngModel)]="useBalance"
+      (ngModelChange)="useBalanceChange($event)"
+      class="label-balance-pay"
+    >
+      {{ userInfo.balance | currency }}
+    </label>
+  </nz-card>
+  <nz-card nzTitle="{{ 'checkout-payment-options' | translate }}">
+    <app-payment
+      #paymentComponent
+      [defaultSelectFirstPlatform]="false"
+      (platformChange)="platformChange($event)"
+      (paySuccess)="paySuccess()"
+    ></app-payment>
+  </nz-card>
+  <div *ngIf="canPay" class="footer">
+    <nz-space>
+      <button nz-button *nzSpaceItem (click)="payCancelConfirm()" class="confirm-btn">{{ 'checkout-final-cancel' | translate }}</button>
+      <button nzType="primary" class="confirm-payment confirm-btn" nz-button *nzSpaceItem [nzLoading]="loading.pay" (click)="pay()">{{
+        'checkout-final-confirm' | translate
+      }}</button>
+    </nz-space>
+  </div>
+</div>

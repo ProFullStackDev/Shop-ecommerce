@@ -1,0 +1,32 @@
+button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #0289FF;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: white;
+}
+
+.gift-code-btn {
+  margin-bottom: 8px;
+}
+
+svg {
+  height: 36px;
+  fill: white;
+  color: white;
+}
+
+.text {
+  padding-left: 16px;
+  font-family: Gotham Pro,sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 600px) {
+  svg {
+    height: 24px;
+  }
+}

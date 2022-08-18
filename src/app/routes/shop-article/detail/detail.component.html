@@ -1,0 +1,33 @@
+<nz-skeleton *ngIf="loading" [nzParagraph]="{ rows: 20 }" [nzActive]="true"></nz-skeleton>
+<div class="container" *ngIf="!loading">
+  <div class="col-xs-10">
+    <!-- <div class="breadcrumb">
+            <li>
+                <a routerLink="/">
+                    <i nz-icon nzType="home"></i>
+                    首页
+                </a>
+            </li>
+            <li class="active" *ngIf="articleCategoryName">
+                <a routerLink="/article/list"
+                    [queryParams]="{ articleCategoryId: articleCategoryId,articleCategoryName:articleCategoryName }">{{articleCategoryName}}</a>
+            </li>
+        </div> -->
+    <div class="article-detail">
+      <div class="article-content panel panel-default">
+        <div class="panel-heading">
+          <h4>{{ article.title }}</h4>
+          <span>{{ article.createdDate | date: 'yyyy-MM-dd HH:ss:mm' }}</span>
+          <span>作者: {{ article.author }}</span>
+          <span>
+            <i nz-icon nzType="eye" nzTheme="outline"></i>
+            <span id="hits">{{ article.hits }}</span>
+          </span>
+        </div>
+        <div class="panel-body">
+          <p [innerHTML]="contentHTML"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

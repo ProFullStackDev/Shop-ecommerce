@@ -1,0 +1,39 @@
+<div class="container">
+  <div nz-row>
+    <div nz-col [nzSpan]="4">
+      <nz-skeleton *ngIf="loading" [nzParagraph]="{ rows: 10 }" [nzActive]="true"></nz-skeleton>
+      <div class="hot-article-category" *ngIf="!loading">
+        <div class="hot-article-category-heading">
+          <h4>热点分类</h4>
+        </div>
+        <div class="hot-article-category-body">
+          <ul>
+            <li *ngFor="let articleCategory of articleCategoryList">
+              <a routerLink="list" [queryParams]="{ articleCategoryId: articleCategory.id, articleCategoryName: articleCategory.name }">{{
+                articleCategory.name
+              }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="article-search" *ngIf="!loading">
+        <div class="article-search">
+          <div class="article-search-heading">
+            <h4>文章搜索</h4>
+          </div>
+          <div class="article-search-body">
+            <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+              <input type="text" nz-input placeholder="搜索" [(ngModel)]="searchContent" />
+            </nz-input-group>
+            <ng-template #suffixIconButton>
+              <button nz-button nzType="default" nzSearch (click)="goSearch()"><i nz-icon nzType="search"></i></button>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div nz-col [nzSpan]="19" class="child-left" *ngIf="!loading">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

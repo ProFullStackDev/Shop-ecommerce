@@ -1,0 +1,351 @@
+@import '/src/styles/vars/_variables';
+
+.theme-dark {
+  .gift-box svg path {
+    fill: #fff;
+  }
+  .modal .modal__content {
+    p, span, &.payment-modal .label, &.payment-modal .description, .title {
+      color: #fff !important;
+    }
+
+    .currency {
+      color: #1C1C1C;
+    }
+  }
+}
+.payment-modal .crypt .description img {
+  width: 22px;
+  margin: 0 2px;
+}
+
+.theme-dark {
+  .main-footer {
+      background: #0c1b2c!important;
+
+    dt {
+      color: #FFFFFF !important;
+    }
+  }
+}
+
+.payment-modal {
+  .crypt {
+    .description {
+      img {
+        width: 22px;
+        margin: 0 2px;
+      }
+    }
+  }
+}
+
+.modal .modal__content.payment-modal {
+  padding: 18px 0 9px 24px;
+
+  &.invite-friends {
+    .scrollable {
+      padding: 0 15px 0 0;
+    }
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  button:disabled {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  button:focus,
+  button:hover,
+  button:active {
+    opacity: 0.5;
+  }
+
+  button:focus,
+  button:active,
+  button:hover {
+    opacity: 0.8;
+  }
+
+  .btn-primary-copy:hover {
+    opacity: unset;
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 16px;
+    background: #fff;
+
+    height: 70px;
+
+    border: 1px solid #D4D4D4;
+    border-radius: 15px;
+
+    margin-bottom: 8px;
+
+    &.error {
+      border-color: red;
+    }
+
+    input {
+      max-width: 100%;
+      width: 100%;
+      border: 0;
+      outline: 0;
+      font-family: 'Gotham Pro', sans-serif;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 42px;
+      line-height: 40px;
+      letter-spacing: -0.05em;
+
+      color: #1c1c1c;
+
+      -webkit-appearance: none;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      &::placeholder {
+        font-family: 'Gotham Pro', sans-serif;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 42px;
+        line-height: 40px;
+        letter-spacing: -0.05em;
+
+        color: #C9C9C9;
+      }
+
+    }
+  }
+
+  button.crypt {
+    background: #3982F7;
+    border: 2px solid #6ADDF8;
+    border-radius: 15px;
+    height: 84px;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 8px;
+
+    .description {
+      color: #fff;
+    }
+
+
+    width: 100%;
+
+    .image {
+      display: grid;
+      grid-template-columns: repeat(3, 50px);
+      grid-gap: 8px;
+      max-width: 170px;
+      width: 100%;
+      margin: 0 auto 1px;
+    }
+
+    font-family: 'Gotham Pro', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.03em;
+    color: #FFFFFF;
+  }
+
+  .available {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    font-family: 'Gotham Pro', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: right;
+    letter-spacing: -0.03em;
+
+    color: #3982F7 !important;
+    margin-bottom: 18px;
+  }
+
+  .label,
+  .title {
+    font-family: 'Gotham Pro', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.03em;
+    color: #1C1C1C;
+
+    margin-bottom: 8px;
+  }
+
+  .title {
+    margin-bottom: 15px;
+  }
+
+  .currency {
+    font-family: 'Gotham Pro', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 22px;
+    text-align: right;
+    letter-spacing: -0.03em;
+
+    color: #1C1C1C;
+  }
+
+  .description {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: -0.03em;
+    color: #7B7B7B;
+  }
+
+  .buttons-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+
+    button {
+      max-width: 142px;
+      width: 100%;
+      height: 64px;
+
+      margin-right: 15px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: #FFFFFF;
+      border: 1px solid #D3D3D3;
+      border-radius: 16px;
+
+      &:disabled {
+        cursor: default;
+        opacity: 0.8;
+      }
+
+      &:nth-child(1) {
+        img {
+          max-width: 99px;
+        }
+      }
+
+      &:nth-child(2) {
+        img {
+          max-width: 92px;
+        }
+      }
+
+      &:nth-child(3) {
+        img {
+          max-width: 120px;
+        }
+      }
+    }
+  }
+
+  .button {
+    margin-top: 27px;
+    background: #3982F7;
+    border: 2px solid #6ADDF8;
+    border-radius: 15px;
+    padding: 22px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      font-family: 'Gotham Pro', sans-serif;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 34px;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+
+      color: #FFFFFF;
+    }
+
+    &.credits {
+      text-transform: uppercase;
+    }
+  }
+
+  .redeem-description {
+    padding-top: 20px;
+  }
+
+  .share-code {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-top: 32px;
+    margin-bottom: 32px;
+
+    &-title {
+      font-family: @Gotham;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 22px;
+      letter-spacing: -0.03em;
+      color: #1C1C1C;
+      margin-bottom: 8px;
+    }
+
+    &-value {
+      font-family: @Gotham;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 46px;
+      line-height: 46px;
+      text-align: center;
+      letter-spacing: -0.05em;
+      background: linear-gradient(270deg, #FF6009 0%, #FF8340 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+    }
+  }
+}

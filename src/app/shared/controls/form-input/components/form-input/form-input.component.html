@@ -1,0 +1,31 @@
+<label class="form-field">
+  <span class="form-field__text" [class.required]="required">
+    {{ label }}
+    <span *ngIf="hint" class="tooltip">
+      <span class="tooltip-wrap">
+        <p>{{ hint }}</p>
+      </span>
+    </span>
+  </span>
+  <span class="mobile-search-icon">
+    <app-tyqoon-icon height="14" width="14" name="search" color="black" strokedColor="black"></app-tyqoon-icon>
+  </span>
+  <input
+    #formInput
+    class="form-field__input"
+    id="search_field"
+    [class.error]="status"
+    [type]="type === 'number' ? 'text' : type"
+    [value]="value || ''"
+    [placeholder]="placeholder || label || ''"
+    [disabled]="disabled"
+    [readonly]="readonly"
+    [autocomplete]="autocomplete"
+    (blur)="onTouched()"
+    (input)="onChangeValue($event)"
+    (status)="onChangeStatus($event)"
+    appControlErrors
+  />
+  <div class="form-field-clear" id="form_clear" (click)="formInput.value = ''" [hidden]="!formInput.value"> </div>
+  <ng-content></ng-content>
+</label>

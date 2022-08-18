@@ -1,0 +1,90 @@
+<div class="main br-top-12">
+  <div class="title">兑换优惠券</div>
+  <div class="more-words">
+    <a routerLink="/theme/coupon">
+      <i class="iconfont" nz-icon nzIconfont="tgicon-youhuiquan"></i>
+      <span>领取更多优惠券</span>
+    </a>
+  </div>
+</div>
+<div class="content br-bot-12">
+  <div class="panel-body">
+    <ul class="panel-body-ul">
+      <li class="item" *ngFor="let item of pannelListAll">
+        <div class="item-not-used" *ngIf="!item.stock">
+          <div class="name">
+            <h5 class="text-xl">{{ item.name }}</h5>
+            <p class="text-sm">{{ item.description }}</p>
+            <p *ngIf="item.endDate; else notLimit"> {{ item.beginDate | date: 'yyyy-MM-dd' }}-{{ item.endDate | date: 'yyyy-MM-dd' }}</p>
+            <ng-template #notLimit>
+              <p>无使用期限限制</p>
+            </ng-template>
+          </div>
+          <div class="content">
+            <a class="" href="javascript:;">
+              <p
+                ><span class="text-left">限店铺:</span><span>{{ item.storeName }}</span></p
+              >
+            </a>
+            <p
+              ><span class="text-left">限品类:</span><span>{{ item.description }}</span></p
+            >
+            <div class="exchange-box">
+              <a class="exchange" (click)="useCoupon(item.id)">立即兑换</a>
+            </div>
+          </div>
+        </div>
+        <div class="item-used" *ngIf="item.stock">
+          <div class="name">
+            <div class="is-used">已使用</div>
+            <h5 class="text-xl">{{ item.name }}</h5>
+            <p class="text-sm">{{ item.description }}</p>
+            <p *ngIf="item.endDate; else notLimit"> {{ item.beginDate | date: 'yyyy-MM-dd' }}-{{ item.endDate | date: 'yyyy-MM-dd' }}</p>
+            <ng-template #notLimit>
+              <p>无使用期限限制</p>
+            </ng-template>
+          </div>
+          <div class="content">
+            <a class="" href="javascript:;">
+              <p
+                ><span class="text-left">限店铺:</span><span>{{ item.storeName }}</span></p
+              >
+            </a>
+            <p
+              ><span class="text-left">限品类:</span><span>{{ item.description }}</span></p
+            >
+            <div class="exchange-box">
+              <p class="exchange-ed">已兑完</p>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="pannelListAll.length > 1" class="footer-pagination">
+    <div class="pagination">
+      <nz-pagination
+        [nzPageIndex]="page + 1"
+        nzPageSize="12"
+        [nzTotal]="codeTotalNum"
+        [nzShowTotal]="totalTemplate"
+        [nzHideOnSinglePage]="false"
+        (nzPageIndexChange)="pageChange($event)"
+      >
+      </nz-pagination>
+      <ng-template #totalTemplate let-total>总共 {{ total }} 条</ng-template>
+    </div>
+  </div>
+  <nz-empty
+    *ngIf="pannelListAll.length < 1"
+    style="margin-top: 15vh; margin-bottom: 25vh"
+    nzNotFoundContent="{{ 'invoice-page-no-info' | translate }}"
+  >
+  </nz-empty>
+</div>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="提示信息" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <p>您确定要兑换优惠券吗？</p>
+  </ng-container>
+</nz-modal>

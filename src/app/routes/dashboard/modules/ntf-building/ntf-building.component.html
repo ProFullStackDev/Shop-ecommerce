@@ -1,0 +1,36 @@
+<ng-container>
+  <div class="part-wrap" *ngIf="initBuilding.unshow; else showSVG">
+    <span class="part part-shop" (click)="openModal()">
+      <img [src]="initBuilding.icon[1]" [alt]="initBuilding?.name" />
+    </span>
+    <img src="/assets/images/game-board-bg/middle.jpg" alt="" />
+  </div>
+  <ng-template #showSVG>
+    <div class="part-wrap">
+      <ng-container *ngIf="initBuilding.type === 'shop'">
+        <span class="part part-blank animated-building">
+          <app-tyqoon-icon name="shopAnimated"></app-tyqoon-icon>
+        </span>
+        <img src="/assets/images/game-board-bg/middle.jpg" alt="" />
+      </ng-container>
+      <ng-container *ngIf="initBuilding.type === 'franchise'">
+        <span class="part part-blank animated-building">
+          <app-tyqoon-icon name="franchiseAnimated"></app-tyqoon-icon>
+        </span>
+        <img src="/assets/images/game-board-bg/middle.jpg" alt="" />
+      </ng-container>
+      <ng-container *ngIf="initBuilding.type === 'superMarket'">
+        <span class="part part-blank animated-building">
+          <app-tyqoon-icon name="supermarketAnimated"></app-tyqoon-icon>
+        </span>
+        <img src="/assets/images/game-board-bg/middle.jpg" alt="" />
+      </ng-container>
+      <ng-container *ngIf="initBuilding.type === 'mall'">
+        <span class="part part-blank animated-building">
+          <app-tyqoon-icon name="mallBuildAnimated"></app-tyqoon-icon>
+        </span>
+        <img src="/assets/images/game-board-bg/middle.jpg" alt="" />
+      </ng-container>
+    </div>
+  </ng-template>
+</ng-container>

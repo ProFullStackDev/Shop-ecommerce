@@ -1,0 +1,12 @@
+<ul #list>
+  <li *ngFor="let item of navLinksList">
+    <ng-container *ngIf="!item.action; else action">
+      <a (click)="focusOut()" [routerLink]="item.navLink" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
+        <span>{{ item.text | translate }}</span>
+      </a>
+    </ng-container>
+    <ng-template #action>
+      <a href="javascript:void(0)" (click)="logOut()">{{ item.text | translate }}</a>
+    </ng-template>
+  </li>
+</ul>

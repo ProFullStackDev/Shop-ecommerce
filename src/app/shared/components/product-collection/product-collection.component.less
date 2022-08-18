@@ -1,0 +1,86 @@
+@import '~src/styles/_variables';
+
+.icon.start {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  cursor: pointer;
+
+    /deep/ app-tyqoon-icon {
+       svg {
+         border-radius: 50px;
+         background-color: #fff;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         width: 33px !important;
+         height: 33px !important;
+         padding: 2px;
+         overflow: visible;
+        }
+    }
+
+  &.active {
+    /deep/ svg {
+      transform: translateY(5px);
+    }
+  }
+
+  /deep/ svg {
+    height: auto;
+    // max-width: 78px;
+    // min-width: 78px;
+    pointer-events: none;
+
+        path {
+          fill: #c4c4c4 !important;
+          transition: .2s;
+        }
+    }
+
+  &:hover,
+  &.active {
+    /deep/ svg path {
+      fill: #C62A29 !important;
+      transition: .2s;
+    }
+  }
+}
+
+.favorite-btn {
+  height: 32px;
+  background-color: white;
+  border:  1px solid #c4c4c4;
+  padding: 0 15px;
+  border-radius: 5px;
+  color: black;
+  font-size: 14px;
+  min-width: 160px;
+  /deep/ app-tyqoon-icon {
+    justify-content: center;
+    flex-direction: row-reverse;
+
+    svg {
+      margin-right: 5px;
+    }
+  }
+  /deep/ svg {
+    height: auto;
+    max-width: 25px;
+    min-width: 25px;
+    pointer-events: none;
+
+    path {
+      transition: .2s;
+    }
+
+  }
+
+  &:hover,
+  &.active {
+    /deep/ svg path {
+      transition: .2s;
+    }
+  }
+}

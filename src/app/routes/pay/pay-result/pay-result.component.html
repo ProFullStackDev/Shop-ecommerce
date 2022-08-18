@@ -1,0 +1,21 @@
+<div class="container page-pay-result">
+  <nz-skeleton *ngIf="loading.queryPaymentOrder; else result" [nzParagraph]="{ rows: 10 }"></nz-skeleton>
+  <ng-template #result>
+    <nz-result
+      [nzTitle]="payResult.status | dict: DictKey.PAY_STATUS:'tips' |  translate"
+      [nzStatus]="payResult.status | dict: DictKey.PAY_STATUS:'status'"
+    >
+      <div nz-result-content>
+        <nz-countdown *ngIf="isPending" class="countdown" [nzValue]="payResult.expiredTime" nzTitle="剩余支付时间"></nz-countdown>
+        <app-pay-content [content]="payResult"></app-pay-content>
+      </div>
+      <div nz-result-extra class="btn-spot">
+        <button nz-button nzType="primary" (click)="primaryBtnClick()">{{ primaryBtnText }}</button>
+        <button nz-button (click)="back()">返回</button>
+        <button *ngIf="isPending" (click)="cancelPayment()" nz-button class="cancel-payment">{{
+          'order-cancel-payment' | translate
+        }}</button>
+      </div>
+    </nz-result>
+  </ng-template>
+</div>

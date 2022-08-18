@@ -1,0 +1,109 @@
+@import '~src/styles/_variables';
+
+
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: @background-color;
+
+    .hot-article-category {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        background-color: #ffffff;
+
+        .hot-article-category-heading {
+            padding: 10px 15px;
+        }
+
+        .hot-article-category-heading h4 {
+            font-size: 15px;
+            font-weight: normal;
+        }
+
+        .hot-article-category-body {
+            padding: 0 15px;
+        }
+
+        .hot-article-category-body a {
+            color: #888888;
+        }
+
+        .hot-article-category-body a:hover {
+            color: @primary-color;
+        }
+
+        .hot-article-category-body ul li {
+            line-height: 30px;
+        }
+    }
+
+    .article-search {
+        margin-bottom: 15px;
+        background-color: #ffffff;
+
+        .article-search-heading {
+            padding: 10px 15px;
+        }
+
+        .article-search-heading h4 {
+            font-size: 15px;
+            font-weight: normal;
+        }
+
+        .article-search-body {
+            display: flex;
+            padding: 0 15px 10px 15px;
+        }
+
+        .article-search-body input {
+            width: 137px;
+            height: 31px;
+            display: block;
+            padding: 5px 10px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            border: 1px solid @border-color;
+            border-right: 0;
+        }
+
+        .article-search-body input:hover,
+        .article-search-body input:hover+button {
+            border-color: @primary-color;
+        }
+
+        .article-search-body input:focus {
+            border-color: @primary-color;
+            box-shadow: 0 0 0 2px rgba(237, 0, 20, 0.08);
+        }
+
+        .article-search-body input:focus+button {
+            border-color: @primary-color;
+        }
+
+        .article-search-body button {
+            height: 31px;
+            display: block;
+            padding: 5px 10px;
+            color: #666666;
+            border: 1px solid #e8e8e8;
+            background-color: #ffffff;
+            transition: color 0.3s, border-color 0.3s, background-color 0.3s;
+        }
+
+        .article-search-body button:hover {
+            color: #ffffff;
+            border-color: @primary-color;
+            background-color: @primary-color;
+        }
+
+        .article-search-body button .iconfont {
+            font-size: 0.875rem;
+        }
+    }
+
+    .child-left {
+        margin-left: 30px;
+    }
+}

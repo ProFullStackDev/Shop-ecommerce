@@ -1,0 +1,107 @@
+<div class="dashboard-header">
+  <div class="container">
+    <div class="dashboard-header__wrap">
+      <div class="dashboard-header__logo">
+        <a href="/">
+          <app-tyqoon-icon name="logo"></app-tyqoon-icon>
+        </a>
+      </div>
+      <div class="search">
+        <div class="search-control">
+          <app-header-search></app-header-search>
+        </div>
+      </div>
+      <div class="dashboard-header__selects">
+        <app-select
+          [defaultItemLang]="defaultLang"
+          [dropdownItem]="languageList"
+          (checkLanguage)="setLanguage($event)"
+          [type]="selectType.Language"
+        ></app-select>
+        <!--        TODO: Will be return in future-->
+        <!--        <app-select [dropdownItem]="currencyList" [type]="selectType.Currency"></app-select>-->
+      </div>
+      <div *ngIf="!headerService.isLogin" class="sign-up" routerLink="/login">
+        <img class="sign-up-img" src="/assets/images/sign-up-user.svg" alt="avatar" />
+        <div class="sign-up-text">
+          <a type="button" routerLink="/login" class="sign-up-p sign-up-style">{{ 'header-log-in' | translate }}</a>
+          <span class="sign-up-span sign-up-style">/</span>
+          <a type="button" routerLink="/login" class="sign-up-style">{{ 'header-sign-up' | translate }}</a>
+        </div>
+      </div>
+      <div *ngIf="headerService.isLogin" class="avatar">
+        <app-user-avatar [avatarWidth]="38" [crownWidth]="15"></app-user-avatar>
+        <!--        <picture (click)="toProfile()" class="avatar-picture">-->
+        <!--          <source type="image/jpg" [srcset]="getAvatar" />-->
+        <!--          <img class="profile-pic" [src]="getAvatar" alt="Avatar" />-->
+        <!--        </picture>-->
+        <div class="avatar-info" (click)="toProfile()">
+          <span>{{ 'header-welcome' | translate }},</span>
+          <p>{{ headerService.userInfo?.username || 'John' }}</p>
+        </div>
+        <div class="logged-menu-wrap">
+          <div class="logged-menu">
+            <app-tyqoon-dollars [inAccountMenu]="true"></app-tyqoon-dollars>
+            <app-nav-bar></app-nav-bar>
+            <div class="switch-wrap">
+              <label class="switch">
+                <input type="checkbox" (change)="toggleTheme($event)" [checked]="!themeCheck" />
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dashboard-header__shop-info">
+        <app-shop-basket></app-shop-basket>
+      </div>
+    </div>
+  </div>
+</div>
+<app-nav-panel [shop]="isConsole" [isCategory]="isCategory"></app-nav-panel>
+<div class="header-mobile">
+  <div id="qr-scanner" [class]="{ 'qr-scanner': isQrcodeScannerRendered }"></div>
+  <div class="header-mobile-wrap">
+    <div class="header-mobile-wrap-part header-mobile-wrap-left">
+      <div class="menu">
+        <button type="button" (click)="openMenu()">
+          <app-tyqoon-icon name="burgerMenu"></app-tyqoon-icon>
+        </button>
+      </div>
+      <div class="scan">
+        <button (click)="renderQRScanner()">
+          <app-tyqoon-icon name="scan"></app-tyqoon-icon>
+        </button>
+      </div>
+      <div class="logo">
+        <a href="/">
+          <app-tyqoon-icon name="logoMob"></app-tyqoon-icon>
+        </a>
+      </div>
+    </div>
+    <div class="header-mobile-wrap-part header-mobile-wrap-right">
+      <div class="shopping-wrap">
+        <div class="shopping-btn main-hover main-hover-style shopping-btn-style">
+          <a *ngIf="isConsole" routerLink="/" class="shopping">
+            <picture>
+              <source type="image/png" srcset="/assets/images/tyqoon-shopping-bag.png 1x, /assets/images/tyqoon-shopping-bag@2x.png 2x" />
+              <img width="45px" src="/assets/images/tyqoon-shopping-bag.png" alt="Shopping Bag" />
+            </picture>
+          </a>
+          <a *ngIf="!isConsole" routerLink="/gameboard" class="shopping main-hover main-hover-style purple-console">
+            <picture>
+              <source type="image/png" srcset="/assets/images/controller-100px-min.png 1x, /assets/images/controller-250px-min.png 2x" />
+              <img width="45px" src="/assets/images/controller-100px-min.png" alt="Console" />
+            </picture>
+          </a>
+        </div>
+      </div>
+      <app-shop-basket [icon]="'mobileBasket'"></app-shop-basket>
+    </div>
+  </div>
+  <div class="search">
+    <div class="search-control">
+      <app-header-search></app-header-search>
+    </div>
+  </div>
+</div>

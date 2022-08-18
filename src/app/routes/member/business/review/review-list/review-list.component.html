@@ -1,0 +1,127 @@
+<div class="order-list-wrap">
+  <nz-card class="order-page" nzTitle="商品评论" nzSize="small" [nzLoading]="loading.table">
+    <nz-card-tab>
+      <nz-tabset nzSize="small" [(nzSelectedIndex)]="reviewStatusTabIndex" (nzSelectedIndexChange)="orderStatusChange($event)">
+        <nz-tab *ngFor="let title of reviewStatusTab" [nzTitle]="title | translate"></nz-tab>
+      </nz-tabset>
+    </nz-card-tab>
+    <nz-empty
+      *ngIf="reviews.length < 1 && !loading.table"
+      style="margin-top: 15vh"
+      nzNotFoundContent="{{ 'invoice-page-no-info' | translate }}"
+    ></nz-empty>
+
+    <!-- table-header ----------------start -->
+    <nz-row *ngIf="reviews.length > 0" class="table-header">
+      <nz-col [nzSpan]="tableSpan.detail">{{ 'my-orders-header-details' | translate }}</nz-col>
+      <nz-col [nzSpan]="tableSpan.review">评论内容</nz-col>
+      <nz-col [nzSpan]="tableSpan.operation" class="hide-option">{{ 'order-operate' | translate }}</nz-col>
+    </nz-row>
+    <!-- table-header ----------------end -->
+
+    <!-- table-body ----------------start -->
+    <div class="order-item" *ngFor="let review of reviews; let key = index">
+      <div class="order">
+        <nz-space class="text-sm order-header" [nzSize]="24">
+          <span *nzSpaceItem>{{ review.createdDate | date: 'YYYY-MM-dd HH:mm:ss' }}</span>
+          <span *nzSpaceItem>#{{ review.orderSn }}</span>
+        </nz-space>
+        <nz-row class="order-body">
+          <nz-col [nzSpan]="tableSpan.detail">
+            <div class="detail">
+              <nz-row nzAlign="middle" nzJustify="space-between">
+                <nz-col [nzSpan]="3">
+                  <nz-avatar nzIcon="picture" [nzSrc]="review.orderThumbnail" [nzSize]="50" nzShape="square"></nz-avatar>
+                </nz-col>
+                <nz-col [nzSpan]="21">
+                  <p class="name text-overflow">
+                    <a routerLink="/product/detail" [queryParams]="{ id: review.productId }" [title]="review.orderName">
+                      {{ review.orderName }}
+                    </a>
+                  </p>
+                  <p
+                    *ngIf="review.orderSpecifications !== '[]'"
+                    class="specifications text-gray text-overflow"
+                    [title]="review.orderSpecifications"
+                    >{{ review.orderSpecifications }}</p
+                  >
+                </nz-col>
+              </nz-row>
+            </div>
+          </nz-col>
+          <nz-col [nzSpan]="tableSpan.review">
+            <div class="detail">
+              <nz-row nzAlign="middle" nzJustify="space-between">
+                <nz-col [nzSpan]="21">
+                  <p class="name text-overflow" *ngIf="reviewStatusTabIndex == 1">
+                    <app-review-score [(starScore)]="review.score" [disabled]="true"></app-review-score>
+                  </p>
+                  <p *ngIf="review.content" class="specifications text-overflow" [title]="review.content">{{ review.content }}</p>
+                </nz-col>
+              </nz-row>
+            </div>
+          </nz-col>
+
+          <nz-col class="operation" [nzSpan]="tableSpan.operation">
+            <button nz-button nzType="link" nzBlock *ngIf="reviewStatusTabIndex == 1">
+              <a
+                routerLink="/member/review/detail"
+                [queryParams]="{
+                  productId: review.productId,
+                  storeId: review.storeId,
+                  orderItemId: review.orderItemId,
+                  specifications: review.orderSpecifications,
+                  name: review.orderName,
+                  thumbnail: review.orderThumbnail,
+                  reviewId: review.id,
+                  content: review.content,
+                  score: review.score,
+                  images: review.images
+                }"
+              >
+                <i nz-icon nzType="search" nzTheme="outline"></i>查看详情
+              </a>
+            </button>
+            <button nz-button nzType="link" nzBlock *ngIf="reviewStatusTabIndex == 1" (click)="goDel(key)">
+              <i nz-icon nzType="delete" nzTheme="twotone" nzTwotoneColor="#ff0000" title="删除"></i>
+            </button>
+            <button nz-button nzType="link" nzBlock *ngIf="reviewStatusTabIndex == 0">
+              <a
+                routerLink="/member/review/add"
+                [queryParams]="{
+                  productId: review.productId,
+                  storeId: review.storeId,
+                  orderItemId: review.orderItemId,
+                  specifications: review.orderSpecifications,
+                  name: review.orderName,
+                  thumbnail: review.orderThumbnail
+                }"
+              >
+                <i nz-icon nzType="highlight" nzTheme="outline"></i>评价
+              </a>
+            </button>
+          </nz-col>
+        </nz-row>
+      </div>
+    </div>
+    <!-- table-body ----------------end -->
+
+    <!-- table-pagination ----------------start -->
+    <nz-pagination
+      class="pagination"
+      [nzPageIndex]="pageParams.page + 1"
+      [nzTotal]="reviewTotalNum"
+      [nzShowTotal]="totalTemplate"
+      [nzHideOnSinglePage]="true"
+      (nzPageIndexChange)="pageChange($event)"
+    >
+      <ng-template #totalTemplate let-total>全部 {{ reviewTotalNum }}条</ng-template>
+    </nz-pagination>
+    <!-- table-pagination ----------------end -->
+  </nz-card>
+  <nz-modal [(nzVisible)]="isVisible" nzTitle="提示信息" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+      <p>您确定要删除吗？</p>
+    </ng-container>
+  </nz-modal>
+</div>

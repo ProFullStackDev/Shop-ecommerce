@@ -1,0 +1,28 @@
+<div class="challenge-card">
+  <div class="challenge-card__item">
+    <div class="title">
+      <p>
+        {{ 'game-nav-missions' | translate }}
+      </p>
+    </div>
+    <div class="image">
+      <img src="/assets/images/checklist-CC@2x.png" alt="Missions" />
+    </div>
+  </div>
+  <div class="challenge-card__item">
+    <div class="title">
+      <p>
+        {{'game-missions-completed' | translate}}
+        <span class="missions-wrap">
+          <span class="icon">
+            <img src="/assets/images/dashboard/tick.svg" alt="Tick" />
+          </span>
+          <span class="text">{{ completed }}</span>
+        </span>
+      </p>
+    </div>
+    <div class="btn" (click)="openMissions()">
+      <div class="missions-btn">{{'game-missions-view' | translate}}</div>
+    </div>
+  </div>
+</div>

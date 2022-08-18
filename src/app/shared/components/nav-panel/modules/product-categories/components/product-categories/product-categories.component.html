@@ -1,0 +1,79 @@
+<ng-container *ngIf="productCategories?.length">
+  <div class="product-categories" [routerLink]="['/product/search']" [queryParams]="{ categoryId: '', name: '' }">
+    <div class="product-categories__list-wrap">
+      <div class="product-categories__list">
+        <ng-container *ngFor="let item of productCategories">
+          <a [href]="item.link" class="product-categories__list-item">
+            <span class="list-item-wrap">
+              <div class="item-wrap">
+                <span class="icon">
+                  <img [src]="item.icon" [alt]="item.title | translate" />
+                </span>
+                <p class="title title-dark-style">
+                  {{ item.title | translate }}
+                </p>
+              </div>
+              <span class="item-arrow">
+                <app-tyqoon-icon name="arrowRight"></app-tyqoon-icon>
+              </span>
+            </span>
+          </a>
+          <div class="product-categories__list-categories">
+            <div *ngFor="let subItem of item.subList" class="category-item">
+              <h3 class="caption-product-categories">
+                <p> {{ subItem.title | translate }}</p>
+              </h3>
+              <ul>
+                <li *ngFor="let link of subItem.links">
+                  <a [href]="link.link">
+                    {{ link.text | translate }}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <p class="product-categories__title">
+      <span class="icon">
+        <app-tyqoon-icon name="list"></app-tyqoon-icon>
+      </span>
+      {{ 'header-shop-categories' | translate }}
+    </p>
+  </div>
+
+  <div *ngIf="isMobile" routerLink="/product/category" class="product-categories mobile">
+    <ng-container *ngFor="let item of productCategories">
+      <a [href]="item.link" class="product-categories__list-item">
+        <span class="list-item-wrap">
+          <div class="item-wrap">
+            <span class="icon">
+              <img [src]="item.icon" [alt]="item.title | translate" />
+            </span>
+            <p class="title title-dark-style">
+              {{ item.title | translate }}
+            </p>
+          </div>
+          <span class="item-arrow item-arrow-style">
+            <app-tyqoon-icon name="arrowRight"></app-tyqoon-icon>
+          </span>
+        </span>
+      </a>
+    </ng-container>
+    <ng-container>
+      <a routerLink="/member/my-favorites/list" class="product-categories__list-item">
+        <span class="list-item-wrap">
+          <div class="item-wrap">
+            <span class="icon">
+              <img src="/assets/images/logo/category-my-list-min.png" [alt]="'mobile-nav-list' | translate" />
+            </span>
+            <p class="title title-dark-style">
+              {{ 'mobile-nav-list' | translate }}
+            </p>
+          </div>
+        </span>
+      </a>
+    </ng-container>
+  </div>
+</ng-container>

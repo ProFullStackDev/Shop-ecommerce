@@ -1,0 +1,123 @@
+@import '~src/styles/_variables';
+
+.breadcrumb {
+    margin-top: 15px;
+    padding: 8px 15px;
+    margin-bottom: 17px;
+    list-style: none;
+    background-color: #ffffff;
+}
+
+.ant-pagination {
+    text-align: center;
+}
+
+h4,
+.h4 {
+    font-size: 15px;
+}
+
+.breadcrumb li.active,
+.breadcrumb li.active a {
+    color: @primary-color;
+}
+
+.breadcrumb>li {
+    display: inline-block;
+}
+
+li {
+    text-align: -webkit-match-parent;
+}
+
+.breadcrumb>li+li:before {
+    content: "/\00a0";
+    padding: 0 5px;
+    color: #ccc;
+}
+
+.article-list {
+    margin-top: 15px;
+    background-color: #ffffff;
+}
+
+.article-list .main-header {
+    margin-bottom: 0;
+}
+
+.article-list main {
+    padding-top: 15px;
+    // background: url("../images/article.png") top center;
+}
+
+.article-list .breadcrumb {
+    border: 0;
+}
+
+.article-list .list {
+    border: 0;
+    border-radius: 0;
+}
+
+.article-list .list .panel-body {
+    padding: 0 15px 5px 15px;
+    margin-bottom: 15px;
+}
+
+.article-list .list ul li {
+    padding: 5px 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.article-list .list ul li:last-child {
+    border-bottom: 0;
+}
+
+.article-list .list ul li h4 {
+    line-height: 30px;
+    font-weight: normal;
+}
+
+.article-list .list ul li h4 strong {
+    padding: 1px 5px;
+    margin-right: 3px;
+    color: @primary-color;
+    font-weight: normal;
+    vertical-align: top;
+    background-color: rgba(237, 0, 20, 0.1);
+}
+
+.article-list .list ul li h4 a {
+    color: #333333;
+    margin-right: 10px;
+    transition: color 0.3s;
+}
+
+.article-list .list ul li h4 a:hover {
+    color: @primary-color;
+}
+
+.article-list .list ul li p {
+    font-size: 10px;
+    line-height: 25px;
+    color: #999999;
+    text-align: justify;
+}
+
+.article-list .list ul li p span {
+    margin-right: 10px;
+}
+
+.article-list .no-result {
+    margin-bottom: 15px;
+}
+
+.article-list .no-result dl dt {
+    line-height: 50px;
+    color: @primary-color;
+}
+
+.article-list .no-result dl dd {
+    line-height: 30px;
+    color: #999999;
+}

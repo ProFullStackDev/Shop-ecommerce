@@ -1,0 +1,132 @@
+.gift-codes-result {
+  border-bottom: 1px solid #D4D4D4;
+
+  &> p {
+    margin-bottom: 10px;
+  }
+
+  .title {
+    font-size: 16px;
+    line-height: 14px;
+    font-weight: 500;
+    color: #c8c8c8 !important;
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 0;
+      background-color: #c8c8c8;
+      width: calc(100% - 90px);
+      height: 1px;
+
+    }
+  }
+
+  p {
+    display: flex;
+    align-items: center;
+  }
+
+  &__wrap {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+
+    span {
+      display: flex;
+      align-items: center;
+      font-size: 28px !important;
+      line-height: normal;
+    }
+  }
+
+  .num-of-codes {
+    color: #414141;
+    font-size: 16px;
+  }
+}
+
+.total-result {
+  display: flex;
+  align-items: center;
+  font-size: 28px;
+  text-transform: uppercase;
+  padding-top: 20px;
+  margin-bottom: 20px;
+
+  border-bottom: 1px solid #D4D4D4;
+  padding-bottom: 10px;
+
+  span {
+    display: flex;
+    align-items: center;
+    font-size: 38px !important;
+    margin-left: auto;
+  }
+}
+
+.select-payment-type {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  margin-bottom: 20px;
+
+  font-size: 32px;
+  line-height: 30px;
+  font-weight: 500;
+}
+
+.use-balance {
+  background-image: linear-gradient(270deg, #ff8340 0%, #ff6009 100%);
+  border: 0;
+  border-radius: 4px;
+
+  max-height: 80px;
+  min-height: 80px;
+  height: 80px;
+
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 8px;
+
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) rotate(180deg);
+    right: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg width='19' height='32' viewBox='0 0 19 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19 4.57143L7.125 16L19 27.4286L16.625 32L0 16L16.625 0L19 4.57143Z' fill='%23f3f3f3'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 32px;
+  }
+
+  .description {
+    color: #fff;
+  }
+
+  .total-balance {
+    font-size: 28px;
+    color: #fff;
+  }
+
+  &.modal-grey-disabled-button {
+    color: #000000d9 !important;
+    border: 1px solid #d9d9d9 !important;
+    opacity: 0.5 !important;
+    background: #c4c4c4 !important;
+    pointer-events: none !important;
+  }
+
+  width: 100%;
+}

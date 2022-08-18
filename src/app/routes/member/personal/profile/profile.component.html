@@ -1,0 +1,144 @@
+<div class="title br-top-12 profile-edit-title member-page-title-mob">
+  {{ 'account-info-page-title' | translate }}
+  <button class="gradient-orange-purchase" nz-button nzType="primary" (click)="openShareModal()">
+    {{ 'store-credit-gift-code-share-code' | translate }}
+  </button>
+</div>
+<div class="content br-bot-12 content-invoice">
+  <form>
+    <nz-form-item>
+      <nz-form-control [nzSm]="15" [nzXs]="30">
+        <div class="image-block">
+          <div class="image">
+            <nz-avatar [nzSize]="150" nzShape="circle" [nzSrc]="getAvatar"></nz-avatar>
+          </div>
+          <div class="btn-palace">
+            <span>
+              <nz-upload
+                nzAccept="image/png,image/jpeg,image/gif,image/bmp,image/jpg"
+                nzFileType="image/png,image/jpeg,image/gif,image/bmp,image/jpg"
+                [nzLimit]="1"
+                [nzAction]="uploadAction"
+                [nzShowUploadList]="false"
+                (nzChange)="uploadChange($event)"
+              >
+                <button nz-button nzType="primary" class="btn btn-upload-img">
+                  <i nz-icon nzType="user"></i>
+                  {{ 'account-info-upload-photo' | translate }}
+                </button>
+              </nz-upload>
+            </span>
+            <span>
+              <button nz-button (click)="showRemovePopup()" [disabled]="getAvatar === defaultAvatar" class="btn btn-remove-img">
+                <i nz-icon nzType="delete"></i>
+                {{ 'account-info-remove-photo' | translate }}
+              </button>
+            </span>
+          </div>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <div id="remove-popup" class="remove-popup">
+      <span class="popup-area" (click)="dropRemovePopup()"></span>
+      <div class="remove-content">
+        <div class="remove-cross">
+          <p class="remove-text-cross">Remove</p>
+          <a (click)="dropRemovePopup()" class="remove-close">
+            <button class="modal-close" aria-label="close">
+              <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M29.0625 4.95516L25.0448 0.9375L15 10.9823L4.95516 0.9375L0.9375 4.95516L10.9823 15L0.9375 25.0448L4.95516 29.0625L15 19.0177L25.0448 29.0625L29.0625 25.0448L19.0177 15L29.0625 4.95516Z"
+                  fill="white"
+                />
+              </svg>
+            </button>
+          </a>
+        </div>
+        <div class="remove-text">{{ 'account-info-remove-message' | translate }}</div>
+        <div class="remove-buttons">
+          <button (click)="delAvatar()" class="popup-btn remove-confirm">{{ 'account-info-remove-confirm' | translate }}</button>
+          <button (click)="dropRemovePopup()" class="popup-btn remove-cancel">{{ 'account-info-remove-cancel' | translate }}</button>
+        </div>
+      </div>
+    </div>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24">{{ 'account-info-username' | translate }}</nz-form-label>
+      <nz-form-control [nzSm]="10" [nzXs]="24">
+        <div class="item">
+          <span class="text-left">{{ displayUsername }}</span>
+          <span class="icon-right">
+            <a href="javascript:;" (click)="showFullUsername = !showFullUsername">
+              <i nz-icon [nzType]="showFullUsername ? 'eye-invisible' : 'eye'"></i>
+            </a>
+          </span>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24">{{ 'account-info-email' | translate }}</nz-form-label>
+      <nz-form-control [nzSm]="10" [nzXs]="24">
+        <div class="item">
+          <span class="text-left">{{ displayEmail }}</span>
+          <span class="icon-right">
+            <a href="javascript:;" (click)="editEmail()">
+              <i nz-icon nzType="edit"></i>
+            </a>
+          </span>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24">{{ 'account-info-phone' | translate }}</nz-form-label>
+      <nz-form-control [nzSm]="10" [nzXs]="24">
+        <div class="item">
+          <span class="text-left">{{ displayPhone }}</span>
+          <span class="icon-right">
+            <a href="javascript:;" (click)="editPhone()">
+              <i nz-icon nzType="edit"></i>
+            </a>
+          </span>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24">{{ 'account-info-referrer' | translate }}</nz-form-label>
+      <nz-form-control [nzSm]="10" [nzXs]="24">
+        <div class="item">
+          <span class="text-left">
+            <b *ngIf="pid; else unbound">{{ pid }}</b>
+            <ng-template #unbound>
+              {{ 'account-info-referrer-unbound' | translate }}
+            </ng-template>
+          </span>
+          <!--          <span *ngIf="!pid" class="icon-right">-->
+          <!--            <a href="javascript:;" (click)="addRecommend()">-->
+          <!--              <i nz-icon nzType="plus"></i>-->
+          <!--            </a>-->
+          <!--          </span>-->
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24">{{ 'account-info-referrer-my-invitation-code' | translate }}</nz-form-label>
+      <nz-form-control [nzSm]="10" [nzXs]="24">
+        <div class="item invite-code" (click)="openInviteModal()">
+          <span class="text-left">{{ memberInfo.id }}</span>
+          <button class="gradient-orange-purchase" nz-button nzType="primary" (click)="openInviteModal()">
+            {{ 'shop-product-page-share' | translate }}
+          </button>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <div class="footer profile-edit-footer-display-none">
+      <nz-form-item nz-row class="register-area">
+        <nz-form-control [nzSpan]="10" [nzOffset]="6">
+          <!--          <button class="confirm" nz-button nzType="primary" (click)="confirm()">确 定</button>-->
+          <button nz-button nzType="default">
+            <a routerLink="/member/index">{{ 'increase-invoice-return' | translate }}</a>
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </form>
+</div>

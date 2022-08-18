@@ -1,0 +1,14 @@
+button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #36D690;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: white;
+  height: 52px;
+  font-family: Gotham Pro,sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  justify-content: center;
+}

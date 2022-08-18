@@ -1,0 +1,46 @@
+<div class="modal__header alt gray with-arrow" [class.scrolling]="isScrollable">
+  <div class="title">
+    <div class="icon" (click)="buyGiftCodes()">
+      <img src="/assets/images/modal-back-arrow-alt.svg" alt="Prime" />
+    </div>
+    <span>Confirm Payment</span>
+  </div>
+</div>
+<div class="modal__content payment-modal">
+  <div #scrollable class="scrollable" (scroll)="onScroll()">
+    <div class="gift-codes-result">
+      <p class="title">Total Codes</p>
+      <p>
+        <span class="gift-codes-result__wrap">
+          <span class="currency">¥</span>
+          <span>{{ amountOfCredits.value ? amountOfCredits.value : 0 }}</span>
+        </span>
+        <span class="num-of-codes">x {{ numOfCodes.value ? numOfCodes.value : 0 }} Gift Code(s)</span>
+      </p>
+    </div>
+    <p class="total-result"
+      >Total: <span class="currency">¥{{ totalAmount }}</span></p
+    >
+    <p class="select-payment-type">Select Payment Method</p>
+    <button
+      class="use-balance"
+      [class.modal-grey-disabled-button]="userInfo && userInfo.balance && userInfo.balance <= 0"
+      [disabled]="amountOfCredits.invalid || numOfCodes.invalid"
+      (click)="paymentPlatformChange($event, true)"
+    >
+      <span class="description">Pay Using Store Credit Balance:</span>
+      <span class="total-balance">
+        {{ userInfo.balance | currency }}
+      </span>
+    </button>
+    <app-payment
+      #paymentComponent
+      (platformChange)="paymentPlatformChange($event)"
+      (paySuccess)="paySuccess()"
+      [isAdditionalInfo]="false"
+      [altButton]="true"
+      [disabled]="amountOfCredits.invalid || numOfCodes.invalid || amountOfCredits.value === 0"
+      [totalAmount]="totalAmount"
+    ></app-payment>
+  </div>
+</div>

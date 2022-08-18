@@ -1,0 +1,31 @@
+.payment-container {
+  padding: 32px 0;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  height: 0;
+  overflow: hidden;
+  &.show {
+    min-height: 70vh;
+    height: auto;
+    overflow: unset;
+  }
+  .btn-pay {
+    margin-top: 24px;
+  }
+  .pay-amount {
+    text-align: center;
+    margin-bottom: 12px;
+    font-size: 36px;
+    .amount {
+      color: red;
+      font-weight: bold;
+    }
+  }
+}
+
+.skeleton {
+  min-height: 70vh;
+}

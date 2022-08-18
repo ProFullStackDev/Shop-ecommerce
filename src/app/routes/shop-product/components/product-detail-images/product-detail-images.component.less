@@ -1,0 +1,133 @@
+@import "~src/styles/_variables";
+
+.swiper-large {
+  max-height: 500px;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 16px;
+  border: 1px solid #dddddd;
+  border-radius: 12px;
+  /deep/ .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+}
+
+.swiper-thumb {
+  height: 60px;
+  width: calc(100% - 50px);
+  margin: 0 auto;
+
+  @media(max-width: 640px) {
+    height: auto;
+    margin: 0;
+  }
+
+  @media(max-width: 470px) {
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  .img {
+    display: block;
+    max-height: 100%;
+    max-width: 100%;
+    cursor: pointer;
+    margin: 0 auto;
+  }
+  .img:hover {
+    border: 2px solid @primary-color;
+    border-radius: 5px;
+  }
+}
+.swiper-thumb-con {
+  position: relative;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media(max-width: 640px) {
+    padding-bottom: 25px;
+    max-width: 500px;
+    width: 100%;
+
+    .swiper-thumb {
+      margin-left: 20px;
+      width: 55%;
+    }
+  }
+
+  @media(max-width: 470px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .detail-images-thumb-button-prev,
+  .detail-images-thumb-button-next {
+    --swiper-navigation-color: #999;
+    --swiper-pagination-color: #999;
+    --swiper-navigation-size: 24px;
+    top: unset;
+    bottom: 18px;
+
+    @media(max-width: 640px) {
+      bottom: 34px;
+
+      @media(max-width: 470px) {
+        bottom: 74px;
+      }
+    }
+  }
+  .detail-images-thumb-button-prev {
+    left: 0;
+  }
+  .detail-images-thumb-button-next {
+    right: 0;
+
+    @media(max-width: 640px) {
+      left: 62%;
+    }
+  }
+
+  .product-and-share {
+    display: none;
+
+    @media(max-width: 640px) {
+      display: flex;
+      align-items: center;
+    }
+
+    .share-airplane {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(90deg, #067bff, #081fff);
+      max-width: 90px;
+      min-width: 90px;
+      padding: 3px 10px;
+      border: 1px solid #63d3fd;
+      border-radius: 7px;
+
+      cursor: pointer;
+
+      .paper-plane {
+        padding-left: 5px;
+        max-width: 25px;
+      }
+
+      .share-text {
+        color: #ffffff;
+        font-size: 15px;
+        font-family: 'Gotham Pro', sans-serif;
+      }
+    }
+  }
+}
+

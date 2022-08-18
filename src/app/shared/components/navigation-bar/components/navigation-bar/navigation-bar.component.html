@@ -1,0 +1,32 @@
+<div class="navigation-bar">
+  <a
+    *ngFor="let item of navigationBar"
+    [routerLink]="item.link ? item.link : null"
+    [routerLinkActive]="'active'"
+    [routerLinkActiveOptions]="{ exact: true }"
+    (click)="item.link ? openMessagesModal(item.link) : openAccountMenu()"
+    class="navigation-bar__item"
+  >
+    <div class="navigation-bar__item-icon">
+      <ng-container *ngIf="item.type === navigationBarLinkType.Account; else otherIcons">
+        <ng-container *ngIf="isLogin; else guest">
+          <img [src]="getAvatar" [alt]="item.name" width="30" height="30" class="avatar" />
+        </ng-container>
+        <ng-template #guest>
+          <app-tyqoon-icon [name]="'user'" width="30" height="30"></app-tyqoon-icon>
+        </ng-template>
+      </ng-container>
+      <ng-template #otherIcons>
+        <ng-container *ngIf="item.icon; else image">
+          <app-tyqoon-icon [name]="item.icon" width="30" height="30"></app-tyqoon-icon>
+        </ng-container>
+        <ng-template #image>
+          <img [src]="item.image" [alt]="item.name" />
+        </ng-template>
+      </ng-template>
+    </div>
+    <div class="navigation-bar__item-name">
+      <p>{{ item.name | translate }}</p>
+    </div>
+  </a>
+</div>

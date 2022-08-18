@@ -1,0 +1,80 @@
+<div class="order-list-wrap">
+  <div #scrollingContainer class="order-page scrolling-container" (touchstart)="startTouching()" (touchmove)="checkTouching($event)">
+    <nz-card nzTitle="{{ 'my-orders-page-title' | translate }}" nzSize="small" [nzLoading]="loading.table" [nzExtra]="cardExtra">
+      <ng-template #cardExtra>
+        <nz-space class="card-extra scrollable-element filters-for-orders" [nzSize]="16" nzAlign="center">
+          <span *nzSpaceItem>
+            {{ 'my-orders-date-range' | translate }}：<nz-range-picker
+              [(ngModel)]="dateRange"
+              (ngModelChange)="onDateRangeChange($event)"
+            ></nz-range-picker>
+          </span>
+          <nz-space *nzSpaceItem nzAlign="center">
+            <span *nzSpaceItem>{{ 'my-orders-order-number' | translate }}：</span>
+            <input
+              *nzSpaceItem
+              type="text"
+              placeholder="{{ 'my-orders-order-number-placeholder' | translate }}"
+              nz-input
+              [(ngModel)]="pageParams.orderSn"
+              (input)="inputData($event)"
+            />
+          </nz-space>
+          <button
+            nzType="primary"
+            nzGhost
+            *nzSpaceItem
+            nz-button
+            (click)="search()"
+            [ngClass]="inputDat ? 'member-search-orange-active' : 'member-search-orange-disabled'"
+          >
+            <i nz-icon nzType="search" nzTheme="outline"></i>
+            {{ 'my-orders-search' | translate }}
+          </button>
+        </nz-space>
+      </ng-template>
+      <nz-card-tab>
+        <nz-tabset
+          nzSize="small"
+          [(nzSelectedIndex)]="orderStatusTabIndex"
+          (nzSelectedIndexChange)="orderStatusChange($event)"
+          class="scrollable-element"
+        >
+          <nz-tab *ngFor="let title of orderStatusTab" [nzTitle]="title | translate"></nz-tab>
+        </nz-tabset>
+      </nz-card-tab>
+      <nz-empty
+        class="scrollable-element"
+        *ngIf="orders.length < 1 && !loading.table"
+        style="margin-top: 15vh"
+        nzNotFoundContent="{{ 'my-orders-placeholder-text' | translate }}"
+      ></nz-empty>
+
+      <!-- table-header ----------------start -->
+      <nz-row *ngIf="orders.length > 0" class="table-header scrollable-element">
+        <nz-col [nzSpan]="tableSpan.detail">{{ 'my-orders-header-details' | translate }}</nz-col>
+        <nz-col [nzSpan]="tableSpan.price">{{ 'my-orders-header-amount' | translate }}</nz-col>
+        <nz-col [nzSpan]="tableSpan.orderStatus">{{ 'my-orders-header-status' | translate }}</nz-col>
+        <nz-col [nzSpan]="tableSpan.operation" class="hide-option">{{ 'order-operate' | translate }}</nz-col>
+      </nz-row>
+      <!-- table-header ----------------end -->
+      <!-- table-body ----------------start -->
+      <div class="order-item scrollable-element" *ngFor="let order of orders">
+        <app-order-list-item [order]="order" [tableSpan]="tableSpan"></app-order-list-item>
+      </div>
+      <!-- table-body ----------------end -->
+      <!-- table-pagination ----------------start -->
+      <nz-pagination
+        class="pagination"
+        [nzPageIndex]="pageParams.page + 1"
+        [nzTotal]="orderTotalNum"
+        [nzShowTotal]="totalTemplate"
+        [nzHideOnSinglePage]="true"
+        (nzPageIndexChange)="pageChange($event)"
+      >
+        <ng-template #totalTemplate let-total>{{ 'my-orders-total' | translate }} {{ total }}</ng-template>
+      </nz-pagination>
+      <!-- table-pagination ----------------end -->
+    </nz-card>
+  </div>
+</div>

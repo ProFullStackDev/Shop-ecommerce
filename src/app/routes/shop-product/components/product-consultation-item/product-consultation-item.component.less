@@ -1,0 +1,30 @@
+@import "~src/styles/_variables";
+
+.consultation-item {
+  border-bottom: 1px solid @border-color;
+  padding: 0 16px;
+  line-height: 24px;
+
+  .ask-con,
+  .answer-con {
+    padding: 10px 0;
+  }
+
+  .ask, .answer {
+    display: inline-block;
+    padding: 0 8px;
+    border-radius: 8px;
+    margin-right: 4px;
+    color: #fff;
+  }
+  .ask {
+    background: @primary-color;
+  }
+  .answer {
+    background: #37b24d;
+  }
+
+  .name {
+    padding-right: 8px;
+  }
+}

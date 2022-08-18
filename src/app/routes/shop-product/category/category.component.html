@@ -1,0 +1,52 @@
+<div class="container">
+  <div nz-row nzGutter="16">
+    <div nz-col nzSpan="4">
+      <nz-skeleton *ngIf="loading.list" [nzParagraph]="{ rows: 15 }" [nzActive]="true"></nz-skeleton>
+      <nz-anchor class="anchor" (nzScroll)="scrollTarget($event)">
+        <nz-link *ngFor="let category of categoryTree" [nzHref]="'#category-' + category.id" [nzTitle]="category.name"></nz-link>
+      </nz-anchor>
+    </div>
+    <div nz-col nzSpan="20">
+      <nz-skeleton *ngIf="loading.list" [nzParagraph]="{ rows: 15 }" [nzActive]="true"></nz-skeleton>
+      <div *ngFor="let category of categoryTree" class="category" [id]="'category-' + category.id">
+        <a
+          class="category-title"
+          routerLink="/product/search"
+          [queryParams]="{ categoryTreePath: category.treePath + category.id + ',', categoryId: category.id }"
+
+        >
+          {{ category.name }}
+        </a>
+        <div class="category-second" *ngFor="let secondCategory of category.child">
+          <a
+            class="category-second-title"
+            routerLink="/product/search"
+            [queryParams]="{ categoryTreePath: secondCategory.treePath + secondCategory.id + ',', categoryId: secondCategory.id }"
+
+          >
+            {{ secondCategory.name }} >
+          </a>
+          <div *ngIf="secondCategory.child && secondCategory.child.length > 0" class="category-third">
+            <a
+              *ngFor="let thirdCategory of secondCategory.child"
+              class="category-third-title"
+              routerLink="/product/search"
+
+              [queryParams]="{ categoryTreePath: thirdCategory.treePath + thirdCategory.id + ',', categoryId: thirdCategory.id }"
+            >
+              {{ thirdCategory.name }}
+            </a>
+          </div>
+        </div>
+        <div *ngIf="category.relatedProduct.length > 0" class="related-product">
+          <div class="title">相关商品</div>
+          <div class="content">
+            <div class="product" *ngFor="let product of category.relatedProduct">
+              <app-category-product [product]="product"></app-category-product>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

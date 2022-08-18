@@ -1,0 +1,97 @@
+<div class="container">
+  <nz-card class="br-12" style="width: 100%">
+    <div class="col-xs-10">
+      <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="validate()">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="media">
+              <div class="media-left text-center">
+                <a
+                  routerLink="/product/detail"
+                  [queryParams]="{
+                    id: productId
+                  }"
+                >
+                  <img class="media-object img-thumbnail" [src]="thumbnail" [alt]="name" />
+                </a>
+              </div>
+              <div class="media-body media-middle">
+                <a
+                  class="text-overflow"
+                  routerLink="/product/detail"
+                  [queryParams]="{
+                    id: productId
+                  }"
+                  >{{ name }}</a
+                >
+                <span class="text-gray-dark">{{ specifications }}</span>
+              </div>
+            </div>
+            <nz-form-item>
+              <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="score" nzRequired>商品评分</nz-form-label>
+              <nz-form-control [nzSm]="5" [nzXs]="24">
+                <app-review-score [(starScore)]="score" [disabled]="false"></app-review-score>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="content" nzRequired>评价晒单</nz-form-label>
+              <nz-form-control [nzSm]="10" [nzXs]="24" [nzErrorTip]="contentErrorTpl">
+                <textarea
+                  nz-input
+                  rows="5"
+                  formControlName="content"
+                  placeholder="感觉怎么样？跟大家分享一下吧～"
+                  maxlength="200"
+                ></textarea>
+              </nz-form-control>
+              <ng-template #contentErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">请输入评价内容</ng-container>
+              </ng-template>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="score">评价晒图</nz-form-label>
+              <nz-form-control [nzSm]="8" [nzXs]="24">
+                <nz-upload
+                  nzAccept="image/png,image/jpeg,image/gif,image/bmp,image/jpg"
+                  nzFileType="image/png,image/jpeg,image/gif,image/bmp,image/jpg"
+                  nzListType="picture-card"
+                  [(nzFileList)]="fileList"
+                  [nzData]="uploadData"
+                  [nzMultiple]="true"
+                  [nzLimit]="9"
+                  [nzAction]="uploadAction"
+                  [nzShowButton]="fileList.length < 9"
+                  [nzPreview]="handlePreview"
+                  [nzRemove]="removeFile"
+                  (nzChange)="uploadChange($event)"
+                >
+                  <div>
+                    <i nz-icon nzType="plus"></i>
+                    <div style="margin-top: 8px">Upload</div>
+                  </div>
+                </nz-upload>
+                <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible = false">
+                  <ng-template #modalContent>
+                    <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+                  </ng-template>
+                </nz-modal>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="panel-footer">
+            <nz-form-item nz-row class="register-area">
+              <nz-form-control [nzSpan]="10" [nzOffset]="6">
+                <button nz-button nzType="default" class="button-rignt" (click)="goBack()">
+                  <span>返回</span>
+                </button>
+                <button nz-button nzType="primary" [disabled]="loading.submit">
+                  <span>提交</span>
+                </button>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+      </form>
+    </div>
+  </nz-card>
+</div>

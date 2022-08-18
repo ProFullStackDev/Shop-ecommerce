@@ -1,0 +1,56 @@
+@import '~src/styles/_variables';
+.panel {
+  margin-bottom: 30px;
+  font-size: 10px;
+}
+.table-header {
+  text-align: center;
+  background-color: @background-color;
+  line-height: 3em;
+  font-size: 16px;
+
+  .hide-option {
+    display: none;
+  }
+}
+.order-item {
+  margin-top: 16px;
+}
+
+.pagination {
+  margin-top: 16px;
+  text-align: right;
+}
+.order {
+  border: 1px solid @border-color;
+
+  &-header {
+    line-height: 3em;
+    border-bottom: 1px solid @border-color;
+    padding-left: 8px;
+    width: 100%;
+  }
+  &-body {
+    .detail {
+      padding: 16px 10px;
+      text-align: center;
+      .name,
+      .specifications {
+        padding-left: 8px;
+      }
+    }
+    .price,
+    .status,
+    .operation {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+.button-rignt {
+  margin-right: 5px;
+}
