@@ -19,28 +19,21 @@ app-dashboard-layout {
 body:not(.loading) app-header {
   background-color: @color-white;
   box-shadow: 1px 0px 14px 2px rgba(0, 0, 0, 0.13);
-  position: static;
-  top: -127px;
+  position: fixed;
+  top: 0;
   left: 0;
   right: 0;
   transition: all 0.3s ease-in-out;
 
   &.sticky {
-    position: sticky;
-    position: -webkit-sticky;
+    position: fixed;
     top: 0;
     transition: top 0.3s ease-in-out;
   }
 
   &.scroll-top {
-    position: sticky;
-    position: -webkit-sticky;
-    top: -127px;
+    position: fixed;
     transition: top 0.3s ease-in-out;
-
-    @media (max-width: 992px) {
-      top: -200px;
-    }
   }
 }
 
@@ -837,7 +830,7 @@ body:not(.loading) app-header {
     padding: 25px 30px 20px;
     background-color: #fff;
     width: 100%;
-    position: relative;
+    position: fixed;
     z-index: 10;
 
     .header-mobile-wrap {

@@ -27,10 +27,14 @@ app-root {
 
 app-root:not(.gameboard) {
   justify-content: space-between;
-  height: 100%;
+  height: auto;
 
   .page-wrap {
     margin-bottom: auto;
+    margin-top: 126px;
+    @media (max-width: 992px) {
+      margin-top: 92px;
+    }
   }
 }
 
@@ -2227,7 +2231,7 @@ body {
     &:before {
       content: '';
       background-color: transparent;
-      position: absolute;
+      position: fixed;
       left: 0;
       right: 0;
       top: 0;
@@ -2261,11 +2265,10 @@ body {
     overflow-x: hidden;
 
     app-root {
-      transform: translateX(74.5vw);
       transition: transform 0.3s ease-in-out;
       &:before {
         content: '';
-        background-color: rgba(0,0,0, 0.91);
+        background-color: rgba(0,0,0, 0.7);
       }
     }
 
